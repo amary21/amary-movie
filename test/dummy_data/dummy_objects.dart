@@ -3,6 +3,8 @@ import 'package:ditonton/data/models/tv_table.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv.dart';
+import 'package:ditonton/domain/entities/tv_detail.dart';
 
 final testMovie = Movie(
   adult: false,
@@ -59,6 +61,30 @@ final testMovieMap = {
   'title': 'title',
 };
 
+final testTvDetail = TvDetail(
+  adult: false,
+  backdropPath: "backdropPath",
+  firstAirDate: DateTime.parse("2023-10-01"),
+  genres: [Genre(id: 1, name: 'Action')],
+  homepage: "homepage",
+  id: 1,
+  inProduction: true,
+  lastAirDate: DateTime.parse("2023-10-01"),
+  name: "name",
+  numberOfEpisodes: 1,
+  numberOfSeasons: 1,
+  originalLanguage: "originalLanguage",
+  originalName: "originalName",
+  overview: "overview",
+  popularity: 1,
+  posterPath: "posterPath",
+  status: "status",
+  tagline: "tagline",
+  type: "type",
+  voteAverage: 1,
+  voteCount: 1,
+);
+
 final testTvTable = TvTable(
   id: 1,
   name: 'name',
@@ -72,3 +98,10 @@ final testTvMap = {
   'posterPath': 'posterPath',
   'name': 'name',
 };
+
+final testWatchlistTv = Tv.watchlist(
+  id: 1,
+  name: 'name',
+  posterPath: 'posterPath',
+  overview: 'overview',
+);

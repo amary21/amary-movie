@@ -1,10 +1,20 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/failure.dart';
-import 'package:ditonton/domain/entities/Tv_detail.dart';
+import 'package:ditonton/data/datasources/tv_local_data_source.dart';
+import 'package:ditonton/data/datasources/tv_remote_data_source.dart';
+import 'package:ditonton/domain/entities/tv_detail.dart';
 import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/domain/repositories/tv_repository.dart';
 
 class TvRepositoryImpl implements TvRepository {
+  final TvRemoteDataSource remoteDataSource;
+  final TvLocalDataSource localDataSource;
+
+  TvRepositoryImpl({
+    required this.remoteDataSource,
+    required this.localDataSource,
+  });
+
   @override
   Future<Either<Failure, List<Tv>>> getNowPlayingTv() {
     // TODO: implement getNowPlayingTv
