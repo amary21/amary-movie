@@ -1,25 +1,26 @@
 import 'package:ditonton/common/state_enum.dart';
+import 'package:ditonton/domain/entities/catalog.dart';
 import 'package:ditonton/domain/entities/catalog_item.dart';
-import 'package:ditonton/presentation/pages/popular_movies_page.dart';
-import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
+import 'package:ditonton/presentation/pages/popular_catalog_page.dart';
+import 'package:ditonton/presentation/provider/popular_catalog_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 
-import 'popular_movies_page_test.mocks.dart';
+import 'popular_catalog_page_test.mocks.dart';
 
-@GenerateMocks([PopularMoviesNotifier])
+@GenerateMocks([PopularCatalogNotifier])
 void main() {
-  late MockPopularMoviesNotifier mockNotifier;
+  late MockPopularCatalogNotifier mockNotifier;
 
   setUp(() {
-    mockNotifier = MockPopularMoviesNotifier();
+    mockNotifier = MockPopularCatalogNotifier();
   });
 
   Widget _makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<PopularMoviesNotifier>.value(
+    return ChangeNotifierProvider<PopularCatalogNotifier>.value(
       value: mockNotifier,
       child: MaterialApp(
         home: body,
@@ -34,7 +35,7 @@ void main() {
     final progressBarFinder = find.byType(CircularProgressIndicator);
     final centerFinder = find.byType(Center);
 
-    await tester.pumpWidget(_makeTestableWidget(PopularMoviesPage()));
+    await tester.pumpWidget(_makeTestableWidget(PopularCatalogPage(catalog: Catalog.movie)));
 
     expect(centerFinder, findsOneWidget);
     expect(progressBarFinder, findsOneWidget);
@@ -47,7 +48,7 @@ void main() {
 
     final listViewFinder = find.byType(ListView);
 
-    await tester.pumpWidget(_makeTestableWidget(PopularMoviesPage()));
+    await tester.pumpWidget(_makeTestableWidget(PopularCatalogPage(catalog: Catalog.movie)));
 
     expect(listViewFinder, findsOneWidget);
   });
@@ -59,7 +60,7 @@ void main() {
 
     final textFinder = find.byKey(Key('error_message'));
 
-    await tester.pumpWidget(_makeTestableWidget(PopularMoviesPage()));
+    await tester.pumpWidget(_makeTestableWidget(PopularCatalogPage(catalog: Catalog.tv)));
 
     expect(textFinder, findsOneWidget);
   });

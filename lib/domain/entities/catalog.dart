@@ -1,4 +1,7 @@
 enum Catalog {
-  movie, 
-  tv,
+  movie("Movies"), 
+  tv("Tv Series");
+
+  const Catalog(this.name);
+  final String name;
 }

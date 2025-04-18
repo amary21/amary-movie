@@ -4,10 +4,10 @@ import 'package:ditonton/domain/entities/catalog_item.dart';
 import 'package:ditonton/domain/usecases/get_popular.dart';
 import 'package:flutter/foundation.dart';
 
-class PopularMoviesNotifier extends ChangeNotifier {
+class PopularCatalogNotifier extends ChangeNotifier {
   final GetPopular getPopular;
 
-  PopularMoviesNotifier(this.getPopular);
+  PopularCatalogNotifier(this.getPopular);
 
   RequestState _state = RequestState.Empty;
   RequestState get state => _state;
@@ -18,7 +18,7 @@ class PopularMoviesNotifier extends ChangeNotifier {
   String _message = '';
   String get message => _message;
 
-  Future<void> fetchPopularMovies(Catalog catalog) async {
+  Future<void> fetchPopular(Catalog catalog) async {
     _state = RequestState.Loading;
     notifyListeners();
 

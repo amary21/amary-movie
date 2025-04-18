@@ -4,7 +4,7 @@ import 'package:ditonton/domain/entities/catalog.dart';
 import 'package:ditonton/domain/entities/catalog_item.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/movie_detail_page.dart';
-import 'package:ditonton/presentation/pages/popular_movies_page.dart';
+import 'package:ditonton/presentation/pages/popular_catalog_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
@@ -118,11 +118,13 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
                   return Text('Failed');
                 }
               }),
-              _buildSubHeading(
-                title: 'Popular',
-                onTap: () =>
-                    Navigator.pushNamed(context, PopularMoviesPage.ROUTE_NAME),
-              ),
+              Consumer<CatalogListNotifier>(builder: (context, data, child) {
+                return _buildSubHeading(
+                  title: 'Popular',
+                  onTap: () => Navigator.pushNamed(
+                      context, PopularCatalogPage.ROUTE_NAME, arguments: data.catalog),
+                );
+              }),
               Consumer<CatalogListNotifier>(builder: (context, data, child) {
                 final state = data.popularState;
                 if (state == RequestState.Loading) {
