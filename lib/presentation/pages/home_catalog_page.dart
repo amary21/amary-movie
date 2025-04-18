@@ -7,7 +7,7 @@ import 'package:ditonton/presentation/pages/catalog_detail_page.dart';
 import 'package:ditonton/presentation/pages/popular_catalog_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_catalog_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
+import 'package:ditonton/presentation/pages/watchlist_page.dart';
 import 'package:ditonton/presentation/provider/catalog_list_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:flutter/material.dart';
@@ -70,9 +70,24 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
             ),
             ListTile(
               leading: Icon(Icons.save_alt),
-              title: Text('Watchlist'),
+              title: Text('Watchlist Movies'),
               onTap: () {
-                Navigator.pushNamed(context, WatchlistMoviesPage.ROUTE_NAME);
+                Navigator.pushNamed(
+                  context,
+                  WatchlistPage.ROUTE_NAME,
+                  arguments: Catalog.movie,
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.save_alt),
+              title: Text('Watchlist Tv Series'),
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  WatchlistPage.ROUTE_NAME,
+                  arguments: Catalog.tv,
+                );
               },
             ),
             ListTile(

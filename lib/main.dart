@@ -7,7 +7,7 @@ import 'package:ditonton/presentation/pages/home_catalog_page.dart';
 import 'package:ditonton/presentation/pages/popular_catalog_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_catalog_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
+import 'package:ditonton/presentation/pages/watchlist_page.dart';
 import 'package:ditonton/presentation/provider/catalog_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/catalog_list_notifier.dart';
 import 'package:ditonton/presentation/provider/catalog_search_notifier.dart';
@@ -90,8 +90,12 @@ class MyApp extends StatelessWidget {
                 builder: (_) => SearchPage(catalog: catalog),
                 settings: settings,
               );
-            case WatchlistMoviesPage.ROUTE_NAME:
-              return MaterialPageRoute(builder: (_) => WatchlistMoviesPage());
+            case WatchlistPage.ROUTE_NAME:
+              final catalog = settings.arguments as Catalog;
+              return CupertinoPageRoute(
+                builder: (_) => WatchlistPage(catalog: catalog),
+                settings: settings,
+              );
             case AboutPage.ROUTE_NAME:
               return MaterialPageRoute(builder: (_) => AboutPage());
             default:

@@ -6,14 +6,18 @@ import 'package:ditonton/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class WatchlistMoviesPage extends StatefulWidget {
-  static const ROUTE_NAME = '/watchlist-movie';
+class WatchlistPage extends StatefulWidget {
+  static const ROUTE_NAME = '/watchlist-catalog';
+
+  final Catalog catalog;
+
+  const WatchlistPage({required this.catalog});
 
   @override
-  _WatchlistMoviesPageState createState() => _WatchlistMoviesPageState();
+  _WatchlistPageState createState() => _WatchlistPageState();
 }
 
-class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
+class _WatchlistPageState extends State<WatchlistPage>
     with RouteAware {
   @override
   void initState() {
@@ -38,7 +42,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Watchlist'),
+        title: Text('Watchlist ${widget.catalog.name}'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
