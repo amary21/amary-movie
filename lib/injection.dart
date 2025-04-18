@@ -12,7 +12,7 @@ import 'package:ditonton/domain/usecases/get_recommendations.dart';
 import 'package:ditonton/domain/usecases/get_now_playing.dart';
 import 'package:ditonton/domain/usecases/get_popular.dart';
 import 'package:ditonton/domain/usecases/get_top_rated.dart';
-import 'package:ditonton/domain/usecases/get_watchlist_movies.dart';
+import 'package:ditonton/domain/usecases/get_watchlist_catalog.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist.dart';
@@ -22,7 +22,7 @@ import 'package:ditonton/presentation/provider/catalog_list_notifier.dart';
 import 'package:ditonton/presentation/provider/catalog_search_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_catalog_notifier.dart';
 import 'package:ditonton/presentation/provider/top_rated_catalog_notifier.dart';
-import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:ditonton/presentation/provider/watchlist_catalog_notifier.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 
@@ -62,8 +62,8 @@ Future<void> init() async {
     ),
   );
   locator.registerFactory(
-    () => WatchlistMovieNotifier(
-      getWatchlistMovies: locator(),
+    () => WatchlistCatalogNotifier(
+      getWatchlistCatalog: locator(),
     ),
   );
 
@@ -77,7 +77,7 @@ Future<void> init() async {
   locator.registerLazySingleton(() => GetWatchListStatus(locator()));
   locator.registerLazySingleton(() => SaveWatchlist(locator()));
   locator.registerLazySingleton(() => RemoveWatchlist(locator()));
-  locator.registerLazySingleton(() => GetWatchlistMovies(locator()));
+  locator.registerLazySingleton(() => GetWatchlistCatalog(locator(), locator()));
 
   // repository
   locator.registerLazySingleton<MovieRepository>(

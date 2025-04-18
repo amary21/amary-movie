@@ -13,7 +13,7 @@ import 'package:ditonton/presentation/provider/catalog_list_notifier.dart';
 import 'package:ditonton/presentation/provider/catalog_search_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_catalog_notifier.dart';
 import 'package:ditonton/presentation/provider/top_rated_catalog_notifier.dart';
-import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:ditonton/presentation/provider/watchlist_catalog_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<PopularCatalogNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<WatchlistMovieNotifier>(),
+          create: (_) => di.locator<WatchlistCatalogNotifier>(),
         ),
       ],
       child: MaterialApp(
