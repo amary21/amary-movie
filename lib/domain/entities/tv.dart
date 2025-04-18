@@ -1,3 +1,4 @@
+import 'package:ditonton/domain/entities/now_playing.dart';
 import 'package:equatable/equatable.dart';
 
 class Tv extends Equatable {
@@ -35,7 +36,7 @@ class Tv extends Equatable {
   String? overview;
   double? popularity;
   String? posterPath;
-  DateTime? firstAirDate;
+  String? firstAirDate;
   String? name;
   double? voteAverage;
   int? voteCount;
@@ -57,4 +58,19 @@ class Tv extends Equatable {
         voteAverage,
         voteCount,
       ];
+
+  NowPlaying toNowPlaying() => NowPlaying(
+        adult: this.adult,
+        backdropPath: this.backdropPath,
+        genreIds: this.genreIds,
+        id: this.id,
+        originalTitle: this.originalName,
+        overview: this.overview,
+        popularity: this.popularity,
+        posterPath: this.posterPath,
+        releaseDate: this.firstAirDate,
+        title: this.name,
+        voteAverage: this.voteAverage,
+        voteCount: this.voteCount,
+      );
 }

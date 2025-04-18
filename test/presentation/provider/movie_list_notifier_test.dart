@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
+import 'package:ditonton/domain/entities/catalog.dart';
 import 'package:ditonton/domain/entities/movie.dart';
-import 'package:ditonton/domain/usecases/get_now_playing_movies.dart';
+import 'package:ditonton/domain/entities/now_playing.dart';
+import 'package:ditonton/domain/usecases/get_now_playing.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/domain/usecases/get_popular_movies.dart';
 import 'package:ditonton/domain/usecases/get_top_rated_movies.dart';
@@ -12,27 +14,43 @@ import 'package:mockito/mockito.dart';
 
 import 'movie_list_notifier_test.mocks.dart';
 
-@GenerateMocks([GetNowPlayingMovies, GetPopularMovies, GetTopRatedMovies])
+@GenerateMocks([GetNowPlaying, GetPopularMovies, GetTopRatedMovies])
 void main() {
   late MovieListNotifier provider;
-  late MockGetNowPlayingMovies mockGetNowPlayingMovies;
+  late MockGetNowPlaying mockGetNowPlaying;
   late MockGetPopularMovies mockGetPopularMovies;
   late MockGetTopRatedMovies mockGetTopRatedMovies;
   late int listenerCallCount;
 
   setUp(() {
     listenerCallCount = 0;
-    mockGetNowPlayingMovies = MockGetNowPlayingMovies();
+    mockGetNowPlaying = MockGetNowPlaying();
     mockGetPopularMovies = MockGetPopularMovies();
     mockGetTopRatedMovies = MockGetTopRatedMovies();
     provider = MovieListNotifier(
-      getNowPlayingMovies: mockGetNowPlayingMovies,
+      getNowPlaying: mockGetNowPlaying,
       getPopularMovies: mockGetPopularMovies,
       getTopRatedMovies: mockGetTopRatedMovies,
     )..addListener(() {
         listenerCallCount += 1;
       });
   });
+
+  final tNowPlaying = NowPlaying(
+    adult: false,
+    backdropPath: 'backdropPath',
+    genreIds: [1, 2, 3],
+    id: 1,
+    originalTitle: 'originalTitle',
+    overview: 'overview',
+    popularity: 1,
+    posterPath: 'posterPath',
+    releaseDate: 'releaseDate',
+    title: 'title',
+    voteAverage: 1,
+    voteCount: 1,
+  );
+  final tNowPlayingList = <NowPlaying>[tNowPlaying];
 
   final tMovie = Movie(
     adult: false,
@@ -56,44 +74,88 @@ void main() {
       expect(provider.nowPlayingState, equals(RequestState.Empty));
     });
 
-    test('should get data from the usecase', () async {
+    test('should movie get data from the usecase', () async {
       // arrange
-      when(mockGetNowPlayingMovies.execute())
-          .thenAnswer((_) async => Right(tMovieList));
+      when(mockGetNowPlaying.execute(Catalog.movie))
+          .thenAnswer((_) async => Right(tNowPlayingList));
       // act
-      provider.fetchNowPlayingMovies();
+      provider.fetchNowPlaying(Catalog.movie);
       // assert
-      verify(mockGetNowPlayingMovies.execute());
+      verify(mockGetNowPlaying.execute(Catalog.movie));
     });
 
-    test('should change state to Loading when usecase is called', () {
+    test('should change movie state to Loading when usecase is called', () {
       // arrange
-      when(mockGetNowPlayingMovies.execute())
-          .thenAnswer((_) async => Right(tMovieList));
+      when(mockGetNowPlaying.execute(Catalog.movie))
+          .thenAnswer((_) async => Right(tNowPlayingList));
       // act
-      provider.fetchNowPlayingMovies();
+      provider.fetchNowPlaying(Catalog.movie);
       // assert
       expect(provider.nowPlayingState, RequestState.Loading);
     });
 
     test('should change movies when data is gotten successfully', () async {
       // arrange
-      when(mockGetNowPlayingMovies.execute())
-          .thenAnswer((_) async => Right(tMovieList));
+      when(mockGetNowPlaying.execute(Catalog.movie))
+          .thenAnswer((_) async => Right(tNowPlayingList));
       // act
-      await provider.fetchNowPlayingMovies();
+      await provider.fetchNowPlaying(Catalog.movie);
       // assert
       expect(provider.nowPlayingState, RequestState.Loaded);
-      expect(provider.nowPlayingMovies, tMovieList);
+      expect(provider.nowPlaying, tNowPlayingList);
       expect(listenerCallCount, 2);
     });
 
-    test('should return error when data is unsuccessful', () async {
+    test('should movies return error when data is unsuccessful', () async {
       // arrange
-      when(mockGetNowPlayingMovies.execute())
+      when(mockGetNowPlaying.execute(Catalog.movie))
           .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
       // act
-      await provider.fetchNowPlayingMovies();
+      await provider.fetchNowPlaying(Catalog.movie);
+      // assert
+      expect(provider.nowPlayingState, RequestState.Error);
+      expect(provider.message, 'Server Failure');
+      expect(listenerCallCount, 2);
+    });
+
+    test('should tv get data from the usecase', () async {
+      // arrange
+      when(mockGetNowPlaying.execute(Catalog.tv))
+          .thenAnswer((_) async => Right(tNowPlayingList));
+      // act
+      provider.fetchNowPlaying(Catalog.tv);
+      // assert
+      verify(mockGetNowPlaying.execute(Catalog.tv));
+    });
+
+    test('should change tv state to Loading when usecase is called', () {
+      // arrange
+      when(mockGetNowPlaying.execute(Catalog.tv))
+          .thenAnswer((_) async => Right(tNowPlayingList));
+      // act
+      provider.fetchNowPlaying(Catalog.tv);
+      // assert
+      expect(provider.nowPlayingState, RequestState.Loading);
+    });
+
+    test('should change tvs when data is gotten successfully', () async {
+      // arrange
+      when(mockGetNowPlaying.execute(Catalog.tv))
+          .thenAnswer((_) async => Right(tNowPlayingList));
+      // act
+      await provider.fetchNowPlaying(Catalog.tv);
+      // assert
+      expect(provider.nowPlayingState, RequestState.Loaded);
+      expect(provider.nowPlaying, tNowPlayingList);
+      expect(listenerCallCount, 2);
+    });
+
+    test('should tvs return error when data is unsuccessful', () async {
+      // arrange
+      when(mockGetNowPlaying.execute(Catalog.tv))
+          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+      // act
+      await provider.fetchNowPlaying(Catalog.tv);
       // assert
       expect(provider.nowPlayingState, RequestState.Error);
       expect(provider.message, 'Server Failure');

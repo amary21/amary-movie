@@ -29,12 +29,12 @@ class TvDetailResponse extends Equatable {
 
   final bool adult;
   final String? backdropPath;
-  final DateTime firstAirDate;
+  final String firstAirDate;
   final List<GenreModel> genres;
   final String homepage;
   final int id;
   final bool inProduction;
-  final DateTime lastAirDate;
+  final String lastAirDate;
   final String name;
   final int numberOfEpisodes;
   final int numberOfSeasons;
@@ -52,13 +52,13 @@ class TvDetailResponse extends Equatable {
   factory TvDetailResponse.fromJson(Map<String, dynamic> json) => TvDetailResponse(
         adult: json["adult"],
         backdropPath: json["backdrop_path"],
-        firstAirDate: DateTime.parse(json["first_air_date"]),
+        firstAirDate: json["first_air_date"],
         genres: List<GenreModel>.from(
             json["genres"].map((x) => GenreModel.fromJson(x))),
         homepage: json["homepage"],
         id: json["id"],
         inProduction: json["in_production"],
-        lastAirDate: DateTime.parse(json["last_air_date"]),
+        lastAirDate: json["last_air_date"],
         name: json["name"],
         numberOfEpisodes: json["number_of_episodes"],
         numberOfSeasons: json["number_of_seasons"],
@@ -77,14 +77,12 @@ class TvDetailResponse extends Equatable {
   Map<String, dynamic> toJson() => {
         "adult": adult,
         "backdrop_path": backdropPath,
-        "first_air_date":
-            "${firstAirDate.year.toString().padLeft(4, '0')}-${firstAirDate.month.toString().padLeft(2, '0')}-${firstAirDate.day.toString().padLeft(2, '0')}",
+        "first_air_date": firstAirDate,
         "genres": List<dynamic>.from(genres.map((x) => x.toJson())),
         "homepage": homepage,
         "id": id,
         "in_production": inProduction,
-        "last_air_date":
-            "${lastAirDate.year.toString().padLeft(4, '0')}-${lastAirDate.month.toString().padLeft(2, '0')}-${lastAirDate.day.toString().padLeft(2, '0')}",
+        "last_air_date": lastAirDate,
         "name": name,
         "number_of_episodes": numberOfEpisodes,
         "number_of_seasons": numberOfSeasons,

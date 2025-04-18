@@ -1,13 +1,18 @@
+import 'package:ditonton/domain/entities/catalog.dart';
 import 'package:ditonton/domain/entities/movie.dart';
-import 'package:ditonton/domain/usecases/get_now_playing_movies.dart';
+import 'package:ditonton/domain/entities/now_playing.dart';
+import 'package:ditonton/domain/usecases/get_now_playing.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/usecases/get_popular_movies.dart';
 import 'package:ditonton/domain/usecases/get_top_rated_movies.dart';
 import 'package:flutter/material.dart';
 
 class MovieListNotifier extends ChangeNotifier {
-  var _nowPlayingMovies = <Movie>[];
-  List<Movie> get nowPlayingMovies => _nowPlayingMovies;
+  var _catalog = Catalog.movie;
+  Catalog get catalog => _catalog;
+
+  var _nowPlaying = <NowPlaying>[];
+  List<NowPlaying> get nowPlaying => _nowPlaying;
 
   RequestState _nowPlayingState = RequestState.Empty;
   RequestState get nowPlayingState => _nowPlayingState;
@@ -28,29 +33,30 @@ class MovieListNotifier extends ChangeNotifier {
   String get message => _message;
 
   MovieListNotifier({
-    required this.getNowPlayingMovies,
+    required this.getNowPlaying,
     required this.getPopularMovies,
     required this.getTopRatedMovies,
   });
 
-  final GetNowPlayingMovies getNowPlayingMovies;
+  final GetNowPlaying getNowPlaying;
   final GetPopularMovies getPopularMovies;
   final GetTopRatedMovies getTopRatedMovies;
 
-  Future<void> fetchNowPlayingMovies() async {
+  Future<void> fetchNowPlaying(Catalog catalog) async {
+    _catalog = catalog;
     _nowPlayingState = RequestState.Loading;
     notifyListeners();
 
-    final result = await getNowPlayingMovies.execute();
+    final result = await getNowPlaying.execute(catalog);
     result.fold(
       (failure) {
         _nowPlayingState = RequestState.Error;
         _message = failure.message;
         notifyListeners();
       },
-      (moviesData) {
+      (data) {
         _nowPlayingState = RequestState.Loaded;
-        _nowPlayingMovies = moviesData;
+        _nowPlaying = data;
         notifyListeners();
       },
     );

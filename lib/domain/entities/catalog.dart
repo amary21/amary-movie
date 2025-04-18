@@ -1,0 +1,4 @@
+enum Catalog {
+  movie, 
+  tv,
+}

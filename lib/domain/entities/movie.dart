@@ -1,3 +1,4 @@
+import 'package:ditonton/domain/entities/now_playing.dart';
 import 'package:equatable/equatable.dart';
 
 class Movie extends Equatable {
@@ -54,4 +55,19 @@ class Movie extends Equatable {
         voteAverage,
         voteCount,
       ];
+
+  NowPlaying toNowPlaying() => NowPlaying(
+        adult: this.adult,
+        backdropPath: this.backdropPath,
+        genreIds: this.genreIds,
+        id: this.id,
+        originalTitle: this.originalTitle,
+        overview: this.overview,
+        popularity: this.popularity,
+        posterPath: this.posterPath,
+        releaseDate: this.releaseDate,
+        title: this.title,
+        voteAverage: this.voteAverage,
+        voteCount: this.voteCount,
+      );
 }

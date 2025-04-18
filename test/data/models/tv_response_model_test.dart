@@ -19,7 +19,7 @@ void main() {
           'Stephen Colbert brings his signature satire and comedy to The Late Show with Stephen Colbert, the #1 show in late night, where he talks with an eclectic mix of guests about what is new and relevant in the worlds of politics, entertainment, business, music, technology, and more. Featuring bandleader Jon Batiste with his band Stay Human, the Emmy Award-nominated show is broadcast from the historic Ed Sullivan Theater. Stephen Colbert, Chris Licht, Tom Purcell, and Jon Stewart are executive producers. Barry Julien and Denise Rehrig serve as co-executive producers.must watch',
       popularity: 469.0656,
       posterPath: '/9jkThAGYj2yp8jsS6Nriy5mzKFT.jpg',
-      firstAirDate: DateTime.parse("2015-09-08"),
+      firstAirDate: "2015-09-08",
       name: 'The Late Show with Stephen Colbert',
       voteAverage: 6.403,
       voteCount: 300);
