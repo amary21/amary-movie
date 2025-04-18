@@ -113,7 +113,7 @@ final testTvMap = {
   'id': 1,
   'overview': 'overview',
   'posterPath': 'posterPath',
-  'name': 'name',
+  'name': 'title',
 };
 
 final testWatchlistTv = Tv.watchlist(
