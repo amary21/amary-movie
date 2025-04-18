@@ -57,7 +57,7 @@ void main() {
     )
   ];
 
-  final tNowPlaying = <CatalogItem>[
+  final tCatalogItem = <CatalogItem>[
     CatalogItem(
       adult: false,
       backdropPath: 'backdropPath',
@@ -81,7 +81,7 @@ void main() {
     // act
     final result = await usecase.execute(Catalog.movie);
     // assert
-    expect(result.getOrElse(() => []), equals(tNowPlaying));
+    expect(result.getOrElse(() => []), equals(tCatalogItem));
   });
 
   test('should get list of tv from the repository', () async {
@@ -91,6 +91,6 @@ void main() {
     // act
     final result = await usecase.execute(Catalog.tv);
     // assert
-    expect(result.getOrElse(() => []), equals(tNowPlaying));
+    expect(result.getOrElse(() => []), equals(tCatalogItem));
   });
 }

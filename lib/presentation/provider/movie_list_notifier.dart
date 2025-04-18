@@ -1,10 +1,9 @@
 import 'package:ditonton/domain/entities/catalog.dart';
-import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/catalog_item.dart';
 import 'package:ditonton/domain/usecases/get_now_playing.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/usecases/get_popular.dart';
-import 'package:ditonton/domain/usecases/get_top_rated_movies.dart';
+import 'package:ditonton/domain/usecases/get_top_rated.dart';
 import 'package:flutter/material.dart';
 
 class MovieListNotifier extends ChangeNotifier {
@@ -23,11 +22,11 @@ class MovieListNotifier extends ChangeNotifier {
   RequestState _popularState = RequestState.Empty;
   RequestState get popularState => _popularState;
 
-  var _topRatedMovies = <Movie>[];
-  List<Movie> get topRatedMovies => _topRatedMovies;
+  var _topRated = <CatalogItem>[];
+  List<CatalogItem> get topRated => _topRated;
 
-  RequestState _topRatedMoviesState = RequestState.Empty;
-  RequestState get topRatedMoviesState => _topRatedMoviesState;
+  RequestState _topRatedState = RequestState.Empty;
+  RequestState get topRatedState => _topRatedState;
 
   String _message = '';
   String get message => _message;
@@ -35,12 +34,12 @@ class MovieListNotifier extends ChangeNotifier {
   MovieListNotifier({
     required this.getNowPlaying,
     required this.getPopular,
-    required this.getTopRatedMovies,
+    required this.getTopRated,
   });
 
   final GetNowPlaying getNowPlaying;
   final GetPopular getPopular;
-  final GetTopRatedMovies getTopRatedMovies;
+  final GetTopRated getTopRated;
 
   Future<void> fetchNowPlaying(Catalog catalog) async {
     _catalog = catalog;
@@ -73,28 +72,28 @@ class MovieListNotifier extends ChangeNotifier {
         _message = failure.message;
         notifyListeners();
       },
-      (moviesData) {
+      (data) {
         _popularState = RequestState.Loaded;
-        _popular = moviesData;
+        _popular = data;
         notifyListeners();
       },
     );
   }
 
-  Future<void> fetchTopRatedMovies() async {
-    _topRatedMoviesState = RequestState.Loading;
+  Future<void> fetchTopRated(Catalog catalog) async {
+    _topRatedState = RequestState.Loading;
     notifyListeners();
 
-    final result = await getTopRatedMovies.execute();
+    final result = await getTopRated.execute(catalog);
     result.fold(
       (failure) {
-        _topRatedMoviesState = RequestState.Error;
+        _topRatedState = RequestState.Error;
         _message = failure.message;
         notifyListeners();
       },
-      (moviesData) {
-        _topRatedMoviesState = RequestState.Loaded;
-        _topRatedMovies = moviesData;
+      (data) {
+        _topRatedState = RequestState.Loaded;
+        _topRated = data;
         notifyListeners();
       },
     );

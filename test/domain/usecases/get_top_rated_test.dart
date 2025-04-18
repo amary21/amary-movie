@@ -3,21 +3,21 @@ import 'package:ditonton/domain/entities/catalog.dart';
 import 'package:ditonton/domain/entities/catalog_item.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/tv.dart';
-import 'package:ditonton/domain/usecases/get_popular.dart';
+import 'package:ditonton/domain/usecases/get_top_rated.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
-  late GetPopular usecase;
-  late MockMovieRepository mockMovieRpository;
-  late MockTvRepository mockTvRpository;
+  late GetTopRated usecase;
+  late MockMovieRepository mockMovieRepository;
+  late MockTvRepository mockTvRepository;
 
   setUp(() {
-    mockMovieRpository = MockMovieRepository();
-    mockTvRpository = MockTvRepository();
-    usecase = GetPopular(mockMovieRpository, mockTvRpository);
+    mockMovieRepository = MockMovieRepository();
+    mockTvRepository = MockTvRepository();
+    usecase = GetTopRated(mockMovieRepository, mockTvRepository);
   });
 
   final tMovies = <Movie>[
@@ -74,31 +74,22 @@ void main() {
     )
   ];
 
-  group('Get Popular Tests', () {
-    group('execute', () {
-      test(
-          'should get list of movies from the repository when execute function is called',
-          () async {
-        // arrange
-        when(mockMovieRpository.getPopularMovies())
-            .thenAnswer((_) async => Right(tMovies));
-        // act
-        final result = await usecase.execute(Catalog.movie);
-        // assert
-        expect(result.getOrElse(() => []), equals(tCatalogItem));
-      });
+  test('should get list of movies from repository', () async {
+    // arrange
+    when(mockMovieRepository.getTopRatedMovies())
+        .thenAnswer((_) async => Right(tMovies));
+    // act
+    final result = await usecase.execute(Catalog.movie);
+    // assert
+    expect(result.getOrElse(() => []), equals(tCatalogItem));
+  });
 
-      test(
-          'should get list of tvs from the repository when execute function is called',
-          () async {
-        // arrange
-        when(mockTvRpository.getPopularTv())
-            .thenAnswer((_) async => Right(tTv));
-        // act
-        final result = await usecase.execute(Catalog.tv);
-        // assert
-        expect(result.getOrElse(() => []), equals(tCatalogItem));
-      });
-    });
+  test('should get list of tv series  from repository', () async {
+    // arrange
+    when(mockTvRepository.getTopRatedTv()).thenAnswer((_) async => Right(tTv));
+    // act
+    final result = await usecase.execute(Catalog.tv);
+    // assert
+    expect(result.getOrElse(() => []), equals(tCatalogItem));
   });
 }

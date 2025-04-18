@@ -1,5 +1,5 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/movie.dart';
+import 'package:ditonton/domain/entities/catalog_item.dart';
 import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
 import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ void main() {
   testWidgets('Page should display when data is loaded',
       (WidgetTester tester) async {
     when(mockNotifier.state).thenReturn(RequestState.Loaded);
-    when(mockNotifier.movies).thenReturn(<Movie>[]);
+    when(mockNotifier.catalogItem).thenReturn(<CatalogItem>[]);
 
     final listViewFinder = find.byType(ListView);
 

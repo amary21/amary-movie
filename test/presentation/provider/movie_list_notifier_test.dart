@@ -1,11 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/domain/entities/catalog.dart';
-import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/catalog_item.dart';
 import 'package:ditonton/domain/usecases/get_now_playing.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/domain/usecases/get_popular.dart';
-import 'package:ditonton/domain/usecases/get_top_rated_movies.dart';
+import 'package:ditonton/domain/usecases/get_top_rated.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -14,23 +13,23 @@ import 'package:mockito/mockito.dart';
 
 import 'movie_list_notifier_test.mocks.dart';
 
-@GenerateMocks([GetNowPlaying, GetPopular, GetTopRatedMovies])
+@GenerateMocks([GetNowPlaying, GetPopular, GetTopRated])
 void main() {
   late MovieListNotifier provider;
   late MockGetNowPlaying mockGetNowPlaying;
-  late MockGetPopular mockGetPopularMovies;
-  late MockGetTopRatedMovies mockGetTopRatedMovies;
+  late MockGetPopular mockGetPopular;
+  late MockGetTopRated mockGetTopRatedMovies;
   late int listenerCallCount;
 
   setUp(() {
     listenerCallCount = 0;
     mockGetNowPlaying = MockGetNowPlaying();
-    mockGetPopularMovies = MockGetPopular();
-    mockGetTopRatedMovies = MockGetTopRatedMovies();
+    mockGetPopular = MockGetPopular();
+    mockGetTopRatedMovies = MockGetTopRated();
     provider = MovieListNotifier(
       getNowPlaying: mockGetNowPlaying,
-      getPopular: mockGetPopularMovies,
-      getTopRatedMovies: mockGetTopRatedMovies,
+      getPopular: mockGetPopular,
+      getTopRated: mockGetTopRatedMovies,
     )..addListener(() {
         listenerCallCount += 1;
       });
@@ -51,23 +50,6 @@ void main() {
     voteCount: 1,
   );
   final tCatalogItemList = <CatalogItem>[tCatalogItem];
-
-  final tMovie = Movie(
-    adult: false,
-    backdropPath: 'backdropPath',
-    genreIds: [1, 2, 3],
-    id: 1,
-    originalTitle: 'originalTitle',
-    overview: 'overview',
-    popularity: 1,
-    posterPath: 'posterPath',
-    releaseDate: 'releaseDate',
-    title: 'title',
-    video: false,
-    voteAverage: 1,
-    voteCount: 1,
-  );
-  final tMovieList = <Movie>[tMovie];
 
   group('now playing catalog', () {
     test('initialState should be Empty', () {
@@ -166,7 +148,7 @@ void main() {
   group('popular catalog', () {
     test('should change movies state to loading when usecase is called', () async {
       // arrange
-      when(mockGetPopularMovies.execute(Catalog.movie))
+      when(mockGetPopular.execute(Catalog.movie))
           .thenAnswer((_) async => Right(tCatalogItemList));
       // act
       provider.fetchPopular(Catalog.movie);
@@ -177,7 +159,7 @@ void main() {
     test('should change movies data when data is gotten successfully',
         () async {
       // arrange
-      when(mockGetPopularMovies.execute(Catalog.movie))
+      when(mockGetPopular.execute(Catalog.movie))
           .thenAnswer((_) async => Right(tCatalogItemList));
       // act
       await provider.fetchPopular(Catalog.movie);
@@ -189,7 +171,7 @@ void main() {
 
     test('should movies return error when data is unsuccessful', () async {
       // arrange
-      when(mockGetPopularMovies.execute(Catalog.movie))
+      when(mockGetPopular.execute(Catalog.movie))
           .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
       // act
       await provider.fetchPopular(Catalog.movie);
@@ -201,7 +183,7 @@ void main() {
 
     test('should tv series change state to loading when usecase is called', () async {
       // arrange
-      when(mockGetPopularMovies.execute(Catalog.tv))
+      when(mockGetPopular.execute(Catalog.tv))
           .thenAnswer((_) async => Right(tCatalogItemList));
       // act
       provider.fetchPopular(Catalog.tv);
@@ -212,7 +194,7 @@ void main() {
     test('should change tv series data when data is gotten successfully',
         () async {
       // arrange
-      when(mockGetPopularMovies.execute(Catalog.tv))
+      when(mockGetPopular.execute(Catalog.tv))
           .thenAnswer((_) async => Right(tCatalogItemList));
       // act
       await provider.fetchPopular(Catalog.tv);
@@ -224,7 +206,7 @@ void main() {
 
     test('should tv series return error when data is unsuccessful', () async {
       // arrange
-      when(mockGetPopularMovies.execute(Catalog.tv))
+      when(mockGetPopular.execute(Catalog.tv))
           .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
       // act
       await provider.fetchPopular(Catalog.tv);
@@ -235,38 +217,73 @@ void main() {
     });
   });
 
-  group('top rated movies', () {
-    test('should change state to loading when usecase is called', () async {
+  group('top rated', () {
+    test('should change movies state to loading when usecase is called', () async {
       // arrange
-      when(mockGetTopRatedMovies.execute())
-          .thenAnswer((_) async => Right(tMovieList));
+      when(mockGetTopRatedMovies.execute(Catalog.movie))
+          .thenAnswer((_) async => Right(tCatalogItemList));
       // act
-      provider.fetchTopRatedMovies();
+      provider.fetchTopRated(Catalog.movie);
       // assert
-      expect(provider.topRatedMoviesState, RequestState.Loading);
+      expect(provider.topRatedState, RequestState.Loading);
     });
 
     test('should change movies data when data is gotten successfully',
         () async {
       // arrange
-      when(mockGetTopRatedMovies.execute())
-          .thenAnswer((_) async => Right(tMovieList));
+      when(mockGetTopRatedMovies.execute(Catalog.movie))
+          .thenAnswer((_) async => Right(tCatalogItemList));
       // act
-      await provider.fetchTopRatedMovies();
+      await provider.fetchTopRated(Catalog.movie);
       // assert
-      expect(provider.topRatedMoviesState, RequestState.Loaded);
-      expect(provider.topRatedMovies, tMovieList);
+      expect(provider.topRatedState, RequestState.Loaded);
+      expect(provider.topRated, tCatalogItemList);
       expect(listenerCallCount, 2);
     });
 
-    test('should return error when data is unsuccessful', () async {
+    test('should movies return error when data is unsuccessful', () async {
       // arrange
-      when(mockGetTopRatedMovies.execute())
+      when(mockGetTopRatedMovies.execute(Catalog.movie))
           .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
       // act
-      await provider.fetchTopRatedMovies();
+      await provider.fetchTopRated(Catalog.movie);
       // assert
-      expect(provider.topRatedMoviesState, RequestState.Error);
+      expect(provider.topRatedState, RequestState.Error);
+      expect(provider.message, 'Server Failure');
+      expect(listenerCallCount, 2);
+    });
+
+    test('should change tv series state to loading when usecase is called', () async {
+      // arrange
+      when(mockGetTopRatedMovies.execute(Catalog.tv))
+          .thenAnswer((_) async => Right(tCatalogItemList));
+      // act
+      provider.fetchTopRated(Catalog.tv);
+      // assert
+      expect(provider.topRatedState, RequestState.Loading);
+    });
+
+    test('should change tv series data when data is gotten successfully',
+        () async {
+      // arrange
+      when(mockGetTopRatedMovies.execute(Catalog.tv))
+          .thenAnswer((_) async => Right(tCatalogItemList));
+      // act
+      await provider.fetchTopRated(Catalog.tv);
+      // assert
+      expect(provider.topRatedState, RequestState.Loaded);
+      expect(provider.topRated, tCatalogItemList);
+      expect(listenerCallCount, 2);
+    });
+
+    test('should tv series return error when data is unsuccessful', () async {
+      // arrange
+      when(mockGetTopRatedMovies.execute(Catalog.tv))
+          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+      // act
+      await provider.fetchTopRated(Catalog.tv);
+      // assert
+      expect(provider.topRatedState, RequestState.Error);
       expect(provider.message, 'Server Failure');
       expect(listenerCallCount, 2);
     });

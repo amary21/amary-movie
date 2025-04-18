@@ -27,7 +27,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
         () => Provider.of<MovieListNotifier>(context, listen: false)
           ..fetchNowPlaying(Catalog.movie)
           ..fetchPopular(Catalog.movie)
-          ..fetchTopRatedMovies());
+          ..fetchTopRated(Catalog.movie));
   }
 
   @override
@@ -54,7 +54,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                 Provider.of<MovieListNotifier>(context, listen: false)
                   ..fetchNowPlaying(Catalog.movie)
                   ..fetchPopular(Catalog.movie)
-                  ..fetchTopRatedMovies();
+                  ..fetchTopRated(Catalog.movie);
                 Navigator.pop(context);
               },
             ),
@@ -65,7 +65,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                 Provider.of<MovieListNotifier>(context, listen: false)
                   ..fetchNowPlaying(Catalog.tv)
                   ..fetchPopular(Catalog.tv)
-                  ..fetchTopRatedMovies();
+                  ..fetchTopRated(Catalog.tv);
                 Navigator.pop(context);
               },
             ),
@@ -142,13 +142,13 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                     Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),
               ),
               Consumer<MovieListNotifier>(builder: (context, data, child) {
-                final state = data.topRatedMoviesState;
+                final state = data.topRatedState;
                 if (state == RequestState.Loading) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (state == RequestState.Loaded) {
-                  return MovieList(data.topRatedMovies);
+                  return CatalogList(data.topRated);
                 } else {
                   return Text('Failed');
                 }

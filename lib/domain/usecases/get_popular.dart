@@ -12,15 +12,16 @@ class GetPopular {
   GetPopular(this._movieRepository, this._tvRepository);
 
   Future<Either<Failure, List<CatalogItem>>> execute(Catalog catalog) async {
-        if (catalog == Catalog.movie) {
+    if (catalog == Catalog.movie) {
       final result = await _movieRepository.getPopularMovies();
       return result.fold(
         (failure) => Left(failure),
         (data) {
-          final movies = data.map(
-            (movie) => movie.toCatalogItem(),
-          ).toList();
-          print("popular movies: $movies");
+          final movies = data
+              .map(
+                (movie) => movie.toCatalogItem(),
+              )
+              .toList();
           return Right(movies);
         },
       );
@@ -29,9 +30,11 @@ class GetPopular {
       return result.fold(
         (failure) => Left(failure),
         (data) {
-          final tvs = data.map(
-            (tv) => tv.toCatalogItem(),
-          ).toList();
+          final tvs = data
+              .map(
+                (tv) => tv.toCatalogItem(),
+              )
+              .toList();
           return Right(tvs);
         },
       );

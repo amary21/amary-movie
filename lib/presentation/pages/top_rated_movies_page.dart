@@ -1,6 +1,7 @@
 import 'package:ditonton/common/state_enum.dart';
+import 'package:ditonton/domain/entities/catalog.dart';
 import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
-import 'package:ditonton/presentation/widgets/movie_card_list.dart';
+import 'package:ditonton/presentation/widgets/catalog_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
     super.initState();
     Future.microtask(() =>
         Provider.of<TopRatedMoviesNotifier>(context, listen: false)
-            .fetchTopRatedMovies());
+            .fetchTopRated(Catalog.movie));
   }
 
   @override
@@ -37,10 +38,10 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
             } else if (data.state == RequestState.Loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final movie = data.movies[index];
-                  return MovieCard(movie);
+                  final movie = data.catalogItem[index];
+                  return CatalogCard(movie);
                 },
-                itemCount: data.movies.length,
+                itemCount: data.catalogItem.length,
               );
             } else {
               return Center(
