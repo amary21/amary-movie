@@ -141,9 +141,9 @@ void main() {
   group('Watchlist', () {
     test('should get the watchlist status', () async {
       // arrange
-      when(mockGetWatchlistStatus.execute(1)).thenAnswer((_) async => true);
+      when(mockGetWatchlistStatus.execute(Catalog.movie, 1)).thenAnswer((_) async => true);
       // act
-      await provider.loadWatchlistStatus(1);
+      await provider.loadWatchlistStatus(Catalog.movie, 1);
       // assert
       expect(provider.isAddedToWatchlist, true);
     });
@@ -152,10 +152,10 @@ void main() {
       // arrange
       when(mockSaveWatchlist.execute(testMovieDetail))
           .thenAnswer((_) async => Right('Success'));
-      when(mockGetWatchlistStatus.execute(testMovieDetail.id))
+      when(mockGetWatchlistStatus.execute(Catalog.movie, testMovieDetail.id))
           .thenAnswer((_) async => true);
       // act
-      await provider.addWatchlist(testMovieDetail);
+      await provider.addWatchlist(Catalog.movie, testMovieDetail);
       // assert
       verify(mockSaveWatchlist.execute(testMovieDetail));
     });
@@ -164,10 +164,10 @@ void main() {
       // arrange
       when(mockRemoveWatchlist.execute(testMovieDetail))
           .thenAnswer((_) async => Right('Removed'));
-      when(mockGetWatchlistStatus.execute(testMovieDetail.id))
+      when(mockGetWatchlistStatus.execute(Catalog.movie, testMovieDetail.id))
           .thenAnswer((_) async => false);
       // act
-      await provider.removeFromWatchlist(testMovieDetail);
+      await provider.removeFromWatchlist(Catalog.movie, testMovieDetail);
       // assert
       verify(mockRemoveWatchlist.execute(testMovieDetail));
     });
@@ -176,12 +176,12 @@ void main() {
       // arrange
       when(mockSaveWatchlist.execute(testMovieDetail))
           .thenAnswer((_) async => Right('Added to Watchlist'));
-      when(mockGetWatchlistStatus.execute(testMovieDetail.id))
+      when(mockGetWatchlistStatus.execute(Catalog.tv, testMovieDetail.id))
           .thenAnswer((_) async => true);
       // act
-      await provider.addWatchlist(testMovieDetail);
+      await provider.addWatchlist(Catalog.tv, testMovieDetail);
       // assert
-      verify(mockGetWatchlistStatus.execute(testMovieDetail.id));
+      verify(mockGetWatchlistStatus.execute(Catalog.tv, testMovieDetail.id));
       expect(provider.isAddedToWatchlist, true);
       expect(provider.watchlistMessage, 'Added to Watchlist');
       expect(listenerCallCount, 1);
@@ -191,10 +191,10 @@ void main() {
       // arrange
       when(mockSaveWatchlist.execute(testMovieDetail))
           .thenAnswer((_) async => Left(DatabaseFailure('Failed')));
-      when(mockGetWatchlistStatus.execute(testMovieDetail.id))
+      when(mockGetWatchlistStatus.execute(Catalog.tv, testMovieDetail.id))
           .thenAnswer((_) async => false);
       // act
-      await provider.addWatchlist(testMovieDetail);
+      await provider.addWatchlist(Catalog.tv, testMovieDetail);
       // assert
       expect(provider.watchlistMessage, 'Failed');
       expect(listenerCallCount, 1);

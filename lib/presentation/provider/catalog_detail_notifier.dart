@@ -81,7 +81,7 @@ class CatalogDetailNotifier extends ChangeNotifier {
   String _watchlistMessage = '';
   String get watchlistMessage => _watchlistMessage;
 
-  Future<void> addWatchlist(MovieDetail movie) async {
+  Future<void> addWatchlist(Catalog catalog, MovieDetail movie) async {
     final result = await saveWatchlist.execute(movie);
 
     await result.fold(
@@ -93,10 +93,10 @@ class CatalogDetailNotifier extends ChangeNotifier {
       },
     );
 
-    await loadWatchlistStatus(movie.id);
+    await loadWatchlistStatus(catalog, movie.id);
   }
 
-  Future<void> removeFromWatchlist(MovieDetail movie) async {
+  Future<void> removeFromWatchlist(Catalog catalog, MovieDetail movie) async {
     final result = await removeWatchlist.execute(movie);
 
     await result.fold(
@@ -108,11 +108,11 @@ class CatalogDetailNotifier extends ChangeNotifier {
       },
     );
 
-    await loadWatchlistStatus(movie.id);
+    await loadWatchlistStatus(catalog, movie.id);
   }
 
-  Future<void> loadWatchlistStatus(int id) async {
-    final result = await getWatchListStatus.execute(id);
+  Future<void> loadWatchlistStatus(Catalog catalog, id) async {
+    final result = await getWatchListStatus.execute(catalog, id);
     _isAddedtoWatchlist = result;
     notifyListeners();
   }

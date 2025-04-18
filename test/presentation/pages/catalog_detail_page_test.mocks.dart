@@ -226,32 +226,51 @@ class MockCatalogDetailNotifier extends _i1.Mock
       ) as _i12.Future<void>);
 
   @override
-  _i12.Future<void> addWatchlist(_i14.MovieDetail? movie) =>
+  _i12.Future<void> addWatchlist(
+    _i13.Catalog? catalog,
+    _i14.MovieDetail? movie,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
           #addWatchlist,
-          [movie],
+          [
+            catalog,
+            movie,
+          ],
         ),
         returnValue: _i12.Future<void>.value(),
         returnValueForMissingStub: _i12.Future<void>.value(),
       ) as _i12.Future<void>);
 
   @override
-  _i12.Future<void> removeFromWatchlist(_i14.MovieDetail? movie) =>
+  _i12.Future<void> removeFromWatchlist(
+    _i13.Catalog? catalog,
+    _i14.MovieDetail? movie,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
           #removeFromWatchlist,
-          [movie],
+          [
+            catalog,
+            movie,
+          ],
         ),
         returnValue: _i12.Future<void>.value(),
         returnValueForMissingStub: _i12.Future<void>.value(),
       ) as _i12.Future<void>);
 
   @override
-  _i12.Future<void> loadWatchlistStatus(int? id) => (super.noSuchMethod(
+  _i12.Future<void> loadWatchlistStatus(
+    _i13.Catalog? catalog,
+    dynamic id,
+  ) =>
+      (super.noSuchMethod(
         Invocation.method(
           #loadWatchlistStatus,
-          [id],
+          [
+            catalog,
+            id,
+          ],
         ),
         returnValue: _i12.Future<void>.value(),
         returnValueForMissingStub: _i12.Future<void>.value(),

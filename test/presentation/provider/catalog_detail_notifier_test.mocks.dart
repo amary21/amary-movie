@@ -136,19 +136,17 @@ class MockGetWatchListStatus extends _i1.Mock
   }
 
   @override
-  _i3.MovieRepository get repository => (super.noSuchMethod(
-        Invocation.getter(#repository),
-        returnValue: _FakeMovieRepository_1(
-          this,
-          Invocation.getter(#repository),
-        ),
-      ) as _i3.MovieRepository);
-
-  @override
-  _i5.Future<bool> execute(int? id) => (super.noSuchMethod(
+  _i5.Future<bool> execute(
+    _i8.Catalog? catalog,
+    int? id,
+  ) =>
+      (super.noSuchMethod(
         Invocation.method(
           #execute,
-          [id],
+          [
+            catalog,
+            id,
+          ],
         ),
         returnValue: _i5.Future<bool>.value(false),
       ) as _i5.Future<bool>);

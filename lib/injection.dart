@@ -74,7 +74,7 @@ Future<void> init() async {
   locator.registerLazySingleton(() => GetDetail(locator(), locator()));
   locator.registerLazySingleton(() => GetRecommendations(locator(), locator()));
   locator.registerLazySingleton(() => SearchCatalog(locator(), locator()));
-  locator.registerLazySingleton(() => GetWatchListStatus(locator()));
+  locator.registerLazySingleton(() => GetWatchListStatus(locator(), locator()));
   locator.registerLazySingleton(() => SaveWatchlist(locator()));
   locator.registerLazySingleton(() => RemoveWatchlist(locator()));
   locator.registerLazySingleton(() => GetWatchlistCatalog(locator(), locator()));

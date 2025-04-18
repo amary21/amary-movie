@@ -33,7 +33,7 @@ class _CatalogDetailPageState extends State<CatalogDetailPage> {
       Provider.of<CatalogDetailNotifier>(
         context,
         listen: false,
-      ).loadWatchlistStatus(widget.id);
+      ).loadWatchlistStatus(widget.catalog, widget.id);
     });
   }
 
