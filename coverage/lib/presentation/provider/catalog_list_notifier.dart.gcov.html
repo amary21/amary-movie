@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - test.info - lib/presentation/provider/movie_list_notifier.dart</title>
+  <title>LCOV - test.info - lib/presentation/provider/catalog_list_notifier.dart</title>
   <link rel="stylesheet" type="text/css" href="../../../gcov.css">
 </head>
 
@@ -19,7 +19,7 @@
                 <table cellpadding=1 border=0 width="100%">
           <tr>
             <td width="10%" class="headerItem">Current view:</td>
-            <td width="10%" class="headerValue"><a href="../../../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory lib/presentation/provider">lib/presentation/provider</a> - movie_list_notifier.dart</td>
+            <td width="10%" class="headerValue"><a href="../../../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory lib/presentation/provider">lib/presentation/provider</a> - catalog_list_notifier.dart</td>
             <td width="5%"></td>
             <td width="5%"></td>
             <td width="5%" class="headerCovTableHead">Coverage</td>
@@ -31,13 +31,13 @@
             <td class="headerValue">test.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">98.0&nbsp;%</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
             <td class="headerCovTableEntry">49</td>
-            <td class="headerCovTableEntry">48</td>
+            <td class="headerCovTableEntry">49</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-04-18 10:40:10</td>
+            <td class="headerValue">2025-04-18 14:17:04</td>
             <td></td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
@@ -64,9 +64,9 @@
 <span id="L6"><span class="lineNum">       6</span>              : import 'package:ditonton/domain/usecases/get_top_rated.dart';</span>
 <span id="L7"><span class="lineNum">       7</span>              : import 'package:flutter/material.dart';</span>
 <span id="L8"><span class="lineNum">       8</span>              : </span>
-<span id="L9"><span class="lineNum">       9</span>              : class MovieListNotifier extends ChangeNotifier {</span>
+<span id="L9"><span class="lineNum">       9</span>              : class CatalogListNotifier extends ChangeNotifier {</span>
 <span id="L10"><span class="lineNum">      10</span>              :   var _catalog = Catalog.movie;</span>
-<span id="L11"><span class="lineNum">      11</span> <span class="tlaUNC">           0 :   Catalog get catalog =&gt; _catalog;</span></span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">           2 :   Catalog get catalog =&gt; _catalog;</span></span>
 <span id="L12"><span class="lineNum">      12</span>              : </span>
 <span id="L13"><span class="lineNum">      13</span>              :   var _nowPlaying = &lt;CatalogItem&gt;[];</span>
 <span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">           2 :   List&lt;CatalogItem&gt; get nowPlaying =&gt; _nowPlaying;</span></span>
@@ -89,7 +89,7 @@
 <span id="L31"><span class="lineNum">      31</span>              :   String _message = '';</span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           2 :   String get message =&gt; _message;</span></span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           1 :   MovieListNotifier({</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           1 :   CatalogListNotifier({</span></span>
 <span id="L35"><span class="lineNum">      35</span>              :     required this.getNowPlaying,</span>
 <span id="L36"><span class="lineNum">      36</span>              :     required this.getPopular,</span>
 <span id="L37"><span class="lineNum">      37</span>              :     required this.getTopRated,</span>

@@ -87,17 +87,19 @@ void main() {
       expect(listenerCallCount, 2);
     });
 
-
-    test('should change movie state to loading when usecase is called', () async {
-      // arrange
-      when(
-        mockSearchCatalog.execute(Catalog.tv, tQuery),
-      ).thenAnswer((_) async => Right(tCatalogItemList));
-      // act
-      provider.fetchCatalogSearch(Catalog.tv, tQuery);
-      // assert
-      expect(provider.state, RequestState.Loading);
-    });
+    test(
+      'should change movie state to loading when usecase is called',
+      () async {
+        // arrange
+        when(
+          mockSearchCatalog.execute(Catalog.tv, tQuery),
+        ).thenAnswer((_) async => Right(tCatalogItemList));
+        // act
+        provider.fetchCatalogSearch(Catalog.tv, tQuery);
+        // assert
+        expect(provider.state, RequestState.Loading);
+      },
+    );
 
     test(
       'should change search tv result data when data is gotten successfully',
@@ -126,6 +128,21 @@ void main() {
       expect(provider.state, RequestState.Error);
       expect(provider.message, 'Server Failure');
       expect(listenerCallCount, 2);
+    });
+
+    test('reset search catalog', () async {
+      // arrange
+      when(
+        mockSearchCatalog.execute(Catalog.movie, tQuery),
+      ).thenAnswer((_) async => Right(tCatalogItemList));
+
+      // act
+      await provider.fetchCatalogSearch(Catalog.movie, tQuery);
+      await provider.resetData();
+
+      // assert
+      expect(provider.state, RequestState.Empty);
+      expect(provider.searchResult, isEmpty);
     });
   });
 }

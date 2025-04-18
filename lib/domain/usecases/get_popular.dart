@@ -18,14 +18,12 @@ class GetPopular {
         final movies = data.map((movie) => movie.toCatalogItem()).toList();
         return Right(movies);
       });
-    } else if (catalog == Catalog.tv) {
+    } else {
       final result = await _tvRepository.getPopularTv();
       return result.fold((failure) => Left(failure), (data) {
         final tvs = data.map((tv) => tv.toCatalogItem()).toList();
         return Right(tvs);
       });
-    } else {
-      return Left(ServerFailure('Invalid catalog type'));
     }
   }
 }

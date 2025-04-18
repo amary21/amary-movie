@@ -74,6 +74,7 @@ void main() {
       provider.fetchNowPlaying(Catalog.movie);
       // assert
       expect(provider.nowPlayingState, RequestState.Loading);
+      expect(provider.catalog, Catalog.movie);
     });
 
     test('should change movies when data is gotten successfully', () async {
@@ -118,6 +119,7 @@ void main() {
       provider.fetchNowPlaying(Catalog.tv);
       // assert
       expect(provider.nowPlayingState, RequestState.Loading);
+      expect(provider.catalog, Catalog.tv);
     });
 
     test('should change tvs when data is gotten successfully', () async {

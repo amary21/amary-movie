@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - test.info - lib/presentation/provider/top_rated_movies_notifier.dart</title>
+  <title>LCOV - test.info - lib/presentation/provider/top_rated_catalog_notifier.dart</title>
   <link rel="stylesheet" type="text/css" href="../../../gcov.css">
 </head>
 
@@ -19,7 +19,7 @@
                 <table cellpadding=1 border=0 width="100%">
           <tr>
             <td width="10%" class="headerItem">Current view:</td>
-            <td width="10%" class="headerValue"><a href="../../../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory lib/presentation/provider">lib/presentation/provider</a> - top_rated_movies_notifier.dart</td>
+            <td width="10%" class="headerValue"><a href="../../../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory lib/presentation/provider">lib/presentation/provider</a> - top_rated_catalog_notifier.dart</td>
             <td width="5%"></td>
             <td width="5%"></td>
             <td width="5%" class="headerCovTableHead">Coverage</td>
@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-04-18 10:40:10</td>
+            <td class="headerValue">2025-04-18 14:17:04</td>
             <td></td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
@@ -62,10 +62,10 @@
 <span id="L4"><span class="lineNum">       4</span>              : import 'package:ditonton/domain/usecases/get_top_rated.dart';</span>
 <span id="L5"><span class="lineNum">       5</span>              : import 'package:flutter/foundation.dart';</span>
 <span id="L6"><span class="lineNum">       6</span>              : </span>
-<span id="L7"><span class="lineNum">       7</span>              : class TopRatedMoviesNotifier extends ChangeNotifier {</span>
+<span id="L7"><span class="lineNum">       7</span>              : class TopRatedCatalogNotifier extends ChangeNotifier {</span>
 <span id="L8"><span class="lineNum">       8</span>              :   final GetTopRated getTopRated;</span>
 <span id="L9"><span class="lineNum">       9</span>              : </span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">           1 :   TopRatedMoviesNotifier({required this.getTopRated});</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">           1 :   TopRatedCatalogNotifier({required this.getTopRated});</span></span>
 <span id="L11"><span class="lineNum">      11</span>              : </span>
 <span id="L12"><span class="lineNum">      12</span>              :   RequestState _state = RequestState.Empty;</span>
 <span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">           2 :   RequestState get state =&gt; _state;</span></span>

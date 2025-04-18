@@ -37,13 +37,9 @@ class TvModel extends Equatable {
   factory TvModel.fromJson(Map<String, dynamic> json) => TvModel(
         adult: json["adult"],
         backdropPath: json["backdrop_path"],
-        genreIds: json["genre_ids"] == null
-            ? []
-            : List<int>.from(json["genre_ids"]!.map((x) => x)),
+        genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
         id: json["id"],
-        originCountry: json["origin_country"] == null
-            ? []
-            : List<String>.from(json["origin_country"]!.map((x) => x)),
+        originCountry: List<String>.from(json["origin_country"].map((x) => x)),
         originalLanguage: json["original_language"],
         originalName: json["original_name"],
         overview: json["overview"],
@@ -61,9 +57,7 @@ class TvModel extends Equatable {
         "genre_ids":
             genreIds == null ? [] : List<dynamic>.from(genreIds!.map((x) => x)),
         "id": id,
-        "origin_country": originCountry == null
-            ? []
-            : List<dynamic>.from(originCountry!.map((x) => x)),
+        "origin_country": List<dynamic>.from(originCountry!.map((x) => x)),
         "original_language": originalLanguage,
         "original_name": originalName,
         "overview": overview,

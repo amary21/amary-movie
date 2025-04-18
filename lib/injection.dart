@@ -28,7 +28,7 @@ import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
 
-void init() {
+Future<void> init() async {
   // provider
   locator.registerFactory(
     () => CatalogListNotifier(
@@ -104,7 +104,8 @@ void init() {
       () => TvLocalDataSourceImpl(databaseHelper: locator()));
 
   // helper
-  locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
+  final databaseHelper = await DatabaseHelper.init();
+  locator.registerLazySingleton<DatabaseHelper>(() => databaseHelper);
 
   // external
   locator.registerLazySingleton(() => http.Client());

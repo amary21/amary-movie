@@ -4,8 +4,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i7;
-import 'dart:convert' as _i25;
-import 'dart:typed_data' as _i26;
+import 'dart:convert' as _i24;
+import 'dart:typed_data' as _i25;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:ditonton/common/failure.dart' as _i8;
@@ -30,7 +30,6 @@ import 'package:ditonton/domain/repositories/tv_repository.dart' as _i16;
 import 'package:http/http.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i15;
-import 'package:sqflite/sqflite.dart' as _i24;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -729,12 +728,6 @@ class MockDatabaseHelper extends _i1.Mock implements _i23.DatabaseHelper {
   }
 
   @override
-  _i7.Future<_i24.Database?> get database => (super.noSuchMethod(
-        Invocation.getter(#database),
-        returnValue: _i7.Future<_i24.Database?>.value(),
-      ) as _i7.Future<_i24.Database?>);
-
-  @override
   _i7.Future<int> insertWatchlist(_i14.MovieTable? movie) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -869,7 +862,7 @@ class MockHttpClient extends _i1.Mock implements _i5.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i25.Encoding? encoding,
+    _i24.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -900,7 +893,7 @@ class MockHttpClient extends _i1.Mock implements _i5.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i25.Encoding? encoding,
+    _i24.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -931,7 +924,7 @@ class MockHttpClient extends _i1.Mock implements _i5.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i25.Encoding? encoding,
+    _i24.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -962,7 +955,7 @@ class MockHttpClient extends _i1.Mock implements _i5.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i25.Encoding? encoding,
+    _i24.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1010,7 +1003,7 @@ class MockHttpClient extends _i1.Mock implements _i5.Client {
       ) as _i7.Future<String>);
 
   @override
-  _i7.Future<_i26.Uint8List> readBytes(
+  _i7.Future<_i25.Uint8List> readBytes(
     Uri? url, {
     Map<String, String>? headers,
   }) =>
@@ -1020,8 +1013,8 @@ class MockHttpClient extends _i1.Mock implements _i5.Client {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i7.Future<_i26.Uint8List>.value(_i26.Uint8List(0)),
-      ) as _i7.Future<_i26.Uint8List>);
+        returnValue: _i7.Future<_i25.Uint8List>.value(_i25.Uint8List(0)),
+      ) as _i7.Future<_i25.Uint8List>);
 
   @override
   _i7.Future<_i5.StreamedResponse> send(_i5.BaseRequest? request) =>
