@@ -6,7 +6,7 @@ import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/movie_detail_page.dart';
 import 'package:ditonton/presentation/pages/popular_catalog_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
-import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
+import 'package:ditonton/presentation/pages/top_rated_catalog_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/provider/catalog_list_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
@@ -137,11 +137,13 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
                   return Text('Failed');
                 }
               }),
-              _buildSubHeading(
-                title: 'Top Rated',
-                onTap: () =>
-                    Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),
-              ),
+              Consumer<CatalogListNotifier>(builder: (context, data, child) {
+                return _buildSubHeading(
+                  title: 'Top Rated',
+                  onTap: () => Navigator.pushNamed(
+                      context, TopRatedCatalogPage.ROUTE_NAME, arguments: data.catalog),
+                );
+              }),
               Consumer<CatalogListNotifier>(builder: (context, data, child) {
                 final state = data.topRatedState;
                 if (state == RequestState.Loading) {

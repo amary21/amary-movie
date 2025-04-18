@@ -1,24 +1,27 @@
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/catalog.dart';
-import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
+import 'package:ditonton/presentation/provider/top_rated_catalog_notifier.dart';
 import 'package:ditonton/presentation/widgets/catalog_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TopRatedMoviesPage extends StatefulWidget {
+class TopRatedCatalogPage extends StatefulWidget {
   static const ROUTE_NAME = '/top-rated-movie';
 
+  final Catalog catalog;
+  const TopRatedCatalogPage({required this.catalog});
+
   @override
-  _TopRatedMoviesPageState createState() => _TopRatedMoviesPageState();
+  _TopRatedCatalogPageState createState() => _TopRatedCatalogPageState();
 }
 
-class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
+class _TopRatedCatalogPageState extends State<TopRatedCatalogPage> {
   @override
   void initState() {
     super.initState();
     Future.microtask(() =>
-        Provider.of<TopRatedMoviesNotifier>(context, listen: false)
-            .fetchTopRated(Catalog.movie));
+        Provider.of<TopRatedCatalogNotifier>(context, listen: false)
+            .fetchTopRated(widget.catalog));
   }
 
   @override
@@ -29,7 +32,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<TopRatedMoviesNotifier>(
+        child: Consumer<TopRatedCatalogNotifier>(
           builder: (context, data, child) {
             if (data.state == RequestState.Loading) {
               return Center(

@@ -6,13 +6,13 @@ import 'package:ditonton/presentation/pages/movie_detail_page.dart';
 import 'package:ditonton/presentation/pages/home_catalog_page.dart';
 import 'package:ditonton/presentation/pages/popular_catalog_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
-import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
+import 'package:ditonton/presentation/pages/top_rated_catalog_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/catalog_list_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_catalog_notifier.dart';
-import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
+import 'package:ditonton/presentation/provider/top_rated_catalog_notifier.dart';
 import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<MovieSearchNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedMoviesNotifier>(),
+          create: (_) => di.locator<TopRatedCatalogNotifier>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<PopularCatalogNotifier>(),
@@ -69,8 +69,12 @@ class MyApp extends StatelessWidget {
                 builder: (_) => PopularCatalogPage(catalog: catalog),
                 settings: settings,
               );
-            case TopRatedMoviesPage.ROUTE_NAME:
-              return CupertinoPageRoute(builder: (_) => TopRatedMoviesPage());
+            case TopRatedCatalogPage.ROUTE_NAME:
+              final catalog = settings.arguments as Catalog;
+              return CupertinoPageRoute(
+                builder: (_) => TopRatedCatalogPage(catalog: catalog),
+                settings: settings,
+              );
             case MovieDetailPage.ROUTE_NAME:
               final id = settings.arguments as int;
               return MaterialPageRoute(
@@ -84,13 +88,13 @@ class MyApp extends StatelessWidget {
             case AboutPage.ROUTE_NAME:
               return MaterialPageRoute(builder: (_) => AboutPage());
             default:
-              return MaterialPageRoute(builder: (_) {
-                return Scaffold(
-                  body: Center(
-                    child: Text('Page not found :('),
-                  ),
-                );
-              });
+              return MaterialPageRoute(
+                builder: (_) {
+                  return Scaffold(
+                    body: Center(child: Text('Page not found :(')),
+                  );
+                },
+              );
           }
         },
       ),
