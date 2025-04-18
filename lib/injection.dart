@@ -7,7 +7,7 @@ import 'package:ditonton/data/repositories/movie_repository_impl.dart';
 import 'package:ditonton/data/repositories/tv_repository_impl.dart';
 import 'package:ditonton/domain/repositories/movie_repository.dart';
 import 'package:ditonton/domain/repositories/tv_repository.dart';
-import 'package:ditonton/domain/usecases/get_movie_detail.dart';
+import 'package:ditonton/domain/usecases/get_detail.dart';
 import 'package:ditonton/domain/usecases/get_movie_recommendations.dart';
 import 'package:ditonton/domain/usecases/get_now_playing.dart';
 import 'package:ditonton/domain/usecases/get_popular.dart';
@@ -17,7 +17,7 @@ import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:ditonton/domain/usecases/search_catalog.dart';
-import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
+import 'package:ditonton/presentation/provider/catalog_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/catalog_list_notifier.dart';
 import 'package:ditonton/presentation/provider/catalog_search_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_catalog_notifier.dart';
@@ -38,8 +38,8 @@ Future<void> init() async {
     ),
   );
   locator.registerFactory(
-    () => MovieDetailNotifier(
-      getMovieDetail: locator(),
+    () => CatalogDetailNotifier(
+      getDetail: locator(),
       getMovieRecommendations: locator(),
       getWatchListStatus: locator(),
       saveWatchlist: locator(),
@@ -71,7 +71,7 @@ Future<void> init() async {
   locator.registerLazySingleton(() => GetNowPlaying(locator(), locator()));
   locator.registerLazySingleton(() => GetPopular(locator(), locator()));
   locator.registerLazySingleton(() => GetTopRated(locator(), locator()));
-  locator.registerLazySingleton(() => GetMovieDetail(locator()));
+  locator.registerLazySingleton(() => GetDetail(locator(), locator()));
   locator.registerLazySingleton(() => GetMovieRecommendations(locator()));
   locator.registerLazySingleton(() => SearchCatalog(locator(), locator()));
   locator.registerLazySingleton(() => GetWatchListStatus(locator()));

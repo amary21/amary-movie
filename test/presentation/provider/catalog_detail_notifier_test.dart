@@ -1,30 +1,31 @@
 import 'package:dartz/dartz.dart';
+import 'package:ditonton/domain/entities/catalog.dart';
 import 'package:ditonton/domain/entities/movie.dart';
-import 'package:ditonton/domain/usecases/get_movie_detail.dart';
+import 'package:ditonton/domain/usecases/get_detail.dart';
 import 'package:ditonton/domain/usecases/get_movie_recommendations.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist.dart';
-import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
+import 'package:ditonton/presentation/provider/catalog_detail_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../dummy_data/dummy_objects.dart';
-import 'movie_detail_notifier_test.mocks.dart';
+import 'catalog_detail_notifier_test.mocks.dart';
 
 @GenerateMocks([
-  GetMovieDetail,
+  GetDetail,
   GetMovieRecommendations,
   GetWatchListStatus,
   SaveWatchlist,
   RemoveWatchlist,
 ])
 void main() {
-  late MovieDetailNotifier provider;
-  late MockGetMovieDetail mockGetMovieDetail;
+  late CatalogDetailNotifier provider;
+  late MockGetDetail mockGetDetail;
   late MockGetMovieRecommendations mockGetMovieRecommendations;
   late MockGetWatchListStatus mockGetWatchlistStatus;
   late MockSaveWatchlist mockSaveWatchlist;
@@ -33,13 +34,13 @@ void main() {
 
   setUp(() {
     listenerCallCount = 0;
-    mockGetMovieDetail = MockGetMovieDetail();
+    mockGetDetail = MockGetDetail();
     mockGetMovieRecommendations = MockGetMovieRecommendations();
     mockGetWatchlistStatus = MockGetWatchListStatus();
     mockSaveWatchlist = MockSaveWatchlist();
     mockRemoveWatchlist = MockRemoveWatchlist();
-    provider = MovieDetailNotifier(
-      getMovieDetail: mockGetMovieDetail,
+    provider = CatalogDetailNotifier(
+      getDetail: mockGetDetail,
       getMovieRecommendations: mockGetMovieRecommendations,
       getWatchListStatus: mockGetWatchlistStatus,
       saveWatchlist: mockSaveWatchlist,
@@ -69,8 +70,8 @@ void main() {
   final tMovies = <Movie>[tMovie];
 
   void _arrangeUsecase() {
-    when(mockGetMovieDetail.execute(tId))
-        .thenAnswer((_) async => Right(testMovieDetail));
+    when(mockGetDetail.execute(Catalog.movie, tId))
+        .thenAnswer((_) async => Right(testCatalogDetail));
     when(mockGetMovieRecommendations.execute(tId))
         .thenAnswer((_) async => Right(tMovies));
   }
@@ -80,9 +81,9 @@ void main() {
       // arrange
       _arrangeUsecase();
       // act
-      await provider.fetchMovieDetail(tId);
+      await provider.fetchDetail(Catalog.movie, tId);
       // assert
-      verify(mockGetMovieDetail.execute(tId));
+      verify(mockGetDetail.execute(Catalog.movie, tId));
       verify(mockGetMovieRecommendations.execute(tId));
     });
 
@@ -90,7 +91,7 @@ void main() {
       // arrange
       _arrangeUsecase();
       // act
-      provider.fetchMovieDetail(tId);
+      provider.fetchDetail(Catalog.movie, tId);
       // assert
       expect(provider.movieState, RequestState.Loading);
       expect(listenerCallCount, 1);
@@ -100,10 +101,10 @@ void main() {
       // arrange
       _arrangeUsecase();
       // act
-      await provider.fetchMovieDetail(tId);
+      await provider.fetchDetail(Catalog.movie, tId);
       // assert
       expect(provider.movieState, RequestState.Loaded);
-      expect(provider.movie, testMovieDetail);
+      expect(provider.catalog, testCatalogDetail);
       expect(listenerCallCount, 3);
     });
 
@@ -112,7 +113,7 @@ void main() {
       // arrange
       _arrangeUsecase();
       // act
-      await provider.fetchMovieDetail(tId);
+      await provider.fetchDetail(Catalog.movie, tId);
       // assert
       expect(provider.movieState, RequestState.Loaded);
       expect(provider.movieRecommendations, tMovies);
@@ -124,7 +125,7 @@ void main() {
       // arrange
       _arrangeUsecase();
       // act
-      await provider.fetchMovieDetail(tId);
+      await provider.fetchDetail(Catalog.movie, tId);
       // assert
       verify(mockGetMovieRecommendations.execute(tId));
       expect(provider.movieRecommendations, tMovies);
@@ -135,7 +136,7 @@ void main() {
       // arrange
       _arrangeUsecase();
       // act
-      await provider.fetchMovieDetail(tId);
+      await provider.fetchDetail(Catalog.movie, tId);
       // assert
       expect(provider.recommendationState, RequestState.Loaded);
       expect(provider.movieRecommendations, tMovies);
@@ -143,12 +144,12 @@ void main() {
 
     test('should update error message when request in successful', () async {
       // arrange
-      when(mockGetMovieDetail.execute(tId))
-          .thenAnswer((_) async => Right(testMovieDetail));
+      when(mockGetDetail.execute(Catalog.movie, tId))
+          .thenAnswer((_) async => Right(testCatalogDetail));
       when(mockGetMovieRecommendations.execute(tId))
           .thenAnswer((_) async => Left(ServerFailure('Failed')));
       // act
-      await provider.fetchMovieDetail(tId);
+      await provider.fetchDetail(Catalog.movie, tId);
       // assert
       expect(provider.recommendationState, RequestState.Error);
       expect(provider.message, 'Failed');
@@ -221,12 +222,12 @@ void main() {
   group('on Error', () {
     test('should return error when data is unsuccessful', () async {
       // arrange
-      when(mockGetMovieDetail.execute(tId))
+      when(mockGetDetail.execute(Catalog.movie, tId))
           .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
       when(mockGetMovieRecommendations.execute(tId))
           .thenAnswer((_) async => Right(tMovies));
       // act
-      await provider.fetchMovieDetail(tId);
+      await provider.fetchDetail(Catalog.movie, tId);
       // assert
       expect(provider.movieState, RequestState.Error);
       expect(provider.message, 'Server Failure');

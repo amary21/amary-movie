@@ -1,3 +1,4 @@
+import 'package:ditonton/domain/entities/catalog_detail.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:equatable/equatable.dart';
 
@@ -24,6 +25,7 @@ class TvDetail extends Equatable {
     required this.type,
     required this.voteAverage,
     required this.voteCount,
+    required this.runtime,
   });
 
   final bool adult;
@@ -47,29 +49,45 @@ class TvDetail extends Equatable {
   final String type;
   final double voteAverage;
   final int voteCount;
+  final int runtime;
+
+  CatalogDetail toCatalogDetail() => CatalogDetail(
+    adult: this.adult,
+    backdropPath: this.backdropPath,
+    genres: this.genres,
+    id: this.id,
+    originalTitle: this.originalName,
+    overview: this.overview,
+    posterPath: this.posterPath,
+    releaseDate: this.firstAirDate,
+    runtime: this.runtime,
+    title: this.name,
+    voteAverage: this.voteAverage,
+    voteCount: this.voteCount,
+  );
 
   @override
   List<Object?> get props => [
-        adult,
-        backdropPath,
-        firstAirDate,
-        genres,
-        homepage,
-        id,
-        inProduction,
-        lastAirDate,
-        name,
-        numberOfEpisodes,
-        numberOfSeasons,
-        originalLanguage,
-        originalName,
-        overview,
-        popularity,
-        posterPath,
-        status,
-        tagline,
-        type,
-        voteAverage,
-        voteCount
-      ];
+    adult,
+    backdropPath,
+    firstAirDate,
+    genres,
+    homepage,
+    id,
+    inProduction,
+    lastAirDate,
+    name,
+    numberOfEpisodes,
+    numberOfSeasons,
+    originalLanguage,
+    originalName,
+    overview,
+    popularity,
+    posterPath,
+    status,
+    tagline,
+    type,
+    voteAverage,
+    voteCount,
+  ];
 }

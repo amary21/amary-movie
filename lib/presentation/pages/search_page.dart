@@ -69,7 +69,7 @@ class _SearchPageState extends State<SearchPage> {
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
                         final catalog = data.searchResult[index];
-                        return CatalogCard(catalog);
+                        return CatalogCard(catalog, widget.catalog);
                       },
                       itemCount: result.length,
                     ),

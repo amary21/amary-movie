@@ -3,7 +3,7 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/catalog.dart';
 import 'package:ditonton/domain/entities/catalog_item.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
-import 'package:ditonton/presentation/pages/movie_detail_page.dart';
+import 'package:ditonton/presentation/pages/catalog_detail_page.dart';
 import 'package:ditonton/presentation/pages/popular_catalog_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_catalog_page.dart';
@@ -212,21 +212,23 @@ class CatalogList extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          final movie = nowPlaying[index];
+          final catalogItem = nowPlaying[index];
+          final catalog =
+              Provider.of<CatalogListNotifier>(context, listen: false).catalog;
           return Container(
             padding: const EdgeInsets.all(8),
             child: InkWell(
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  MovieDetailPage.ROUTE_NAME,
-                  arguments: movie.id,
+                  CatalogDetailPage.ROUTE_NAME,
+                  arguments: {'id': catalogItem.id, 'catalog': catalog},
                 );
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',
+                  imageUrl: '$BASE_IMAGE_URL${catalogItem.posterPath}',
                   placeholder:
                       (context, url) =>
                           Center(child: CircularProgressIndicator()),

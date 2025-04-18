@@ -42,7 +42,7 @@ class _TopRatedCatalogPageState extends State<TopRatedCatalogPage> {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final movie = data.catalogItem[index];
-                  return CatalogCard(movie);
+                  return CatalogCard(movie, widget.catalog);
                 },
                 itemCount: data.catalogItem.length,
               );

@@ -1,4 +1,5 @@
 import 'package:ditonton/data/models/genre_model.dart';
+import 'package:ditonton/data/models/tv_last_episode_response.dart';
 import 'package:ditonton/domain/entities/tv_detail.dart';
 import 'package:equatable/equatable.dart';
 
@@ -25,6 +26,7 @@ class TvDetailResponse extends Equatable {
     required this.type,
     required this.voteAverage,
     required this.voteCount,
+    required this.lastEpisodeToAir,
   });
 
   final bool adult;
@@ -48,13 +50,16 @@ class TvDetailResponse extends Equatable {
   final String type;
   final double voteAverage;
   final int voteCount;
+  final TvLastEpisodeResponse lastEpisodeToAir;
 
-  factory TvDetailResponse.fromJson(Map<String, dynamic> json) => TvDetailResponse(
+  factory TvDetailResponse.fromJson(Map<String, dynamic> json) =>
+      TvDetailResponse(
         adult: json["adult"],
         backdropPath: json["backdrop_path"],
         firstAirDate: json["first_air_date"],
         genres: List<GenreModel>.from(
-            json["genres"].map((x) => GenreModel.fromJson(x))),
+          json["genres"].map((x) => GenreModel.fromJson(x)),
+        ),
         homepage: json["homepage"],
         id: json["id"],
         inProduction: json["in_production"],
@@ -66,12 +71,15 @@ class TvDetailResponse extends Equatable {
         originalName: json["original_name"],
         overview: json["overview"],
         popularity: json["popularity"]?.toDouble(),
-        posterPath: json["poster_path"],
+        posterPath: json["poster_path"] ?? "",
         status: json["status"],
         tagline: json["tagline"],
         type: json["type"],
         voteAverage: json["vote_average"]?.toDouble(),
         voteCount: json["vote_count"],
+        lastEpisodeToAir: TvLastEpisodeResponse.fromJson(
+          json["last_episode_to_air"],
+        ),
       );
 
   TvDetail toEntity() {
@@ -97,31 +105,33 @@ class TvDetailResponse extends Equatable {
       type: type,
       voteAverage: voteAverage,
       voteCount: voteCount,
+      runtime: lastEpisodeToAir.runtime,
     );
   }
 
   @override
   List<Object?> get props => [
-        adult,
-        backdropPath,
-        firstAirDate,
-        genres,
-        homepage,
-        id,
-        inProduction,
-        lastAirDate,
-        name,
-        numberOfEpisodes,
-        numberOfSeasons,
-        originalLanguage,
-        originalName,
-        overview,
-        popularity,
-        posterPath,
-        status,
-        tagline,
-        type,
-        voteAverage,
-        voteCount
-      ];
+    adult,
+    backdropPath,
+    firstAirDate,
+    genres,
+    homepage,
+    id,
+    inProduction,
+    lastAirDate,
+    name,
+    numberOfEpisodes,
+    numberOfSeasons,
+    originalLanguage,
+    originalName,
+    overview,
+    popularity,
+    posterPath,
+    status,
+    tagline,
+    type,
+    voteAverage,
+    voteCount,
+    lastEpisodeToAir,
+  ];
 }
