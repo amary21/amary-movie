@@ -6,7 +6,7 @@ import 'package:ditonton/domain/usecases/get_popular.dart';
 import 'package:ditonton/domain/usecases/get_top_rated.dart';
 import 'package:flutter/material.dart';
 
-class MovieListNotifier extends ChangeNotifier {
+class CatalogListNotifier extends ChangeNotifier {
   var _catalog = Catalog.movie;
   Catalog get catalog => _catalog;
 
@@ -31,7 +31,7 @@ class MovieListNotifier extends ChangeNotifier {
   String _message = '';
   String get message => _message;
 
-  MovieListNotifier({
+  CatalogListNotifier({
     required this.getNowPlaying,
     required this.getPopular,
     required this.getTopRated,

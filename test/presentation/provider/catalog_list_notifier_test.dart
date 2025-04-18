@@ -5,17 +5,17 @@ import 'package:ditonton/domain/usecases/get_now_playing.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/domain/usecases/get_popular.dart';
 import 'package:ditonton/domain/usecases/get_top_rated.dart';
-import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
+import 'package:ditonton/presentation/provider/catalog_list_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'movie_list_notifier_test.mocks.dart';
+import 'catalog_list_notifier_test.mocks.dart';
 
 @GenerateMocks([GetNowPlaying, GetPopular, GetTopRated])
 void main() {
-  late MovieListNotifier provider;
+  late CatalogListNotifier provider;
   late MockGetNowPlaying mockGetNowPlaying;
   late MockGetPopular mockGetPopular;
   late MockGetTopRated mockGetTopRatedMovies;
@@ -26,7 +26,7 @@ void main() {
     mockGetNowPlaying = MockGetNowPlaying();
     mockGetPopular = MockGetPopular();
     mockGetTopRatedMovies = MockGetTopRated();
-    provider = MovieListNotifier(
+    provider = CatalogListNotifier(
       getNowPlaying: mockGetNowPlaying,
       getPopular: mockGetPopular,
       getTopRated: mockGetTopRatedMovies,
