@@ -1,8 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/movie.dart';
-import 'package:ditonton/domain/usecases/get_popular_movies.dart';
+import 'package:ditonton/domain/entities/catalog.dart';
+import 'package:ditonton/domain/entities/catalog_item.dart';
+import 'package:ditonton/domain/usecases/get_popular.dart';
 import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -10,22 +11,22 @@ import 'package:mockito/mockito.dart';
 
 import 'popular_movies_notifier_test.mocks.dart';
 
-@GenerateMocks([GetPopularMovies])
+@GenerateMocks([GetPopular])
 void main() {
-  late MockGetPopularMovies mockGetPopularMovies;
+  late MockGetPopular mockGetPopularMovies;
   late PopularMoviesNotifier notifier;
   late int listenerCallCount;
 
   setUp(() {
     listenerCallCount = 0;
-    mockGetPopularMovies = MockGetPopularMovies();
+    mockGetPopularMovies = MockGetPopular();
     notifier = PopularMoviesNotifier(mockGetPopularMovies)
       ..addListener(() {
         listenerCallCount++;
       });
   });
 
-  final tMovie = Movie(
+  final tCatalogItem = CatalogItem(
     adult: false,
     backdropPath: 'backdropPath',
     genreIds: [1, 2, 3],
@@ -36,19 +37,17 @@ void main() {
     posterPath: 'posterPath',
     releaseDate: 'releaseDate',
     title: 'title',
-    video: false,
     voteAverage: 1,
     voteCount: 1,
   );
+  final tCatalogItemList = <CatalogItem>[tCatalogItem];
 
-  final tMovieList = <Movie>[tMovie];
-
-  test('should change state to loading when usecase is called', () async {
+  test('should change movie state to loading when usecase is called', () async {
     // arrange
-    when(mockGetPopularMovies.execute())
-        .thenAnswer((_) async => Right(tMovieList));
+    when(mockGetPopularMovies.execute(Catalog.movie))
+        .thenAnswer((_) async => Right(tCatalogItemList));
     // act
-    notifier.fetchPopularMovies();
+    notifier.fetchPopularMovies(Catalog.movie);
     // assert
     expect(notifier.state, RequestState.Loading);
     expect(listenerCallCount, 1);
@@ -56,22 +55,57 @@ void main() {
 
   test('should change movies data when data is gotten successfully', () async {
     // arrange
-    when(mockGetPopularMovies.execute())
-        .thenAnswer((_) async => Right(tMovieList));
+    when(mockGetPopularMovies.execute(Catalog.movie))
+        .thenAnswer((_) async => Right(tCatalogItemList));
     // act
-    await notifier.fetchPopularMovies();
+    await notifier.fetchPopularMovies(Catalog.movie);
     // assert
     expect(notifier.state, RequestState.Loaded);
-    expect(notifier.movies, tMovieList);
+    expect(notifier.catalogItem, tCatalogItemList);
     expect(listenerCallCount, 2);
   });
 
-  test('should return error when data is unsuccessful', () async {
+  test('should movie return error when data is unsuccessful', () async {
     // arrange
-    when(mockGetPopularMovies.execute())
+    when(mockGetPopularMovies.execute(Catalog.movie))
         .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
     // act
-    await notifier.fetchPopularMovies();
+    await notifier.fetchPopularMovies(Catalog.movie);
+    // assert
+    expect(notifier.state, RequestState.Error);
+    expect(notifier.message, 'Server Failure');
+    expect(listenerCallCount, 2);
+  });
+
+  test('should change tv state to loading when usecase is called', () async {
+    // arrange
+    when(mockGetPopularMovies.execute(Catalog.tv))
+        .thenAnswer((_) async => Right(tCatalogItemList));
+    // act
+    notifier.fetchPopularMovies(Catalog.tv);
+    // assert
+    expect(notifier.state, RequestState.Loading);
+    expect(listenerCallCount, 1);
+  });
+
+  test('should change tv data when data is gotten successfully', () async {
+    // arrange
+    when(mockGetPopularMovies.execute(Catalog.tv))
+        .thenAnswer((_) async => Right(tCatalogItemList));
+    // act
+    await notifier.fetchPopularMovies(Catalog.tv);
+    // assert
+    expect(notifier.state, RequestState.Loaded);
+    expect(notifier.catalogItem, tCatalogItemList);
+    expect(listenerCallCount, 2);
+  });
+
+  test('should tv return error when data is unsuccessful', () async {
+    // arrange
+    when(mockGetPopularMovies.execute(Catalog.tv))
+        .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+    // act
+    await notifier.fetchPopularMovies(Catalog.tv);
     // assert
     expect(notifier.state, RequestState.Error);
     expect(notifier.message, 'Server Failure');

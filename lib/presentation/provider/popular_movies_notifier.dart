@@ -1,27 +1,28 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/movie.dart';
-import 'package:ditonton/domain/usecases/get_popular_movies.dart';
+import 'package:ditonton/domain/entities/catalog.dart';
+import 'package:ditonton/domain/entities/catalog_item.dart';
+import 'package:ditonton/domain/usecases/get_popular.dart';
 import 'package:flutter/foundation.dart';
 
 class PopularMoviesNotifier extends ChangeNotifier {
-  final GetPopularMovies getPopularMovies;
+  final GetPopular getPopular;
 
-  PopularMoviesNotifier(this.getPopularMovies);
+  PopularMoviesNotifier(this.getPopular);
 
   RequestState _state = RequestState.Empty;
   RequestState get state => _state;
 
-  List<Movie> _movies = [];
-  List<Movie> get movies => _movies;
+  List<CatalogItem> _catalogItem = [];
+  List<CatalogItem> get catalogItem => _catalogItem;
 
   String _message = '';
   String get message => _message;
 
-  Future<void> fetchPopularMovies() async {
+  Future<void> fetchPopularMovies(Catalog catalog) async {
     _state = RequestState.Loading;
     notifyListeners();
 
-    final result = await getPopularMovies.execute();
+    final result = await getPopular.execute(catalog);
 
     result.fold(
       (failure) {
@@ -29,8 +30,8 @@ class PopularMoviesNotifier extends ChangeNotifier {
         _state = RequestState.Error;
         notifyListeners();
       },
-      (moviesData) {
-        _movies = moviesData;
+      (catalogItem) {
+        _catalogItem = catalogItem;
         _state = RequestState.Loaded;
         notifyListeners();
       },

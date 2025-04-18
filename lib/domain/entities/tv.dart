@@ -1,4 +1,4 @@
-import 'package:ditonton/domain/entities/now_playing.dart';
+import 'package:ditonton/domain/entities/catalog_item.dart';
 import 'package:equatable/equatable.dart';
 
 class Tv extends Equatable {
@@ -59,7 +59,7 @@ class Tv extends Equatable {
         voteCount,
       ];
 
-  NowPlaying toNowPlaying() => NowPlaying(
+  CatalogItem toCatalogItem() => CatalogItem(
         adult: this.adult,
         backdropPath: this.backdropPath,
         genreIds: this.genreIds,

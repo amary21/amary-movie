@@ -10,7 +10,7 @@ import 'package:ditonton/domain/repositories/tv_repository.dart';
 import 'package:ditonton/domain/usecases/get_movie_detail.dart';
 import 'package:ditonton/domain/usecases/get_movie_recommendations.dart';
 import 'package:ditonton/domain/usecases/get_now_playing.dart';
-import 'package:ditonton/domain/usecases/get_popular_movies.dart';
+import 'package:ditonton/domain/usecases/get_popular.dart';
 import 'package:ditonton/domain/usecases/get_top_rated_movies.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_movies.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
@@ -33,7 +33,7 @@ void init() {
   locator.registerFactory(
     () => MovieListNotifier(
       getNowPlaying: locator(),
-      getPopularMovies: locator(),
+      getPopular: locator(),
       getTopRatedMovies: locator(),
     ),
   );
@@ -69,7 +69,7 @@ void init() {
 
   // use case
   locator.registerLazySingleton(() => GetNowPlaying(locator(), locator()));
-  locator.registerLazySingleton(() => GetPopularMovies(locator()));
+  locator.registerLazySingleton(() => GetPopular(locator(), locator()));
   locator.registerLazySingleton(() => GetTopRatedMovies(locator()));
   locator.registerLazySingleton(() => GetMovieDetail(locator()));
   locator.registerLazySingleton(() => GetMovieRecommendations(locator()));

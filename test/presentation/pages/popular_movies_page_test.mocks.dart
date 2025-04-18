@@ -3,16 +3,16 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i7;
+import 'dart:async' as _i6;
 import 'dart:ui' as _i8;
 
-import 'package:ditonton/common/state_enum.dart' as _i4;
-import 'package:ditonton/domain/entities/movie.dart' as _i5;
-import 'package:ditonton/domain/usecases/get_popular_movies.dart' as _i2;
+import 'package:ditonton/common/state_enum.dart' as _i3;
+import 'package:ditonton/domain/entities/catalog.dart' as _i7;
+import 'package:ditonton/domain/entities/catalog_item.dart' as _i4;
 import 'package:ditonton/presentation/provider/popular_movies_notifier.dart'
-    as _i3;
+    as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i6;
+import 'package:mockito/src/dummies.dart' as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -27,51 +27,31 @@ import 'package:mockito/src/dummies.dart' as _i6;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeGetPopularMovies_0 extends _i1.SmartFake
-    implements _i2.GetPopularMovies {
-  _FakeGetPopularMovies_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [PopularMoviesNotifier].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockPopularMoviesNotifier extends _i1.Mock
-    implements _i3.PopularMoviesNotifier {
+    implements _i2.PopularMoviesNotifier {
   MockPopularMoviesNotifier() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.GetPopularMovies get getPopularMovies => (super.noSuchMethod(
-        Invocation.getter(#getPopularMovies),
-        returnValue: _FakeGetPopularMovies_0(
-          this,
-          Invocation.getter(#getPopularMovies),
-        ),
-      ) as _i2.GetPopularMovies);
-
-  @override
-  _i4.RequestState get state => (super.noSuchMethod(
+  _i3.RequestState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i4.RequestState.Empty,
-      ) as _i4.RequestState);
+        returnValue: _i3.RequestState.Empty,
+      ) as _i3.RequestState);
 
   @override
-  List<_i5.Movie> get movies => (super.noSuchMethod(
-        Invocation.getter(#movies),
-        returnValue: <_i5.Movie>[],
-      ) as List<_i5.Movie>);
+  List<_i4.CatalogItem> get catalogItem => (super.noSuchMethod(
+        Invocation.getter(#catalogItem),
+        returnValue: <_i4.CatalogItem>[],
+      ) as List<_i4.CatalogItem>);
 
   @override
   String get message => (super.noSuchMethod(
         Invocation.getter(#message),
-        returnValue: _i6.dummyValue<String>(
+        returnValue: _i5.dummyValue<String>(
           this,
           Invocation.getter(#message),
         ),
@@ -84,14 +64,15 @@ class MockPopularMoviesNotifier extends _i1.Mock
       ) as bool);
 
   @override
-  _i7.Future<void> fetchPopularMovies() => (super.noSuchMethod(
+  _i6.Future<void> fetchPopularMovies(_i7.Catalog? catalog) =>
+      (super.noSuchMethod(
         Invocation.method(
           #fetchPopularMovies,
-          [],
+          [catalog],
         ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
 
   @override
   void addListener(_i8.VoidCallback? listener) => super.noSuchMethod(

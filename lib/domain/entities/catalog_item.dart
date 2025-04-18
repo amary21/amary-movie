@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class NowPlaying extends Equatable {
+class CatalogItem extends Equatable {
   bool? adult;
   String? backdropPath;
   List<int>? genreIds;
@@ -14,7 +14,7 @@ class NowPlaying extends Equatable {
   double? voteAverage;
   int? voteCount;
 
-  NowPlaying({
+  CatalogItem({
     required this.adult,
     required this.backdropPath,
     required this.genreIds,
