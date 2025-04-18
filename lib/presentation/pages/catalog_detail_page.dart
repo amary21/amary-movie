@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/catalog.dart';
 import 'package:ditonton/domain/entities/catalog_detail.dart';
+import 'package:ditonton/domain/entities/catalog_item.dart';
 import 'package:ditonton/domain/entities/genre.dart';
-import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/presentation/provider/catalog_detail_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:flutter/material.dart';
@@ -42,14 +42,14 @@ class _CatalogDetailPageState extends State<CatalogDetailPage> {
     return Scaffold(
       body: Consumer<CatalogDetailNotifier>(
         builder: (context, provider, child) {
-          if (provider.movieState == RequestState.Loading) {
+          if (provider.catalogState == RequestState.Loading) {
             return Center(child: CircularProgressIndicator());
-          } else if (provider.movieState == RequestState.Loaded) {
+          } else if (provider.catalogState == RequestState.Loaded) {
             final movie = provider.catalog;
             return SafeArea(
               child: DetailContent(
                 movie,
-                provider.movieRecommendations,
+                provider.catalogRecommendations,
                 provider.isAddedToWatchlist,
                 widget.catalog,
               ),
@@ -65,7 +65,7 @@ class _CatalogDetailPageState extends State<CatalogDetailPage> {
 
 class DetailContent extends StatelessWidget {
   final CatalogDetail catalogDetail;
-  final List<Movie> recommendations;
+  final List<CatalogItem> recommendations;
   final bool isAddedWatchlist;
   final Catalog catalog;
 

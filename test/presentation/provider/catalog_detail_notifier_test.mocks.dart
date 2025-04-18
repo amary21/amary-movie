@@ -9,11 +9,11 @@ import 'package:dartz/dartz.dart' as _i2;
 import 'package:ditonton/common/failure.dart' as _i6;
 import 'package:ditonton/domain/entities/catalog.dart' as _i8;
 import 'package:ditonton/domain/entities/catalog_detail.dart' as _i7;
-import 'package:ditonton/domain/entities/movie.dart' as _i10;
+import 'package:ditonton/domain/entities/catalog_item.dart' as _i10;
 import 'package:ditonton/domain/entities/movie_detail.dart' as _i13;
 import 'package:ditonton/domain/repositories/movie_repository.dart' as _i3;
 import 'package:ditonton/domain/usecases/get_detail.dart' as _i4;
-import 'package:ditonton/domain/usecases/get_movie_recommendations.dart' as _i9;
+import 'package:ditonton/domain/usecases/get_recommendations.dart' as _i9;
 import 'package:ditonton/domain/usecases/get_watchlist_status.dart' as _i11;
 import 'package:ditonton/domain/usecases/remove_watchlist.dart' as _i14;
 import 'package:ditonton/domain/usecases/save_watchlist.dart' as _i12;
@@ -89,41 +89,41 @@ class MockGetDetail extends _i1.Mock implements _i4.GetDetail {
       ) as _i5.Future<_i2.Either<_i6.Failure, _i7.CatalogDetail>>);
 }
 
-/// A class which mocks [GetMovieRecommendations].
+/// A class which mocks [GetRecommendations].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetMovieRecommendations extends _i1.Mock
-    implements _i9.GetMovieRecommendations {
-  MockGetMovieRecommendations() {
+class MockGetRecommendations extends _i1.Mock
+    implements _i9.GetRecommendations {
+  MockGetRecommendations() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.MovieRepository get repository => (super.noSuchMethod(
-        Invocation.getter(#repository),
-        returnValue: _FakeMovieRepository_1(
-          this,
-          Invocation.getter(#repository),
-        ),
-      ) as _i3.MovieRepository);
-
-  @override
-  _i5.Future<_i2.Either<_i6.Failure, List<_i10.Movie>>> execute(dynamic id) =>
+  _i5.Future<_i2.Either<_i6.Failure, List<_i10.CatalogItem>>> execute(
+    _i8.Catalog? catalog,
+    dynamic id,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
-          [id],
+          [
+            catalog,
+            id,
+          ],
         ),
         returnValue:
-            _i5.Future<_i2.Either<_i6.Failure, List<_i10.Movie>>>.value(
-                _FakeEither_0<_i6.Failure, List<_i10.Movie>>(
+            _i5.Future<_i2.Either<_i6.Failure, List<_i10.CatalogItem>>>.value(
+                _FakeEither_0<_i6.Failure, List<_i10.CatalogItem>>(
           this,
           Invocation.method(
             #execute,
-            [id],
+            [
+              catalog,
+              id,
+            ],
           ),
         )),
-      ) as _i5.Future<_i2.Either<_i6.Failure, List<_i10.Movie>>>);
+      ) as _i5.Future<_i2.Either<_i6.Failure, List<_i10.CatalogItem>>>);
 }
 
 /// A class which mocks [GetWatchListStatus].

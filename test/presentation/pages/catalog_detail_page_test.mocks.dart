@@ -9,10 +9,10 @@ import 'dart:ui' as _i15;
 import 'package:ditonton/common/state_enum.dart' as _i9;
 import 'package:ditonton/domain/entities/catalog.dart' as _i13;
 import 'package:ditonton/domain/entities/catalog_detail.dart' as _i7;
-import 'package:ditonton/domain/entities/movie.dart' as _i10;
+import 'package:ditonton/domain/entities/catalog_item.dart' as _i10;
 import 'package:ditonton/domain/entities/movie_detail.dart' as _i14;
 import 'package:ditonton/domain/usecases/get_detail.dart' as _i2;
-import 'package:ditonton/domain/usecases/get_movie_recommendations.dart' as _i3;
+import 'package:ditonton/domain/usecases/get_recommendations.dart' as _i3;
 import 'package:ditonton/domain/usecases/get_watchlist_status.dart' as _i4;
 import 'package:ditonton/domain/usecases/remove_watchlist.dart' as _i6;
 import 'package:ditonton/domain/usecases/save_watchlist.dart' as _i5;
@@ -44,9 +44,9 @@ class _FakeGetDetail_0 extends _i1.SmartFake implements _i2.GetDetail {
         );
 }
 
-class _FakeGetMovieRecommendations_1 extends _i1.SmartFake
-    implements _i3.GetMovieRecommendations {
-  _FakeGetMovieRecommendations_1(
+class _FakeGetRecommendations_1 extends _i1.SmartFake
+    implements _i3.GetRecommendations {
+  _FakeGetRecommendations_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -116,14 +116,13 @@ class MockCatalogDetailNotifier extends _i1.Mock
       ) as _i2.GetDetail);
 
   @override
-  _i3.GetMovieRecommendations get getMovieRecommendations =>
-      (super.noSuchMethod(
-        Invocation.getter(#getMovieRecommendations),
-        returnValue: _FakeGetMovieRecommendations_1(
+  _i3.GetRecommendations get getRecommendations => (super.noSuchMethod(
+        Invocation.getter(#getRecommendations),
+        returnValue: _FakeGetRecommendations_1(
           this,
-          Invocation.getter(#getMovieRecommendations),
+          Invocation.getter(#getRecommendations),
         ),
-      ) as _i3.GetMovieRecommendations);
+      ) as _i3.GetRecommendations);
 
   @override
   _i4.GetWatchListStatus get getWatchListStatus => (super.noSuchMethod(
@@ -162,16 +161,16 @@ class MockCatalogDetailNotifier extends _i1.Mock
       ) as _i7.CatalogDetail);
 
   @override
-  _i9.RequestState get movieState => (super.noSuchMethod(
-        Invocation.getter(#movieState),
+  _i9.RequestState get catalogState => (super.noSuchMethod(
+        Invocation.getter(#catalogState),
         returnValue: _i9.RequestState.Empty,
       ) as _i9.RequestState);
 
   @override
-  List<_i10.Movie> get movieRecommendations => (super.noSuchMethod(
-        Invocation.getter(#movieRecommendations),
-        returnValue: <_i10.Movie>[],
-      ) as List<_i10.Movie>);
+  List<_i10.CatalogItem> get catalogRecommendations => (super.noSuchMethod(
+        Invocation.getter(#catalogRecommendations),
+        returnValue: <_i10.CatalogItem>[],
+      ) as List<_i10.CatalogItem>);
 
   @override
   _i9.RequestState get recommendationState => (super.noSuchMethod(

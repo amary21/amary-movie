@@ -1,9 +1,9 @@
 import 'package:ditonton/domain/entities/catalog.dart';
 import 'package:ditonton/domain/entities/catalog_detail.dart';
-import 'package:ditonton/domain/entities/movie.dart';
+import 'package:ditonton/domain/entities/catalog_item.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
 import 'package:ditonton/domain/usecases/get_detail.dart';
-import 'package:ditonton/domain/usecases/get_movie_recommendations.dart';
+import 'package:ditonton/domain/usecases/get_recommendations.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/remove_watchlist.dart';
@@ -16,14 +16,14 @@ class CatalogDetailNotifier extends ChangeNotifier {
   static const watchlistRemoveSuccessMessage = 'Removed from Watchlist';
 
   final GetDetail getDetail;
-  final GetMovieRecommendations getMovieRecommendations;
+  final GetRecommendations getRecommendations;
   final GetWatchListStatus getWatchListStatus;
   final SaveWatchlist saveWatchlist;
   final RemoveWatchlist removeWatchlist;
 
   CatalogDetailNotifier({
     required this.getDetail,
-    required this.getMovieRecommendations,
+    required this.getRecommendations,
     required this.getWatchListStatus,
     required this.saveWatchlist,
     required this.removeWatchlist,
@@ -32,11 +32,11 @@ class CatalogDetailNotifier extends ChangeNotifier {
   late CatalogDetail _catalog;
   CatalogDetail get catalog => _catalog;
 
-  RequestState _movieState = RequestState.Empty;
-  RequestState get movieState => _movieState;
+  RequestState _catalogState = RequestState.Empty;
+  RequestState get catalogState => _catalogState;
 
-  List<Movie> _movieRecommendations = [];
-  List<Movie> get movieRecommendations => _movieRecommendations;
+  List<CatalogItem> _catalogRecommendations = [];
+  List<CatalogItem> get catalogRecommendations => _catalogRecommendations;
 
   RequestState _recommendationState = RequestState.Empty;
   RequestState get recommendationState => _recommendationState;
@@ -48,13 +48,13 @@ class CatalogDetailNotifier extends ChangeNotifier {
   bool get isAddedToWatchlist => _isAddedtoWatchlist;
 
   Future<void> fetchDetail(Catalog catalog, int id) async {
-    _movieState = RequestState.Loading;
+    _catalogState = RequestState.Loading;
     notifyListeners();
     final detailResult = await getDetail.execute(catalog, id);
-    final recommendationResult = await getMovieRecommendations.execute(id);
+    final recommendationResult = await getRecommendations.execute(catalog, id);
     detailResult.fold(
       (failure) {
-        _movieState = RequestState.Error;
+        _catalogState = RequestState.Error;
         _message = failure.message;
         notifyListeners();
       },
@@ -67,12 +67,12 @@ class CatalogDetailNotifier extends ChangeNotifier {
             _recommendationState = RequestState.Error;
             _message = failure.message;
           },
-          (movies) {
+          (data) {
             _recommendationState = RequestState.Loaded;
-            _movieRecommendations = movies;
+            _catalogRecommendations = data;
           },
         );
-        _movieState = RequestState.Loaded;
+        _catalogState = RequestState.Loaded;
         notifyListeners();
       },
     );
