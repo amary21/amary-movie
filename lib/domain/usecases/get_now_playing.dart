@@ -14,26 +14,16 @@ class GetNowPlaying {
   Future<Either<Failure, List<CatalogItem>>> execute(Catalog catalog) async {
     if (catalog == Catalog.movie) {
       final result = await _movieRepository.getNowPlayingMovies();
-      return result.fold(
-        (failure) => Left(failure),
-        (data) {
-          final movies = data.map(
-            (movie) => movie.toCatalogItem(),
-          ).toList();
-          return Right(movies);
-        },
-      );
+      return result.fold((failure) => Left(failure), (data) {
+        final movies = data.map((movie) => movie.toCatalogItem()).toList();
+        return Right(movies);
+      });
     } else if (catalog == Catalog.tv) {
       final result = await _tvRepository.getNowPlayingTv();
-      return result.fold(
-        (failure) => Left(failure),
-        (data) {
-          final tvs = data.map(
-            (tv) => tv.toCatalogItem(),
-          ).toList();
-          return Right(tvs);
-        },
-      );
+      return result.fold((failure) => Left(failure), (data) {
+        final tvs = data.map((tv) => tv.toCatalogItem()).toList();
+        return Right(tvs);
+      });
     } else {
       return Left(ServerFailure('Invalid catalog type'));
     }

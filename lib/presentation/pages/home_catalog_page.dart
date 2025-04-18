@@ -23,10 +23,12 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
   void initState() {
     super.initState();
     Future.microtask(
-        () => Provider.of<CatalogListNotifier>(context, listen: false)
-          ..fetchNowPlaying(Catalog.movie)
-          ..fetchPopular(Catalog.movie)
-          ..fetchTopRated(Catalog.movie));
+      () =>
+          Provider.of<CatalogListNotifier>(context, listen: false)
+            ..fetchNowPlaying(Catalog.movie)
+            ..fetchPopular(Catalog.movie)
+            ..fetchTopRated(Catalog.movie),
+    );
   }
 
   @override
@@ -42,9 +44,7 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
               ),
               accountName: Text('Ditonton'),
               accountEmail: Text('ditonton@dicoding.com'),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade900,
-              ),
+              decoration: BoxDecoration(color: Colors.grey.shade900),
             ),
             ListTile(
               leading: Icon(Icons.movie),
@@ -90,10 +90,19 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, SearchPage.ROUTE_NAME);
+              final catalog =
+                  Provider.of<CatalogListNotifier>(
+                    context,
+                    listen: false,
+                  ).catalog;
+              Navigator.pushNamed(
+                context,
+                SearchPage.ROUTE_NAME,
+                arguments: catalog,
+              );
             },
             icon: Icon(Icons.search),
-          )
+          ),
         ],
       ),
       body: Padding(
@@ -102,60 +111,69 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Now Playing',
-                style: kHeading6,
+              Text('Now Playing', style: kHeading6),
+              Consumer<CatalogListNotifier>(
+                builder: (context, data, child) {
+                  final state = data.nowPlayingState;
+                  if (state == RequestState.Loading) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (state == RequestState.Loaded) {
+                    return CatalogList(data.nowPlaying);
+                  } else {
+                    return Text('Failed');
+                  }
+                },
               ),
-              Consumer<CatalogListNotifier>(builder: (context, data, child) {
-                final state = data.nowPlayingState;
-                if (state == RequestState.Loading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
+              Consumer<CatalogListNotifier>(
+                builder: (context, data, child) {
+                  return _buildSubHeading(
+                    title: 'Popular',
+                    onTap:
+                        () => Navigator.pushNamed(
+                          context,
+                          PopularCatalogPage.ROUTE_NAME,
+                          arguments: data.catalog,
+                        ),
                   );
-                } else if (state == RequestState.Loaded) {
-                  return CatalogList(data.nowPlaying);
-                } else {
-                  return Text('Failed');
-                }
-              }),
-              Consumer<CatalogListNotifier>(builder: (context, data, child) {
-                return _buildSubHeading(
-                  title: 'Popular',
-                  onTap: () => Navigator.pushNamed(
-                      context, PopularCatalogPage.ROUTE_NAME, arguments: data.catalog),
-                );
-              }),
-              Consumer<CatalogListNotifier>(builder: (context, data, child) {
-                final state = data.popularState;
-                if (state == RequestState.Loading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
+                },
+              ),
+              Consumer<CatalogListNotifier>(
+                builder: (context, data, child) {
+                  final state = data.popularState;
+                  if (state == RequestState.Loading) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (state == RequestState.Loaded) {
+                    return CatalogList(data.popular);
+                  } else {
+                    return Text('Failed');
+                  }
+                },
+              ),
+              Consumer<CatalogListNotifier>(
+                builder: (context, data, child) {
+                  return _buildSubHeading(
+                    title: 'Top Rated',
+                    onTap:
+                        () => Navigator.pushNamed(
+                          context,
+                          TopRatedCatalogPage.ROUTE_NAME,
+                          arguments: data.catalog,
+                        ),
                   );
-                } else if (state == RequestState.Loaded) {
-                  return CatalogList(data.popular);
-                } else {
-                  return Text('Failed');
-                }
-              }),
-              Consumer<CatalogListNotifier>(builder: (context, data, child) {
-                return _buildSubHeading(
-                  title: 'Top Rated',
-                  onTap: () => Navigator.pushNamed(
-                      context, TopRatedCatalogPage.ROUTE_NAME, arguments: data.catalog),
-                );
-              }),
-              Consumer<CatalogListNotifier>(builder: (context, data, child) {
-                final state = data.topRatedState;
-                if (state == RequestState.Loading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state == RequestState.Loaded) {
-                  return CatalogList(data.topRated);
-                } else {
-                  return Text('Failed');
-                }
-              }),
+                },
+              ),
+              Consumer<CatalogListNotifier>(
+                builder: (context, data, child) {
+                  final state = data.topRatedState;
+                  if (state == RequestState.Loading) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (state == RequestState.Loaded) {
+                    return CatalogList(data.topRated);
+                  } else {
+                    return Text('Failed');
+                  }
+                },
+              ),
             ],
           ),
         ),
@@ -167,10 +185,7 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: kHeading6,
-        ),
+        Text(title, style: kHeading6),
         InkWell(
           onTap: onTap,
           child: Padding(
@@ -212,9 +227,9 @@ class CatalogList extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
                   imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',
-                  placeholder: (context, url) => Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  placeholder:
+                      (context, url) =>
+                          Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),
