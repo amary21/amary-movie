@@ -1,23 +1,25 @@
+import 'package:ditonton/presentation/bloc/home/catalog_list_event.dart';
+import 'package:ditonton/presentation/bloc/home/catalog_list_state.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/catalog.dart';
 import 'package:ditonton/domain/entities/catalog_item.dart';
+import 'package:ditonton/presentation/bloc/home/catalog_list_bloc.dart';
+import 'package:ditonton/presentation/bloc/home/catalog_category_state.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/catalog_detail_page.dart';
 import 'package:ditonton/presentation/pages/popular_catalog_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_catalog_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_page.dart';
-import 'package:ditonton/presentation/provider/catalog_list_notifier.dart';
-import 'package:ditonton/common/state_enum.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class HomeCatalogPage extends StatefulWidget {
   const HomeCatalogPage({super.key});
 
   @override
-  _HomeCatalogPageState createState() => _HomeCatalogPageState();
+  State<HomeCatalogPage> createState() => _HomeCatalogPageState();
 }
 
 class _HomeCatalogPageState extends State<HomeCatalogPage> {
@@ -25,10 +27,7 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<CatalogListNotifier>(context, listen: false)
-        ..fetchNowPlaying(Catalog.movie)
-        ..fetchPopular(Catalog.movie)
-        ..fetchTopRated(Catalog.movie);
+      context.read<CatalogListBloc>().add(FetchCatalogList(Catalog.movie));
     });
   }
 
@@ -51,10 +50,9 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
               leading: Icon(Icons.movie),
               title: Text('Movies'),
               onTap: () {
-                Provider.of<CatalogListNotifier>(context, listen: false)
-                  ..fetchNowPlaying(Catalog.movie)
-                  ..fetchPopular(Catalog.movie)
-                  ..fetchTopRated(Catalog.movie);
+                context.read<CatalogListBloc>().add(
+                  FetchCatalogList(Catalog.movie),
+                );
                 Navigator.pop(context);
               },
             ),
@@ -62,10 +60,9 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
               leading: Icon(Icons.tv),
               title: Text('Tv Series'),
               onTap: () {
-                Provider.of<CatalogListNotifier>(context, listen: false)
-                  ..fetchNowPlaying(Catalog.tv)
-                  ..fetchPopular(Catalog.tv)
-                  ..fetchTopRated(Catalog.tv);
+                context.read<CatalogListBloc>().add(
+                  FetchCatalogList(Catalog.tv),
+                );
                 Navigator.pop(context);
               },
             ),
@@ -106,11 +103,7 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
         actions: [
           IconButton(
             onPressed: () {
-              final catalog =
-                  Provider.of<CatalogListNotifier>(
-                    context,
-                    listen: false,
-                  ).catalog;
+              final catalog = context.read<CatalogListBloc>().state.catalog;
               Navigator.pushNamed(
                 context,
                 SearchPage.routeName,
@@ -123,78 +116,54 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Now Playing', style: kHeading6),
-              Consumer<CatalogListNotifier>(
-                builder: (context, data, child) {
-                  final state = data.nowPlayingState;
-                  if (state == RequestState.Loading) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (state == RequestState.Loaded) {
-                    return CatalogList(data.nowPlaying);
-                  } else {
-                    return Text('Failed');
-                  }
-                },
-              ),
-              Consumer<CatalogListNotifier>(
-                builder: (context, data, child) {
-                  return _buildSubHeading(
+        child: BlocBuilder<CatalogListBloc, CatalogListState>(
+          builder: (context, state) {
+            return SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Now Playing', style: kHeading6),
+                  _buildSection(state.nowPlaying),
+                  _buildSubHeading(
                     title: 'Popular',
                     onTap:
                         () => Navigator.pushNamed(
                           context,
                           PopularCatalogPage.routeName,
-                          arguments: data.catalog,
+                          arguments: state.catalog,
                         ),
-                  );
-                },
-              ),
-              Consumer<CatalogListNotifier>(
-                builder: (context, data, child) {
-                  final state = data.popularState;
-                  if (state == RequestState.Loading) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (state == RequestState.Loaded) {
-                    return CatalogList(data.popular);
-                  } else {
-                    return Text('Failed');
-                  }
-                },
-              ),
-              Consumer<CatalogListNotifier>(
-                builder: (context, data, child) {
-                  return _buildSubHeading(
+                  ),
+                  _buildSection(state.popular),
+                  _buildSubHeading(
                     title: 'Top Rated',
                     onTap:
                         () => Navigator.pushNamed(
                           context,
                           TopRatedCatalogPage.routeName,
-                          arguments: data.catalog,
+                          arguments: state.catalog,
                         ),
-                  );
-                },
+                  ),
+                  _buildSection(state.topRated),
+                ],
               ),
-              Consumer<CatalogListNotifier>(
-                builder: (context, data, child) {
-                  final state = data.topRatedState;
-                  if (state == RequestState.Loading) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (state == RequestState.Loaded) {
-                    return CatalogList(data.topRated);
-                  } else {
-                    return Text('Failed');
-                  }
-                },
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
+  }
+
+  Widget _buildSection(CatalogCategoryState categoryState) {
+    switch (categoryState) {
+      case CatalogCategoryLoading():
+        return const Center(child: CircularProgressIndicator());
+      case CatalogCategoryLoaded(:final items):
+        return CatalogList(items);
+      case CatalogCategoryError(:final message):
+        return Center(child: Text(message));
+      default:
+        return const SizedBox();
+    }
   }
 
   Row _buildSubHeading({required String title, required Function() onTap}) {
@@ -223,14 +192,14 @@ class CatalogList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final catalog = context.read<CatalogListBloc>().state.catalog;
     return SizedBox(
       height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
+        itemCount: nowPlaying.length,
         itemBuilder: (context, index) {
           final catalogItem = nowPlaying[index];
-          final catalog =
-              Provider.of<CatalogListNotifier>(context, listen: false).catalog;
           return Container(
             padding: const EdgeInsets.all(8),
             child: InkWell(
@@ -242,19 +211,18 @@ class CatalogList extends StatelessWidget {
                 );
               },
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(16)),
+                borderRadius: BorderRadius.circular(16),
                 child: CachedNetworkImage(
                   imageUrl: '$baseUrlImage${catalogItem.posterPath}',
                   placeholder:
                       (context, url) =>
-                          Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                          const Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
             ),
           );
         },
-        itemCount: nowPlaying.length,
       ),
     );
   }

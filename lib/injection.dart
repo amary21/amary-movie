@@ -17,6 +17,7 @@ import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:ditonton/domain/usecases/search_catalog.dart';
+import 'package:ditonton/presentation/bloc/home/catalog_list_bloc.dart';
 import 'package:ditonton/presentation/bloc/popular/popular_catalog_bloc.dart';
 import 'package:ditonton/presentation/bloc/search/search_bloc.dart';
 import 'package:ditonton/presentation/bloc/top_rated/top_rated_catalog_bloc.dart';
@@ -44,6 +45,13 @@ Future<void> init() async {
   locator.registerFactory(() => WatchlistBloc(locator()));
   locator.registerFactory(() => TopRatedCatalogBloc(locator()));
   locator.registerFactory(() => PopularCatalogBloc(locator()));
+  locator.registerFactory(
+    () => CatalogListBloc(
+      getNowPlaying: locator(),
+      getPopular: locator(),
+      getTopRated: locator(),
+    ),
+  );
 
   // provider
   locator.registerFactory(
