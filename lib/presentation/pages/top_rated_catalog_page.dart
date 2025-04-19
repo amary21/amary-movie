@@ -19,12 +19,12 @@ class _TopRatedCatalogPageState extends State<TopRatedCatalogPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => Provider.of<TopRatedCatalogNotifier>(
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<TopRatedCatalogNotifier>(
         context,
         listen: false,
-      ).fetchTopRated(widget.catalog),
-    );
+      ).fetchTopRated(widget.catalog);
+    });
   }
 
   @override

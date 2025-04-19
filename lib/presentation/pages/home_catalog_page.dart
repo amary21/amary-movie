@@ -24,13 +24,12 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () =>
-          Provider.of<CatalogListNotifier>(context, listen: false)
-            ..fetchNowPlaying(Catalog.movie)
-            ..fetchPopular(Catalog.movie)
-            ..fetchTopRated(Catalog.movie),
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<CatalogListNotifier>(context, listen: false)
+        ..fetchNowPlaying(Catalog.movie)
+        ..fetchPopular(Catalog.movie)
+        ..fetchTopRated(Catalog.movie);
+    });
   }
 
   @override

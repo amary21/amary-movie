@@ -19,12 +19,12 @@ class _PopularCatalogPageState extends State<PopularCatalogPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => Provider.of<PopularCatalogNotifier>(
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<PopularCatalogNotifier>(
         context,
         listen: false,
-      ).fetchPopular(widget.catalog),
-    );
+      ).fetchPopular(widget.catalog);
+    });
   }
 
   @override

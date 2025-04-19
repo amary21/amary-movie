@@ -21,7 +21,9 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => context.read<SearchBloc>().add(OnResetSearch()));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<SearchBloc>().add(OnResetSearch());
+    });
   }
 
   @override

@@ -22,9 +22,9 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => context.read<WatchlistBloc>().add(FetchWatchlist(widget.catalog)),
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<WatchlistBloc>().add(FetchWatchlist(widget.catalog));
+    });
   }
 
   @override

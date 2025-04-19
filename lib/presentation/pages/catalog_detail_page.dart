@@ -25,15 +25,10 @@ class _CatalogDetailPageState extends State<CatalogDetailPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      Provider.of<CatalogDetailNotifier>(
-        context,
-        listen: false,
-      ).fetchDetail(widget.catalog, widget.id);
-      Provider.of<CatalogDetailNotifier>(
-        context,
-        listen: false,
-      ).loadWatchlistStatus(widget.catalog, widget.id);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<CatalogDetailNotifier>(context, listen: false)
+        ..fetchDetail(widget.catalog, widget.id)
+        ..loadWatchlistStatus(widget.catalog, widget.id);
     });
   }
 
