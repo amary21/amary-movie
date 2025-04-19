@@ -67,9 +67,7 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
   @override
   Future<List<TvModel>> getPopularTvs() async {
     final response = await client.get(
-      Uri.parse(
-        '${NetworkConfig.baseUrl}/tv/popular?${NetworkConfig.apiKey}',
-      ),
+      Uri.parse('${NetworkConfig.baseUrl}/tv/popular?${NetworkConfig.apiKey}'),
     );
 
     if (response.statusCode == 200) {
