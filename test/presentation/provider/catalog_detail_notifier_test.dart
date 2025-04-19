@@ -200,6 +200,21 @@ void main() {
       verify(mockRemoveWatchlist.execute(Catalog.tv, testCatalogDetail));
     });
 
+    test('should execute remove tv watchlist failed', () async {
+      // arrange
+      when(
+        mockRemoveWatchlist.execute(Catalog.tv, testCatalogDetail),
+      ).thenAnswer((_) async => Left(DatabaseFailure('Failed')));
+      when(
+        mockGetWatchlistStatus.execute(Catalog.tv, testMovieDetail.id),
+      ).thenAnswer((_) async => false);
+      // act
+      await provider.removeFromWatchlist(Catalog.tv, testCatalogDetail);
+      // assert
+      expect(provider.watchlistMessage, 'Failed');
+      expect(listenerCallCount, 1);
+    });
+
     test('should update watchlist status when add watchlist success', () async {
       // arrange
       when(
