@@ -52,64 +52,71 @@ class _SearchPageState extends State<SearchPage> {
             Text('Search Result', style: kHeading6),
             BlocBuilder<SearchBloc, SearchState>(
               builder: (context, state) {
-                if (state is SearchLoading) {
-                  return Center(child: CircularProgressIndicator());
-                } else if (state is SearchHasData) {
-                  final result = state.result;
-                  if (result.isEmpty) {
+                switch (state) {
+                  case SearchLoading():
+                    return const Center(child: CircularProgressIndicator());
+
+                  case SearchHasData(:final result):
+                    if (result.isEmpty) {
+                      return Expanded(
+                        child: Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: const [
+                              Icon(
+                                Icons.search_off,
+                                size: 80,
+                                color: Colors.grey,
+                              ),
+                              SizedBox(height: 16),
+                              Text(
+                                'No results found',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                'Try different keywords',
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                    return Expanded(
+                      child: ListView.builder(
+                        padding: const EdgeInsets.all(8),
+                        itemCount: result.length,
+                        itemBuilder: (context, index) {
+                          final catalog = result[index];
+                          return CatalogCard(catalog, widget.catalog);
+                        },
+                      ),
+                    );
+
+                  case SearchError(:final message):
+                    return Expanded(child: Center(child: Text(message)));
+
+                  default:
                     return Expanded(
                       child: Center(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
-                              Icons.search_off,
+                            const Icon(
+                              Icons.search,
                               size: 80,
                               color: Colors.grey,
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             Text(
-                              'No results found',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              'Try different keywords',
-                              style: TextStyle(color: Colors.grey),
+                              'Search for ${widget.catalog.name}',
+                              style: const TextStyle(fontSize: 16),
                             ),
                           ],
                         ),
                       ),
                     );
-                  }
-                  return Expanded(
-                    child: ListView.builder(
-                      padding: const EdgeInsets.all(8),
-                      itemBuilder: (context, index) {
-                        final catalog = result[index];
-                        return CatalogCard(catalog, widget.catalog);
-                      },
-                      itemCount: result.length,
-                    ),
-                  );
-                } else if (state is SearchError) {
-                  return Expanded(child: Center(child: Text(state.message)));
-                } else {
-                  return Expanded(
-                    child: Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.search, size: 80, color: Colors.grey),
-                          SizedBox(height: 16),
-                          Text(
-                            'Search for ${widget.catalog.name}',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
                 }
               },
             ),

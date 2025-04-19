@@ -46,43 +46,51 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
         padding: const EdgeInsets.all(8.0),
         child: BlocBuilder<WatchlistBloc, WatchlistState>(
           builder: (context, state) {
-            if (state is WatchlistLoading) {
-              return Center(child: CircularProgressIndicator());
-            } else if (state is WatchlistHasData) {
-              if (state.watchlist.isEmpty) {
-                return Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.bookmark_border, size: 80, color: Colors.grey),
-                      SizedBox(height: 16),
-                      Text(
-                        'No watchlist saved',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        'Add ${widget.catalog.name} to your watchlist',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ],
-                  ),
+            switch (state) {
+              case WatchlistLoading():
+                return const Center(child: CircularProgressIndicator());
+
+              case WatchlistHasData(:final watchlist):
+                if (watchlist.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          Icons.bookmark_border,
+                          size: 80,
+                          color: Colors.grey,
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'No watchlist saved',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Add ${widget.catalog.name} to your watchlist',
+                          style: const TextStyle(color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+                return ListView.builder(
+                  itemBuilder: (context, index) {
+                    final catalogItem = watchlist[index];
+                    return CatalogCard(catalogItem, widget.catalog);
+                  },
+                  itemCount: watchlist.length,
                 );
-              }
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  final catalogItem = state.watchlist[index];
-                  return CatalogCard(catalogItem, widget.catalog);
-                },
-                itemCount: state.watchlist.length,
-              );
-            } else if (state is WatchlistError) {
-              return Center(
-                key: Key('error_message'),
-                child: Text(state.message),
-              );
-            } else {
-              return Center(child: Text('No watchlist data available'));
+
+              case WatchlistError(:final message):
+                return Center(
+                  key: const Key('error_message'),
+                  child: Text(message),
+                );
+
+              default:
+                return const Center(child: Text('No watchlist data available'));
             }
           },
         ),

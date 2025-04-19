@@ -18,6 +18,7 @@ import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:ditonton/domain/usecases/search_catalog.dart';
 import 'package:ditonton/presentation/bloc/search/search_bloc.dart';
+import 'package:ditonton/presentation/bloc/top_rated/top_rated_catalog_bloc.dart';
 import 'package:ditonton/presentation/bloc/watchlist/watchlist_bloc.dart';
 import 'package:ditonton/presentation/provider/catalog_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/catalog_list_notifier.dart';
@@ -40,6 +41,7 @@ Future<void> init() async {
   // bloc
   locator.registerFactory(() => SearchBloc(locator()));
   locator.registerFactory(() => WatchlistBloc(locator()));
+  locator.registerFactory(() => TopRatedCatalogBloc(locator()));
 
   // provider
   locator.registerFactory(
