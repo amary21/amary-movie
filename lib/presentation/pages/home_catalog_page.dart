@@ -76,7 +76,7 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  WatchlistPage.ROUTE_NAME,
+                  WatchlistPage.routeName,
                   arguments: Catalog.movie,
                 );
               },
@@ -87,14 +87,14 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  WatchlistPage.ROUTE_NAME,
+                  WatchlistPage.routeName,
                   arguments: Catalog.tv,
                 );
               },
             ),
             ListTile(
               onTap: () {
-                Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
+                Navigator.pushNamed(context, AboutPage.routeName);
               },
               leading: Icon(Icons.info_outline),
               title: Text('About'),
@@ -114,7 +114,7 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
                   ).catalog;
               Navigator.pushNamed(
                 context,
-                SearchPage.ROUTE_NAME,
+                SearchPage.routeName,
                 arguments: catalog,
               );
             },
@@ -148,7 +148,7 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
                     onTap:
                         () => Navigator.pushNamed(
                           context,
-                          PopularCatalogPage.ROUTE_NAME,
+                          PopularCatalogPage.routeName,
                           arguments: data.catalog,
                         ),
                   );
@@ -173,7 +173,7 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
                     onTap:
                         () => Navigator.pushNamed(
                           context,
-                          TopRatedCatalogPage.ROUTE_NAME,
+                          TopRatedCatalogPage.routeName,
                           arguments: data.catalog,
                         ),
                   );
@@ -238,7 +238,7 @@ class CatalogList extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  CatalogDetailPage.ROUTE_NAME,
+                  CatalogDetailPage.routeName,
                   arguments: {'id': catalogItem.id, 'catalog': catalog},
                 );
               },

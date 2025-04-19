@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PopularCatalogPage extends StatefulWidget {
-  static const ROUTE_NAME = '/popular-catalog';
+  static const routeName = '/popular-catalog';
 
   final Catalog catalog;
   const PopularCatalogPage({super.key, required this.catalog});

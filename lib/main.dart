@@ -74,19 +74,19 @@ class MyApp extends StatelessWidget {
             switch (settings.name) {
               case '/home':
                 return MaterialPageRoute(builder: (_) => HomeCatalogPage());
-              case PopularCatalogPage.ROUTE_NAME:
+              case PopularCatalogPage.routeName:
                 final catalog = settings.arguments as Catalog;
                 return CupertinoPageRoute(
                   builder: (_) => PopularCatalogPage(catalog: catalog),
                   settings: settings,
                 );
-              case TopRatedCatalogPage.ROUTE_NAME:
+              case TopRatedCatalogPage.routeName:
                 final catalog = settings.arguments as Catalog;
                 return CupertinoPageRoute(
                   builder: (_) => TopRatedCatalogPage(catalog: catalog),
                   settings: settings,
                 );
-              case CatalogDetailPage.ROUTE_NAME:
+              case CatalogDetailPage.routeName:
                 final args = settings.arguments as Map<String, dynamic>;
                 final id = args['id'] as int;
                 final catalog = args['catalog'] as Catalog;
@@ -94,19 +94,19 @@ class MyApp extends StatelessWidget {
                   builder: (_) => CatalogDetailPage(id: id, catalog: catalog),
                   settings: settings,
                 );
-              case SearchPage.ROUTE_NAME:
+              case SearchPage.routeName:
                 final catalog = settings.arguments as Catalog;
                 return CupertinoPageRoute(
                   builder: (_) => SearchPage(catalog: catalog),
                   settings: settings,
                 );
-              case WatchlistPage.ROUTE_NAME:
+              case WatchlistPage.routeName:
                 final catalog = settings.arguments as Catalog;
                 return CupertinoPageRoute(
                   builder: (_) => WatchlistPage(catalog: catalog),
                   settings: settings,
                 );
-              case AboutPage.ROUTE_NAME:
+              case AboutPage.routeName:
                 return MaterialPageRoute(builder: (_) => AboutPage());
               default:
                 return MaterialPageRoute(

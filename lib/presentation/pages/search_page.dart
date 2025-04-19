@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchPage extends StatefulWidget {
-  static const ROUTE_NAME = '/search';
+  static const routeName = '/search';
 
   final Catalog catalog;
   const SearchPage({super.key, required this.catalog});

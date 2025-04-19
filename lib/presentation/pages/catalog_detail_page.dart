@@ -11,7 +11,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class CatalogDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/detail';
+  static const routeName = '/detail';
 
   final int id;
   final Catalog catalog;
@@ -233,7 +233,7 @@ class DetailContent extends StatelessWidget {
                                             onTap: () {
                                               Navigator.pushReplacementNamed(
                                                 context,
-                                                CatalogDetailPage.ROUTE_NAME,
+                                                CatalogDetailPage.routeName,
                                                 arguments: {
                                                   'id': catalogItem.id,
                                                   'catalog': catalog,

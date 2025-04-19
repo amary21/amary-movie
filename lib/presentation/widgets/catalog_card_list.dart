@@ -19,7 +19,7 @@ class CatalogCard extends StatelessWidget {
         onTap: () {
           Navigator.pushNamed(
             context,
-            CatalogDetailPage.ROUTE_NAME,
+            CatalogDetailPage.routeName,
             arguments: {'id': catalogItem.id, 'catalog': catalog},
           );
         },

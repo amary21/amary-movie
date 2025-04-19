@@ -28,7 +28,7 @@ void main() {
       ),
       navigatorObservers: [mockNavigatorObserver],
       onGenerateRoute: (RouteSettings settings) {
-        if (settings.name == CatalogDetailPage.ROUTE_NAME) {
+        if (settings.name == CatalogDetailPage.routeName) {
           return MaterialPageRoute(
             builder: (_) => const Scaffold(
               body: Center(
