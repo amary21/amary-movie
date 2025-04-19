@@ -1,9 +1,10 @@
-import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/catalog.dart';
-import 'package:ditonton/presentation/provider/popular_catalog_notifier.dart';
+import 'package:ditonton/presentation/bloc/popular/popular_catalog_bloc.dart';
+import 'package:ditonton/presentation/bloc/popular/popular_catalog_event.dart';
+import 'package:ditonton/presentation/bloc/popular/popular_catalog_state.dart';
 import 'package:ditonton/presentation/widgets/catalog_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PopularCatalogPage extends StatefulWidget {
   static const routeName = '/popular-catalog';
@@ -20,10 +21,9 @@ class _PopularCatalogPageState extends State<PopularCatalogPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<PopularCatalogNotifier>(
-        context,
-        listen: false,
-      ).fetchPopular(widget.catalog);
+      context.read<PopularCatalogBloc>().add(
+        FetchPopularCatalog(widget.catalog),
+      );
     });
   }
 
@@ -33,23 +33,26 @@ class _PopularCatalogPageState extends State<PopularCatalogPage> {
       appBar: AppBar(title: Text('Popular ${widget.catalog.name}')),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<PopularCatalogNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
-              return Center(child: CircularProgressIndicator());
-            } else if (data.state == RequestState.Loaded) {
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  final movie = data.catalogItem[index];
-                  return CatalogCard(movie, widget.catalog);
-                },
-                itemCount: data.catalogItem.length,
-              );
-            } else {
-              return Center(
-                key: Key('error_message'),
-                child: Text(data.message),
-              );
+        child: BlocBuilder<PopularCatalogBloc, PopularCatalogState>(
+          builder: (context, state) {
+            switch (state) {
+              case PopularCatalogLoading():
+                return const Center(child: CircularProgressIndicator());
+              case PopularCatalogHasData(:final items):
+                return ListView.builder(
+                  itemCount: items.length,
+                  itemBuilder: (context, index) {
+                    final catalogItem = items[index];
+                    return CatalogCard(catalogItem, widget.catalog);
+                  },
+                );
+              case PopularCatalogError(:final message):
+                return Center(
+                  key: const Key('error_message'),
+                  child: Text(message),
+                );
+              default:
+                return const SizedBox();
             }
           },
         ),

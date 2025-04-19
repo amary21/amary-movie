@@ -3,16 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i4;
 
-import 'package:bloc/bloc.dart' as _i7;
-import 'package:ditonton/domain/usecases/get_top_rated.dart' as _i2;
+import 'package:bloc/bloc.dart' as _i6;
 import 'package:ditonton/presentation/bloc/top_rated/top_rated_catalog_bloc.dart'
-    as _i4;
-import 'package:ditonton/presentation/bloc/top_rated/top_rated_catalog_event.dart'
-    as _i6;
-import 'package:ditonton/presentation/bloc/top_rated/top_rated_catalog_state.dart'
     as _i3;
+import 'package:ditonton/presentation/bloc/top_rated/top_rated_catalog_event.dart'
+    as _i5;
+import 'package:ditonton/presentation/bloc/top_rated/top_rated_catalog_state.dart'
+    as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -28,19 +27,9 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeGetTopRated_0 extends _i1.SmartFake implements _i2.GetTopRated {
-  _FakeGetTopRated_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeTopRatedCatalogState_1 extends _i1.SmartFake
-    implements _i3.TopRatedCatalogState {
-  _FakeTopRatedCatalogState_1(
+class _FakeTopRatedCatalogState_0 extends _i1.SmartFake
+    implements _i2.TopRatedCatalogState {
+  _FakeTopRatedCatalogState_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -53,39 +42,26 @@ class _FakeTopRatedCatalogState_1 extends _i1.SmartFake
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockTopRatedCatalogBloc extends _i1.Mock
-    implements _i4.TopRatedCatalogBloc {
+    implements _i3.TopRatedCatalogBloc {
   @override
-  _i2.GetTopRated get getTopRated => (super.noSuchMethod(
-        Invocation.getter(#getTopRated),
-        returnValue: _FakeGetTopRated_0(
-          this,
-          Invocation.getter(#getTopRated),
-        ),
-        returnValueForMissingStub: _FakeGetTopRated_0(
-          this,
-          Invocation.getter(#getTopRated),
-        ),
-      ) as _i2.GetTopRated);
-
-  @override
-  _i3.TopRatedCatalogState get state => (super.noSuchMethod(
+  _i2.TopRatedCatalogState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _FakeTopRatedCatalogState_1(
+        returnValue: _FakeTopRatedCatalogState_0(
           this,
           Invocation.getter(#state),
         ),
-        returnValueForMissingStub: _FakeTopRatedCatalogState_1(
+        returnValueForMissingStub: _FakeTopRatedCatalogState_0(
           this,
           Invocation.getter(#state),
         ),
-      ) as _i3.TopRatedCatalogState);
+      ) as _i2.TopRatedCatalogState);
 
   @override
-  _i5.Stream<_i3.TopRatedCatalogState> get stream => (super.noSuchMethod(
+  _i4.Stream<_i2.TopRatedCatalogState> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i5.Stream<_i3.TopRatedCatalogState>.empty(),
-        returnValueForMissingStub: _i5.Stream<_i3.TopRatedCatalogState>.empty(),
-      ) as _i5.Stream<_i3.TopRatedCatalogState>);
+        returnValue: _i4.Stream<_i2.TopRatedCatalogState>.empty(),
+        returnValueForMissingStub: _i4.Stream<_i2.TopRatedCatalogState>.empty(),
+      ) as _i4.Stream<_i2.TopRatedCatalogState>);
 
   @override
   bool get isClosed => (super.noSuchMethod(
@@ -95,7 +71,7 @@ class MockTopRatedCatalogBloc extends _i1.Mock
       ) as bool);
 
   @override
-  void add(_i6.TopRatedCatalogEvent? event) => super.noSuchMethod(
+  void add(_i5.TopRatedCatalogEvent? event) => super.noSuchMethod(
         Invocation.method(
           #add,
           [event],
@@ -104,7 +80,7 @@ class MockTopRatedCatalogBloc extends _i1.Mock
       );
 
   @override
-  void onEvent(_i6.TopRatedCatalogEvent? event) => super.noSuchMethod(
+  void onEvent(_i5.TopRatedCatalogEvent? event) => super.noSuchMethod(
         Invocation.method(
           #onEvent,
           [event],
@@ -113,7 +89,7 @@ class MockTopRatedCatalogBloc extends _i1.Mock
       );
 
   @override
-  void emit(_i3.TopRatedCatalogState? state) => super.noSuchMethod(
+  void emit(_i2.TopRatedCatalogState? state) => super.noSuchMethod(
         Invocation.method(
           #emit,
           [state],
@@ -122,9 +98,9 @@ class MockTopRatedCatalogBloc extends _i1.Mock
       );
 
   @override
-  void on<E extends _i6.TopRatedCatalogEvent>(
-    _i7.EventHandler<E, _i3.TopRatedCatalogState>? handler, {
-    _i7.EventTransformer<E>? transformer,
+  void on<E extends _i5.TopRatedCatalogEvent>(
+    _i6.EventHandler<E, _i2.TopRatedCatalogState>? handler, {
+    _i6.EventTransformer<E>? transformer,
   }) =>
       super.noSuchMethod(
         Invocation.method(
@@ -137,7 +113,7 @@ class MockTopRatedCatalogBloc extends _i1.Mock
 
   @override
   void onTransition(
-          _i7.Transition<_i6.TopRatedCatalogEvent, _i3.TopRatedCatalogState>?
+          _i6.Transition<_i5.TopRatedCatalogEvent, _i2.TopRatedCatalogState>?
               transition) =>
       super.noSuchMethod(
         Invocation.method(
@@ -148,17 +124,17 @@ class MockTopRatedCatalogBloc extends _i1.Mock
       );
 
   @override
-  _i5.Future<void> close() => (super.noSuchMethod(
+  _i4.Future<void> close() => (super.noSuchMethod(
         Invocation.method(
           #close,
           [],
         ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  void onChange(_i7.Change<_i3.TopRatedCatalogState>? change) =>
+  void onChange(_i6.Change<_i2.TopRatedCatalogState>? change) =>
       super.noSuchMethod(
         Invocation.method(
           #onChange,
