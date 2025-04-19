@@ -1,15 +1,13 @@
 import 'package:ditonton/presentation/bloc/home/catalog_list_event.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_list_state.dart';
+import 'package:ditonton/presentation/widgets/catalog_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/catalog.dart';
-import 'package:ditonton/domain/entities/catalog_item.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_list_bloc.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_category_state.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
-import 'package:ditonton/presentation/pages/catalog_detail_page.dart';
 import 'package:ditonton/presentation/pages/popular_catalog_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_catalog_page.dart';
@@ -123,7 +121,7 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Now Playing', style: kHeading6),
-                  _buildSection(state.nowPlaying),
+                  _buildSection(state.catalog, state.nowPlaying),
                   _buildSubHeading(
                     title: 'Popular',
                     onTap:
@@ -133,7 +131,7 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
                           arguments: state.catalog,
                         ),
                   ),
-                  _buildSection(state.popular),
+                  _buildSection(state.catalog, state.popular),
                   _buildSubHeading(
                     title: 'Top Rated',
                     onTap:
@@ -143,7 +141,7 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
                           arguments: state.catalog,
                         ),
                   ),
-                  _buildSection(state.topRated),
+                  _buildSection(state.catalog, state.topRated),
                 ],
               ),
             );
@@ -153,12 +151,15 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
     );
   }
 
-  Widget _buildSection(CatalogCategoryState categoryState) {
+  Widget _buildSection(
+    Catalog catalog,
+    CatalogCategoryState categoryState,
+  ) {
     switch (categoryState) {
       case CatalogCategoryLoading():
         return const Center(child: CircularProgressIndicator());
       case CatalogCategoryLoaded(:final items):
-        return CatalogList(items);
+        return CatalogList(items, catalog);
       case CatalogCategoryError(:final message):
         return Center(child: Text(message));
       default:
@@ -181,49 +182,6 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
           ),
         ),
       ],
-    );
-  }
-}
-
-class CatalogList extends StatelessWidget {
-  final List<CatalogItem> nowPlaying;
-
-  const CatalogList(this.nowPlaying, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final catalog = context.read<CatalogListBloc>().state.catalog;
-    return SizedBox(
-      height: 200,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: nowPlaying.length,
-        itemBuilder: (context, index) {
-          final catalogItem = nowPlaying[index];
-          return Container(
-            padding: const EdgeInsets.all(8),
-            child: InkWell(
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  CatalogDetailPage.routeName,
-                  arguments: {'id': catalogItem.id, 'catalog': catalog},
-                );
-              },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: CachedNetworkImage(
-                  imageUrl: '$baseUrlImage${catalogItem.posterPath}',
-                  placeholder:
-                      (context, url) =>
-                          const Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-              ),
-            ),
-          );
-        },
-      ),
     );
   }
 }
