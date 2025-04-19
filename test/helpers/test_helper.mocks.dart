@@ -528,36 +528,36 @@ class MockTvRepository extends _i1.Mock implements _i16.TvRepository {
 
   @override
   _i7.Future<_i2.Either<_i8.Failure, String>> saveWatchlist(
-          _i18.TvDetail? Tv) =>
+          _i18.TvDetail? tv) =>
       (super.noSuchMethod(
         Invocation.method(
           #saveWatchlist,
-          [Tv],
+          [tv],
         ),
         returnValue: _i7.Future<_i2.Either<_i8.Failure, String>>.value(
             _FakeEither_0<_i8.Failure, String>(
           this,
           Invocation.method(
             #saveWatchlist,
-            [Tv],
+            [tv],
           ),
         )),
       ) as _i7.Future<_i2.Either<_i8.Failure, String>>);
 
   @override
   _i7.Future<_i2.Either<_i8.Failure, String>> removeWatchlist(
-          _i18.TvDetail? Tv) =>
+          _i18.TvDetail? tv) =>
       (super.noSuchMethod(
         Invocation.method(
           #removeWatchlist,
-          [Tv],
+          [tv],
         ),
         returnValue: _i7.Future<_i2.Either<_i8.Failure, String>>.value(
             _FakeEither_0<_i8.Failure, String>(
           this,
           Invocation.method(
             #removeWatchlist,
-            [Tv],
+            [tv],
           ),
         )),
       ) as _i7.Future<_i2.Either<_i8.Failure, String>>);
