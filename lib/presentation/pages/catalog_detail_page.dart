@@ -181,7 +181,9 @@ class DetailContent extends StatelessWidget {
                             Text('Overview', style: kHeading6),
                             Text(catalogDetail.overview),
                             SizedBox(height: 16),
-                            if (catalog == Catalog.tv && (catalogDetail.numberOfSeasons > 0 || catalogDetail.numberOfEpisodes > 0))
+                            if (catalog == Catalog.tv &&
+                                (catalogDetail.numberOfSeasons > 0 ||
+                                    catalogDetail.numberOfEpisodes > 0))
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -191,11 +193,15 @@ class DetailContent extends StatelessWidget {
                                     children: [
                                       Icon(Icons.calendar_today, size: 16),
                                       SizedBox(width: 4),
-                                      Text('${catalogDetail.numberOfSeasons} Season${catalogDetail.numberOfSeasons > 1 ? 's' : ''}'),
+                                      Text(
+                                        '${catalogDetail.numberOfSeasons} Season${catalogDetail.numberOfSeasons > 1 ? 's' : ''}',
+                                      ),
                                       SizedBox(width: 16),
                                       Icon(Icons.video_library, size: 16),
                                       SizedBox(width: 4),
-                                      Text('${catalogDetail.numberOfEpisodes} Episode${catalogDetail.numberOfEpisodes > 1 ? 's' : ''}'),
+                                      Text(
+                                        '${catalogDetail.numberOfEpisodes} Episode${catalogDetail.numberOfEpisodes > 1 ? 's' : ''}',
+                                      ),
                                     ],
                                   ),
                                   SizedBox(height: 16),
@@ -219,7 +225,8 @@ class DetailContent extends StatelessWidget {
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) {
-                                        final catalogItem = recommendations[index];
+                                        final catalogItem =
+                                            recommendations[index];
                                         return Padding(
                                           padding: const EdgeInsets.all(4.0),
                                           child: InkWell(

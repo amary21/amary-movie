@@ -29,6 +29,11 @@ import 'package:get_it/get_it.dart';
 final locator = GetIt.instance;
 
 Future<void> init() async {
+  // Check if locator is already initialized to prevent duplicate registrations
+  if (locator.isRegistered<CatalogListNotifier>()) {
+    return; // Dependencies already registered, exit early
+  }
+
   // provider
   locator.registerFactory(
     () => CatalogListNotifier(
