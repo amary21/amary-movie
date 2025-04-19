@@ -4,13 +4,12 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i12;
-import 'dart:ui' as _i15;
+import 'dart:ui' as _i14;
 
 import 'package:ditonton/common/state_enum.dart' as _i9;
 import 'package:ditonton/domain/entities/catalog.dart' as _i13;
 import 'package:ditonton/domain/entities/catalog_detail.dart' as _i7;
 import 'package:ditonton/domain/entities/catalog_item.dart' as _i10;
-import 'package:ditonton/domain/entities/movie_detail.dart' as _i14;
 import 'package:ditonton/domain/usecases/get_detail.dart' as _i2;
 import 'package:ditonton/domain/usecases/get_recommendations.dart' as _i3;
 import 'package:ditonton/domain/usecases/get_watchlist_status.dart' as _i4;
@@ -245,14 +244,14 @@ class MockCatalogDetailNotifier extends _i1.Mock
   @override
   _i12.Future<void> removeFromWatchlist(
     _i13.Catalog? catalog,
-    _i14.MovieDetail? movie,
+    _i7.CatalogDetail? catalogDetail,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #removeFromWatchlist,
           [
             catalog,
-            movie,
+            catalogDetail,
           ],
         ),
         returnValue: _i12.Future<void>.value(),
@@ -277,7 +276,7 @@ class MockCatalogDetailNotifier extends _i1.Mock
       ) as _i12.Future<void>);
 
   @override
-  void addListener(_i15.VoidCallback? listener) => super.noSuchMethod(
+  void addListener(_i14.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #addListener,
           [listener],
@@ -286,7 +285,7 @@ class MockCatalogDetailNotifier extends _i1.Mock
       );
 
   @override
-  void removeListener(_i15.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i14.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],

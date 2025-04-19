@@ -116,11 +116,10 @@ class DetailContent extends StatelessWidget {
                                     listen: false,
                                   ).addWatchlist(catalog, catalogDetail);
                                 } else {
-                                  // TODO: implement watchlist feature
-                                  // await Provider.of<CatalogDetailNotifier>(
-                                  //   context,
-                                  //   listen: false,
-                                  // ).removeFromWatchlist(movie);
+                                  await Provider.of<CatalogDetailNotifier>(
+                                    context,
+                                    listen: false,
+                                  ).removeFromWatchlist(catalog, catalogDetail);
                                 }
 
                                 final message =

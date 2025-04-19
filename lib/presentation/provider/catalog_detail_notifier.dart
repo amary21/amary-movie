@@ -96,8 +96,8 @@ class CatalogDetailNotifier extends ChangeNotifier {
     await loadWatchlistStatus(catalog, catalogDetail.id);
   }
 
-  Future<void> removeFromWatchlist(Catalog catalog, MovieDetail movie) async {
-    final result = await removeWatchlist.execute(movie);
+  Future<void> removeFromWatchlist(Catalog catalog, CatalogDetail catalogDetail) async {
+    final result = await removeWatchlist.execute(catalog, catalogDetail);
 
     await result.fold(
       (failure) async {
@@ -108,7 +108,7 @@ class CatalogDetailNotifier extends ChangeNotifier {
       },
     );
 
-    await loadWatchlistStatus(catalog, movie.id);
+    await loadWatchlistStatus(catalog, catalogDetail.id);
   }
 
   Future<void> loadWatchlistStatus(Catalog catalog, id) async {

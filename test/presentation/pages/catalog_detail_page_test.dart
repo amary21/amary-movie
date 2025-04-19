@@ -61,7 +61,6 @@ void main() {
     expect(watchlistButtonIcon, findsOneWidget);
   });
 
-  //TODO: fixing
   testWidgets(
       'Watchlist button should display Snackbar when added to watchlist',
       (WidgetTester tester) async {
@@ -85,7 +84,6 @@ void main() {
     expect(find.text('Added to Watchlist'), findsOneWidget);
   });
 
-  //TODO: fixing
   testWidgets(
       'Watchlist button should display AlertDialog when add to watchlist failed',
       (WidgetTester tester) async {
