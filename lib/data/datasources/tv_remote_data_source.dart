@@ -25,7 +25,7 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
   Future<List<TvModel>> getNowPlayingTvs() async {
     final response = await client.get(
       Uri.parse(
-        '${NetworkConfig.BASE_URL}/tv/airing_today?${NetworkConfig.API_KEY}',
+        '${NetworkConfig.baseUrl}/tv/airing_today?${NetworkConfig.apiKey}',
       ),
     );
 
@@ -39,7 +39,7 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
   @override
   Future<TvDetailResponse> getTvDetail(int id) async {
     final response = await client.get(
-      Uri.parse('${NetworkConfig.BASE_URL}/tv/$id?${NetworkConfig.API_KEY}'),
+      Uri.parse('${NetworkConfig.baseUrl}/tv/$id?${NetworkConfig.apiKey}'),
     );
 
     if (response.statusCode == 200) {
@@ -53,7 +53,7 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
   Future<List<TvModel>> getTvRecommendations(int id) async {
     final response = await client.get(
       Uri.parse(
-        '${NetworkConfig.BASE_URL}/tv/$id/recommendations?${NetworkConfig.API_KEY}',
+        '${NetworkConfig.baseUrl}/tv/$id/recommendations?${NetworkConfig.apiKey}',
       ),
     );
 
@@ -68,7 +68,7 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
   Future<List<TvModel>> getPopularTvs() async {
     final response = await client.get(
       Uri.parse(
-        '${NetworkConfig.BASE_URL}/tv/popular?${NetworkConfig.API_KEY}',
+        '${NetworkConfig.baseUrl}/tv/popular?${NetworkConfig.apiKey}',
       ),
     );
 
@@ -83,7 +83,7 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
   Future<List<TvModel>> getTopRatedTvs() async {
     final response = await client.get(
       Uri.parse(
-        '${NetworkConfig.BASE_URL}/tv/top_rated?${NetworkConfig.API_KEY}',
+        '${NetworkConfig.baseUrl}/tv/top_rated?${NetworkConfig.apiKey}',
       ),
     );
 
@@ -98,7 +98,7 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
   Future<List<TvModel>> searchTvs(String query) async {
     final response = await client.get(
       Uri.parse(
-        '${NetworkConfig.BASE_URL}/search/tv?${NetworkConfig.API_KEY}&query=$query',
+        '${NetworkConfig.baseUrl}/search/tv?${NetworkConfig.apiKey}&query=$query',
       ),
     );
 

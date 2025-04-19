@@ -25,7 +25,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   Future<List<MovieModel>> getNowPlayingMovies() async {
     final response = await client.get(
       Uri.parse(
-        '${NetworkConfig.BASE_URL}/movie/now_playing?${NetworkConfig.API_KEY}',
+        '${NetworkConfig.baseUrl}/movie/now_playing?${NetworkConfig.apiKey}',
       ),
     );
 
@@ -39,7 +39,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   @override
   Future<MovieDetailResponse> getMovieDetail(int id) async {
     final response = await client.get(
-      Uri.parse('${NetworkConfig.BASE_URL}/movie/$id?${NetworkConfig.API_KEY}'),
+      Uri.parse('${NetworkConfig.baseUrl}/movie/$id?${NetworkConfig.apiKey}'),
     );
 
     if (response.statusCode == 200) {
@@ -53,7 +53,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   Future<List<MovieModel>> getMovieRecommendations(int id) async {
     final response = await client.get(
       Uri.parse(
-        '${NetworkConfig.BASE_URL}/movie/$id/recommendations?${NetworkConfig.API_KEY}',
+        '${NetworkConfig.baseUrl}/movie/$id/recommendations?${NetworkConfig.apiKey}',
       ),
     );
 
@@ -68,7 +68,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   Future<List<MovieModel>> getPopularMovies() async {
     final response = await client.get(
       Uri.parse(
-        '${NetworkConfig.BASE_URL}/movie/popular?${NetworkConfig.API_KEY}',
+        '${NetworkConfig.baseUrl}/movie/popular?${NetworkConfig.apiKey}',
       ),
     );
 
@@ -83,7 +83,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   Future<List<MovieModel>> getTopRatedMovies() async {
     final response = await client.get(
       Uri.parse(
-        '${NetworkConfig.BASE_URL}/movie/top_rated?${NetworkConfig.API_KEY}',
+        '${NetworkConfig.baseUrl}/movie/top_rated?${NetworkConfig.apiKey}',
       ),
     );
 
@@ -98,7 +98,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   Future<List<MovieModel>> searchMovies(String query) async {
     final response = await client.get(
       Uri.parse(
-        '${NetworkConfig.BASE_URL}/search/movie?${NetworkConfig.API_KEY}&query=$query',
+        '${NetworkConfig.baseUrl}/search/movie?${NetworkConfig.apiKey}&query=$query',
       ),
     );
 
