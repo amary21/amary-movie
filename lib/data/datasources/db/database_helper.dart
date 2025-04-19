@@ -3,8 +3,12 @@ import 'package:ditonton/data/models/movie_table.dart';
 import 'package:ditonton/data/models/tv_table.dart';
 import 'package:sqflite/sqflite.dart';
 
-typedef OpenDbFn = Future<Database> Function(String path,
-    {int version, OnDatabaseCreateFn? onCreate});
+typedef OpenDbFn =
+    Future<Database> Function(
+      String path, {
+      int version,
+      OnDatabaseCreateFn? onCreate,
+    });
 
 typedef GetDbPathFn = Future<String> Function();
 
@@ -23,11 +27,7 @@ class DatabaseHelper {
     final path = await getPath();
     final dbPath = '$path/ditonton.db';
 
-    final db = await openDb(
-      dbPath,
-      version: 1,
-      onCreate: _onCreate,
-    );
+    final db = await openDb(dbPath, version: 1, onCreate: _onCreate);
 
     return DatabaseHelper(db);
   }

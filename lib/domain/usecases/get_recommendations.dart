@@ -11,7 +11,10 @@ class GetRecommendations {
 
   GetRecommendations(this._movieRepository, this._tvRepository);
 
-  Future<Either<Failure, List<CatalogItem>>> execute(Catalog catalog, id) async {
+  Future<Either<Failure, List<CatalogItem>>> execute(
+    Catalog catalog,
+    id,
+  ) async {
     if (catalog == Catalog.movie) {
       final result = await _movieRepository.getMovieRecommendations(id);
       return result.fold((failure) => Left(failure), (data) {

@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class TvLastEpisodeResponse extends Equatable {
   final int runtime;
 
-  TvLastEpisodeResponse({required this.runtime});
+  const TvLastEpisodeResponse({required this.runtime});
 
   factory TvLastEpisodeResponse.fromJson(Map<String, dynamic> json) =>
       TvLastEpisodeResponse(runtime: json["runtime"] ?? 0);

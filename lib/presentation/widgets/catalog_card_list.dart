@@ -9,7 +9,7 @@ class CatalogCard extends StatelessWidget {
   final CatalogItem catalogItem;
   final Catalog catalog;
 
-  CatalogCard(this.catalogItem, this.catalog);
+  const CatalogCard(this.catalogItem, this.catalog, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +55,7 @@ class CatalogCard extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(left: 16, bottom: 16),
               child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
                 child: CachedNetworkImage(
                   imageUrl: '$BASE_IMAGE_URL${catalogItem.posterPath}',
                   width: 80,
@@ -63,7 +64,6 @@ class CatalogCard extends StatelessWidget {
                           Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
             ),
           ],

@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomeCatalogPage extends StatefulWidget {
+  const HomeCatalogPage({super.key});
+
   @override
   _HomeCatalogPageState createState() => _HomeCatalogPageState();
 }
@@ -218,11 +220,11 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
 class CatalogList extends StatelessWidget {
   final List<CatalogItem> nowPlaying;
 
-  CatalogList(this.nowPlaying);
+  const CatalogList(this.nowPlaying, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,

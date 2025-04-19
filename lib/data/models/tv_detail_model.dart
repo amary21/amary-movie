@@ -4,7 +4,7 @@ import 'package:ditonton/domain/entities/tv_detail.dart';
 import 'package:equatable/equatable.dart';
 
 class TvDetailResponse extends Equatable {
-  TvDetailResponse({
+  const TvDetailResponse({
     required this.adult,
     required this.backdropPath,
     required this.firstAirDate,

@@ -19,7 +19,7 @@ void main() {
     mockNotifier = MockTopRatedCatalogNotifier();
   });
 
-  Widget _makeTestableWidget(Widget body) {
+  Widget makeTestableWidget(Widget body) {
     return ChangeNotifierProvider<TopRatedCatalogNotifier>.value(
       value: mockNotifier,
       child: MaterialApp(
@@ -35,7 +35,7 @@ void main() {
     final progressFinder = find.byType(CircularProgressIndicator);
     final centerFinder = find.byType(Center);
 
-    await tester.pumpWidget(_makeTestableWidget(TopRatedCatalogPage(catalog: Catalog.movie)));
+    await tester.pumpWidget(makeTestableWidget(TopRatedCatalogPage(catalog: Catalog.movie)));
 
     expect(centerFinder, findsOneWidget);
     expect(progressFinder, findsOneWidget);
@@ -48,7 +48,7 @@ void main() {
 
     final listViewFinder = find.byType(ListView);
 
-    await tester.pumpWidget(_makeTestableWidget(TopRatedCatalogPage(catalog: Catalog.movie)));
+    await tester.pumpWidget(makeTestableWidget(TopRatedCatalogPage(catalog: Catalog.movie)));
 
     expect(listViewFinder, findsOneWidget);
   });
@@ -60,7 +60,7 @@ void main() {
 
     final textFinder = find.byKey(Key('error_message'));
 
-    await tester.pumpWidget(_makeTestableWidget(TopRatedCatalogPage(catalog: Catalog.tv)));
+    await tester.pumpWidget(makeTestableWidget(TopRatedCatalogPage(catalog: Catalog.tv)));
 
     expect(textFinder, findsOneWidget);
   });

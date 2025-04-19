@@ -1,5 +1,5 @@
 enum Catalog {
-  movie("Movies"), 
+  movie("Movies"),
   tv("Tv Series");
 
   const Catalog(this.name);

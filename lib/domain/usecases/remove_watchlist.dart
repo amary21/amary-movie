@@ -10,7 +10,10 @@ class RemoveWatchlist {
   final TvRepository _tvRepository;
 
   RemoveWatchlist(this._movieRepository, this._tvRepository);
-  Future<Either<Failure, String>> execute(Catalog catalog, CatalogDetail catalogDetail) async {
+  Future<Either<Failure, String>> execute(
+    Catalog catalog,
+    CatalogDetail catalogDetail,
+  ) async {
     if (catalog == Catalog.movie) {
       return _movieRepository.removeWatchlist(catalogDetail.toMovieDetail());
     } else {

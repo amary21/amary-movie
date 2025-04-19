@@ -10,7 +10,7 @@ class GetWatchlistCatalog {
   final TvRepository _tvRepository;
 
   GetWatchlistCatalog(this._movieRepository, this._tvRepository);
-  
+
   Future<Either<Failure, List<CatalogItem>>> execute(Catalog catalog) async {
     if (catalog == Catalog.movie) {
       final result = await _movieRepository.getWatchlistMovies();

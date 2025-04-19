@@ -4,7 +4,7 @@ import 'package:ditonton/domain/entities/tv_detail.dart';
 import 'package:equatable/equatable.dart';
 
 class CatalogDetail extends Equatable {
-  CatalogDetail({
+  const CatalogDetail({
     required this.adult,
     required this.backdropPath,
     required this.genres,
@@ -17,6 +17,8 @@ class CatalogDetail extends Equatable {
     required this.title,
     required this.voteAverage,
     required this.voteCount,
+    this.numberOfSeasons = 0,
+    this.numberOfEpisodes = 0,
   });
 
   final bool adult;
@@ -31,45 +33,47 @@ class CatalogDetail extends Equatable {
   final String title;
   final double voteAverage;
   final int voteCount;
+  final int numberOfSeasons;
+  final int numberOfEpisodes;
 
   MovieDetail toMovieDetail() => MovieDetail(
-    adult: this.adult,
-    backdropPath: this.backdropPath,
-    genres: this.genres,
-    id: this.id,
-    originalTitle: this.originalTitle,
-    overview: this.overview,
-    posterPath: this.posterPath,
-    releaseDate: this.releaseDate,
-    runtime: this.runtime,
-    title: this.title,
-    voteAverage: this.voteAverage,
-    voteCount: this.voteCount,
+    adult: adult,
+    backdropPath: backdropPath,
+    genres: genres,
+    id: id,
+    originalTitle: originalTitle,
+    overview: overview,
+    posterPath: posterPath,
+    releaseDate: releaseDate,
+    runtime: runtime,
+    title: title,
+    voteAverage: voteAverage,
+    voteCount: voteCount,
   );
 
   TvDetail toTvDetail() => TvDetail(
-    adult: this.adult,
-    backdropPath: this.backdropPath,
-    firstAirDate: this.releaseDate,
-    genres: this.genres,
+    adult: adult,
+    backdropPath: backdropPath,
+    firstAirDate: releaseDate,
+    genres: genres,
     homepage: '',
-    id: this.id,
+    id: id,
     inProduction: false,
-    lastAirDate: this.releaseDate,
-    name: this.originalTitle,
-    numberOfEpisodes: 0,
-    numberOfSeasons: 0,
+    lastAirDate: releaseDate,
+    name: originalTitle,
+    numberOfEpisodes: numberOfEpisodes,
+    numberOfSeasons: numberOfSeasons,
     originalLanguage: '',
-    originalName: this.originalTitle,
-    overview: this.overview,
+    originalName: originalTitle,
+    overview: overview,
     popularity: 0.0,
-    posterPath: this.posterPath,
+    posterPath: posterPath,
     status: '',
     tagline: '',
     type: '',
-    voteAverage: this.voteAverage,
-    voteCount: this.voteCount,
-    runtime: this.runtime,
+    voteAverage: voteAverage,
+    voteCount: voteCount,
+    runtime: runtime,
   );
 
   @override

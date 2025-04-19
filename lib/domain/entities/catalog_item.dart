@@ -31,17 +31,17 @@ class CatalogItem extends Equatable {
 
   @override
   List<Object?> get props => [
-        adult,
-        backdropPath,
-        genreIds,
-        id,
-        originalTitle,
-        overview,
-        popularity,
-        posterPath,
-        releaseDate,
-        title,
-        voteAverage,
-        voteCount,
-      ];
+    adult,
+    backdropPath,
+    genreIds,
+    id,
+    originalTitle,
+    overview,
+    popularity,
+    posterPath,
+    releaseDate,
+    title,
+    voteAverage,
+    voteCount,
+  ];
 }

@@ -15,7 +15,7 @@ class CatalogDetailPage extends StatefulWidget {
 
   final int id;
   final Catalog catalog;
-  CatalogDetailPage({required this.id, required this.catalog});
+  const CatalogDetailPage({super.key, required this.id, required this.catalog});
 
   @override
   _CatalogDetailPageState createState() => _CatalogDetailPageState();
@@ -48,10 +48,10 @@ class _CatalogDetailPageState extends State<CatalogDetailPage> {
             final movie = provider.catalog;
             return SafeArea(
               child: DetailContent(
-                movie,
-                provider.catalogRecommendations,
-                provider.isAddedToWatchlist,
-                widget.catalog,
+                catalogDetail: movie,
+                recommendations: provider.catalogRecommendations,
+                isAddedWatchlist: provider.isAddedToWatchlist,
+                catalog: widget.catalog,
               ),
             );
           } else {
@@ -69,12 +69,13 @@ class DetailContent extends StatelessWidget {
   final bool isAddedWatchlist;
   final Catalog catalog;
 
-  DetailContent(
-    this.catalogDetail,
-    this.recommendations,
-    this.isAddedWatchlist,
-    this.catalog,
-  );
+  const DetailContent({
+    super.key,
+    required this.catalogDetail,
+    required this.recommendations,
+    required this.isAddedWatchlist,
+    required this.catalog,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +83,8 @@ class DetailContent extends StatelessWidget {
     return Stack(
       children: [
         CachedNetworkImage(
-          imageUrl: 'https://image.tmdb.org/t/p/w500${catalogDetail.posterPath}',
+          imageUrl:
+              'https://image.tmdb.org/t/p/w500${catalogDetail.posterPath}',
           width: screenWidth,
           placeholder:
               (context, url) => Center(child: CircularProgressIndicator()),
@@ -179,6 +181,26 @@ class DetailContent extends StatelessWidget {
                             Text('Overview', style: kHeading6),
                             Text(catalogDetail.overview),
                             SizedBox(height: 16),
+                            if (catalog == Catalog.tv && (catalogDetail.numberOfSeasons > 0 || catalogDetail.numberOfEpisodes > 0))
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Seasons & Episodes', style: kHeading6),
+                                  SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.calendar_today, size: 16),
+                                      SizedBox(width: 4),
+                                      Text('${catalogDetail.numberOfSeasons} Season${catalogDetail.numberOfSeasons > 1 ? 's' : ''}'),
+                                      SizedBox(width: 16),
+                                      Icon(Icons.video_library, size: 16),
+                                      SizedBox(width: 4),
+                                      Text('${catalogDetail.numberOfEpisodes} Episode${catalogDetail.numberOfEpisodes > 1 ? 's' : ''}'),
+                                    ],
+                                  ),
+                                  SizedBox(height: 16),
+                                ],
+                              ),
                             Text('Recommendations', style: kHeading6),
                             Consumer<CatalogDetailNotifier>(
                               builder: (context, data, child) {
@@ -192,7 +214,7 @@ class DetailContent extends StatelessWidget {
                                   return Text(data.message);
                                 } else if (data.recommendationState ==
                                     RequestState.Loaded) {
-                                  return Container(
+                                  return SizedBox(
                                     height: 150,
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,

@@ -20,7 +20,7 @@ void main() {
     mockNotifier = MockCatalogDetailNotifier();
   });
 
-  Widget _makeTestableWidget(Widget body) {
+  Widget makeTestableWidget(Widget body) {
     return ChangeNotifierProvider<CatalogDetailNotifier>.value(
       value: mockNotifier,
       child: MaterialApp(
@@ -40,7 +40,7 @@ void main() {
 
     final watchlistButtonIcon = find.byIcon(Icons.add);
 
-    await tester.pumpWidget(_makeTestableWidget(CatalogDetailPage(id: 1, catalog: Catalog.movie)));
+    await tester.pumpWidget(makeTestableWidget(CatalogDetailPage(id: 1, catalog: Catalog.movie)));
 
     expect(watchlistButtonIcon, findsOneWidget);
   });
@@ -56,7 +56,7 @@ void main() {
 
     final watchlistButtonIcon = find.byIcon(Icons.check);
 
-    await tester.pumpWidget(_makeTestableWidget(CatalogDetailPage(id: 1, catalog: Catalog.movie)));
+    await tester.pumpWidget(makeTestableWidget(CatalogDetailPage(id: 1, catalog: Catalog.movie)));
 
     expect(watchlistButtonIcon, findsOneWidget);
   });
@@ -73,7 +73,7 @@ void main() {
 
     final watchlistButton = find.byType(FilledButton);
 
-    await tester.pumpWidget(_makeTestableWidget(CatalogDetailPage(id: 1, catalog: Catalog.movie)));
+    await tester.pumpWidget(makeTestableWidget(CatalogDetailPage(id: 1, catalog: Catalog.movie)));
 
     expect(find.byIcon(Icons.add), findsOneWidget);
 
@@ -96,7 +96,7 @@ void main() {
 
     final watchlistButton = find.byType(FilledButton);
 
-    await tester.pumpWidget(_makeTestableWidget(CatalogDetailPage(id: 1, catalog: Catalog.movie)));
+    await tester.pumpWidget(makeTestableWidget(CatalogDetailPage(id: 1, catalog: Catalog.movie)));
 
     expect(find.byIcon(Icons.add), findsOneWidget);
 

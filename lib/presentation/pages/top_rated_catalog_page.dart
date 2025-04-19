@@ -9,7 +9,7 @@ class TopRatedCatalogPage extends StatefulWidget {
   static const ROUTE_NAME = '/top-rated-movie';
 
   final Catalog catalog;
-  const TopRatedCatalogPage({required this.catalog});
+  const TopRatedCatalogPage({super.key, required this.catalog});
 
   @override
   _TopRatedCatalogPageState createState() => _TopRatedCatalogPageState();
@@ -19,25 +19,24 @@ class _TopRatedCatalogPageState extends State<TopRatedCatalogPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<TopRatedCatalogNotifier>(context, listen: false)
-            .fetchTopRated(widget.catalog));
+    Future.microtask(
+      () => Provider.of<TopRatedCatalogNotifier>(
+        context,
+        listen: false,
+      ).fetchTopRated(widget.catalog),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Top Rated Movies'),
-      ),
+      appBar: AppBar(title: Text('Top Rated Movies')),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Consumer<TopRatedCatalogNotifier>(
           builder: (context, data, child) {
             if (data.state == RequestState.Loading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
+              return Center(child: CircularProgressIndicator());
             } else if (data.state == RequestState.Loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {

@@ -47,24 +47,14 @@ Future<void> init() async {
     ),
   );
   locator.registerFactory(
-    () => CatalogSearchNotifier(
-      searchCatalog: locator(),
-    ),
+    () => CatalogSearchNotifier(searchCatalog: locator()),
+  );
+  locator.registerFactory(() => PopularCatalogNotifier(locator()));
+  locator.registerFactory(
+    () => TopRatedCatalogNotifier(getTopRated: locator()),
   );
   locator.registerFactory(
-    () => PopularCatalogNotifier(
-      locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TopRatedCatalogNotifier(
-      getTopRated: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => WatchlistCatalogNotifier(
-      getWatchlistCatalog: locator(),
-    ),
+    () => WatchlistCatalogNotifier(getWatchlistCatalog: locator()),
   );
 
   // use case
@@ -77,7 +67,9 @@ Future<void> init() async {
   locator.registerLazySingleton(() => GetWatchListStatus(locator(), locator()));
   locator.registerLazySingleton(() => SaveWatchlist(locator(), locator()));
   locator.registerLazySingleton(() => RemoveWatchlist(locator(), locator()));
-  locator.registerLazySingleton(() => GetWatchlistCatalog(locator(), locator()));
+  locator.registerLazySingleton(
+    () => GetWatchlistCatalog(locator(), locator()),
+  );
 
   // repository
   locator.registerLazySingleton<MovieRepository>(
@@ -95,13 +87,17 @@ Future<void> init() async {
 
   // data sources
   locator.registerLazySingleton<MovieRemoteDataSource>(
-      () => MovieRemoteDataSourceImpl(client: locator()));
+    () => MovieRemoteDataSourceImpl(client: locator()),
+  );
   locator.registerLazySingleton<MovieLocalDataSource>(
-      () => MovieLocalDataSourceImpl(databaseHelper: locator()));
+    () => MovieLocalDataSourceImpl(databaseHelper: locator()),
+  );
   locator.registerLazySingleton<TvRemoteDataSource>(
-      () => TvRemoteDataSourceImpl(client: locator()));
+    () => TvRemoteDataSourceImpl(client: locator()),
+  );
   locator.registerLazySingleton<TvLocalDataSource>(
-      () => TvLocalDataSourceImpl(databaseHelper: locator()));
+    () => TvLocalDataSourceImpl(databaseHelper: locator()),
+  );
 
   // helper
   final databaseHelper = await DatabaseHelper.init();

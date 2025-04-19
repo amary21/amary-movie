@@ -11,7 +11,10 @@ class GetDetail {
 
   GetDetail(this._movieRepository, this._tvRepository);
 
-  Future<Either<Failure, CatalogDetail>> execute(Catalog catalog, int id) async {
+  Future<Either<Failure, CatalogDetail>> execute(
+    Catalog catalog,
+    int id,
+  ) async {
     if (catalog == Catalog.movie) {
       final result = await _movieRepository.getMovieDetail(id);
       return result.fold((failure) => Left(failure), (data) {

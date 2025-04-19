@@ -3,7 +3,7 @@ import 'package:ditonton/domain/entities/genre.dart';
 import 'package:equatable/equatable.dart';
 
 class MovieDetail extends Equatable {
-  MovieDetail({
+  const MovieDetail({
     required this.adult,
     required this.backdropPath,
     required this.genres,
@@ -32,18 +32,18 @@ class MovieDetail extends Equatable {
   final int voteCount;
 
   CatalogDetail toCatalogDetail() => CatalogDetail(
-    adult: this.adult,
-    backdropPath: this.backdropPath,
-    genres: this.genres,
-    id: this.id,
-    originalTitle: this.originalTitle,
-    overview: this.overview,
-    posterPath: this.posterPath,
-    releaseDate: this.releaseDate,
-    runtime: this.runtime,
-    title: this.title,
-    voteAverage: this.voteAverage,
-    voteCount: this.voteCount,
+    adult: adult,
+    backdropPath: backdropPath,
+    genres: genres,
+    id: id,
+    originalTitle: originalTitle,
+    overview: overview,
+    posterPath: posterPath,
+    releaseDate: releaseDate,
+    runtime: runtime,
+    title: title,
+    voteAverage: voteAverage,
+    voteCount: voteCount,
   );
 
   @override

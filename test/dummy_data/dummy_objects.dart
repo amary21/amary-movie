@@ -55,6 +55,8 @@ final testCatalogDetail = CatalogDetail(
   title: 'title',
   voteAverage: 1,
   voteCount: 1,
+  numberOfSeasons: 1,
+  numberOfEpisodes: 1,
 );
 
 final testWatchlistMovie = Movie.watchlist(

@@ -10,8 +10,11 @@ class SaveWatchlist {
   final TvRepository _tvRepository;
 
   SaveWatchlist(this._movieRepository, this._tvRepository);
-  
-  Future<Either<Failure, String>> execute(Catalog catalog, CatalogDetail catalogDetail) async {
+
+  Future<Either<Failure, String>> execute(
+    Catalog catalog,
+    CatalogDetail catalogDetail,
+  ) async {
     if (catalog == Catalog.movie) {
       return _movieRepository.saveWatchlist(catalogDetail.toMovieDetail());
     } else {

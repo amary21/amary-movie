@@ -52,18 +52,20 @@ class TvDetail extends Equatable {
   int runtime;
 
   CatalogDetail toCatalogDetail() => CatalogDetail(
-    adult: this.adult,
-    backdropPath: this.backdropPath,
-    genres: this.genres,
-    id: this.id,
-    originalTitle: this.originalName,
-    overview: this.overview,
-    posterPath: this.posterPath,
-    releaseDate: this.firstAirDate,
-    runtime: this.runtime,
-    title: this.name,
-    voteAverage: this.voteAverage,
-    voteCount: this.voteCount,
+    adult: adult,
+    backdropPath: backdropPath,
+    genres: genres,
+    id: id,
+    originalTitle: originalName,
+    overview: overview,
+    posterPath: posterPath,
+    releaseDate: firstAirDate,
+    runtime: runtime,
+    title: name,
+    voteAverage: voteAverage,
+    voteCount: voteCount,
+    numberOfSeasons: numberOfSeasons,
+    numberOfEpisodes: numberOfEpisodes,
   );
 
   @override

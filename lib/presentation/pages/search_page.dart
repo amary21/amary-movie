@@ -10,30 +10,27 @@ class SearchPage extends StatefulWidget {
   static const ROUTE_NAME = '/search';
 
   final Catalog catalog;
-  const SearchPage({required this.catalog});
+  const SearchPage({super.key, required this.catalog});
 
   @override
   State<SearchPage> createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
-
   @override
   void initState() {
     super.initState();
     Future.microtask(
       () =>
           Provider.of<CatalogSearchNotifier>(context, listen: false)
-            ..resetData()
+            ..resetData(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Search ${widget.catalog.name}'),
-      ),
+      appBar: AppBar(title: Text('Search ${widget.catalog.name}')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -41,8 +38,10 @@ class _SearchPageState extends State<SearchPage> {
           children: [
             TextField(
               onSubmitted: (query) {
-                Provider.of<CatalogSearchNotifier>(context, listen: false)
-                    .fetchCatalogSearch(widget.catalog, query);
+                Provider.of<CatalogSearchNotifier>(
+                  context,
+                  listen: false,
+                ).fetchCatalogSearch(widget.catalog, query);
               },
               decoration: InputDecoration(
                 hintText: 'Search title',
@@ -52,18 +51,39 @@ class _SearchPageState extends State<SearchPage> {
               textInputAction: TextInputAction.search,
             ),
             SizedBox(height: 16),
-            Text(
-              'Search Result',
-              style: kHeading6,
-            ),
+            Text('Search Result', style: kHeading6),
             Consumer<CatalogSearchNotifier>(
               builder: (context, data, child) {
                 if (data.state == RequestState.Loading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return Center(child: CircularProgressIndicator());
                 } else if (data.state == RequestState.Loaded) {
                   final result = data.searchResult;
+                  if (result.isEmpty) {
+                    return Expanded(
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.search_off,
+                              size: 80,
+                              color: Colors.grey,
+                            ),
+                            SizedBox(height: 16),
+                            Text(
+                              'No results found',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              'Try different keywords',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
                   return Expanded(
                     child: ListView.builder(
                       padding: const EdgeInsets.all(8),
@@ -76,7 +96,19 @@ class _SearchPageState extends State<SearchPage> {
                   );
                 } else {
                   return Expanded(
-                    child: Container(),
+                    child: Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.search, size: 80, color: Colors.grey),
+                          SizedBox(height: 16),
+                          Text(
+                            'Search for ${widget.catalog.name}',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                    ),
                   );
                 }
               },

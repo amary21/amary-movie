@@ -21,8 +21,8 @@ void main() {
   test('should init with injected db path and openDb', () async {
     final mockDb = MockDatabase();
 
-    final mockOpenDb = (String path, {int? version, onCreate}) async => mockDb;
-    final mockGetPath = () async => '/fake/path';
+    mockOpenDb(String path, {int? version, onCreate}) async => mockDb;
+    mockGetPath() async => '/fake/path';
 
     final helper = await DatabaseHelper.init(
       openDb: mockOpenDb,
@@ -125,23 +125,23 @@ void main() {
       posterPath: '/poster.png',
     );
 
-    final _tblTvWatchlist = 'watchlistTv';
+    final tblTvWatchlist = 'watchlistTv';
 
     test('should insert tv to watchlist', () async {
       when(
-        mockDb.insert(_tblTvWatchlist, testTv.toJson()),
+        mockDb.insert(tblTvWatchlist, testTv.toJson()),
       ).thenAnswer((_) async => 1);
 
       final result = await dbHelper.insertWatchlistTv(testTv);
 
       expect(result, 1);
-      verify(mockDb.insert(_tblTvWatchlist, testTv.toJson()));
+      verify(mockDb.insert(tblTvWatchlist, testTv.toJson()));
     });
 
     test('should remove tv from watchlist', () async {
       when(
         mockDb.delete(
-          _tblTvWatchlist,
+          tblTvWatchlist,
           where: anyNamed('where'),
           whereArgs: anyNamed('whereArgs'),
         ),
@@ -151,14 +151,14 @@ void main() {
 
       expect(result, 1);
       verify(
-        mockDb.delete(_tblTvWatchlist, where: 'id = ?', whereArgs: [testTv.id]),
+        mockDb.delete(tblTvWatchlist, where: 'id = ?', whereArgs: [testTv.id]),
       );
     });
 
     test('should get tv by id', () async {
       when(
         mockDb.query(
-          _tblTvWatchlist,
+          tblTvWatchlist,
           where: anyNamed('where'),
           whereArgs: anyNamed('whereArgs'),
         ),
@@ -172,7 +172,7 @@ void main() {
     test('should return null when tv not found', () async {
       when(
         mockDb.query(
-          _tblTvWatchlist,
+          tblTvWatchlist,
           where: anyNamed('where'),
           whereArgs: anyNamed('whereArgs'),
         ),

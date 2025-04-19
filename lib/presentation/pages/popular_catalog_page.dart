@@ -9,7 +9,7 @@ class PopularCatalogPage extends StatefulWidget {
   static const ROUTE_NAME = '/popular-catalog';
 
   final Catalog catalog;
-  const PopularCatalogPage({required this.catalog});
+  const PopularCatalogPage({super.key, required this.catalog});
 
   @override
   _PopularCatalogPageState createState() => _PopularCatalogPageState();
@@ -19,25 +19,24 @@ class _PopularCatalogPageState extends State<PopularCatalogPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<PopularCatalogNotifier>(context, listen: false)
-            .fetchPopular(widget.catalog));
+    Future.microtask(
+      () => Provider.of<PopularCatalogNotifier>(
+        context,
+        listen: false,
+      ).fetchPopular(widget.catalog),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Popular ${widget.catalog.name}'),
-      ),
+      appBar: AppBar(title: Text('Popular ${widget.catalog.name}')),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Consumer<PopularCatalogNotifier>(
           builder: (context, data, child) {
             if (data.state == RequestState.Loading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
+              return Center(child: CircularProgressIndicator());
             } else if (data.state == RequestState.Loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
