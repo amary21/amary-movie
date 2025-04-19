@@ -24,7 +24,7 @@ import 'package:ditonton/data/models/tv_table.dart' as _i22;
 import 'package:ditonton/domain/entities/movie.dart' as _i9;
 import 'package:ditonton/domain/entities/movie_detail.dart' as _i10;
 import 'package:ditonton/domain/entities/tv.dart' as _i17;
-import 'package:ditonton/domain/entities/asasas_detail.dart' as _i18;
+import 'package:ditonton/domain/entities/tv_detail.dart' as _i18;
 import 'package:ditonton/domain/repositories/movie_repository.dart' as _i6;
 import 'package:ditonton/domain/repositories/tv_repository.dart' as _i16;
 import 'package:http/http.dart' as _i5;
