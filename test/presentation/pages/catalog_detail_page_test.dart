@@ -71,7 +71,7 @@ void main() {
     when(mockNotifier.isAddedToWatchlist).thenReturn(false);
     when(mockNotifier.watchlistMessage).thenReturn('Added to Watchlist');
 
-    final watchlistButton = find.byType(ElevatedButton);
+    final watchlistButton = find.byType(FilledButton);
 
     await tester.pumpWidget(_makeTestableWidget(CatalogDetailPage(id: 1, catalog: Catalog.movie)));
 
@@ -94,7 +94,7 @@ void main() {
     when(mockNotifier.isAddedToWatchlist).thenReturn(false);
     when(mockNotifier.watchlistMessage).thenReturn('Failed');
 
-    final watchlistButton = find.byType(ElevatedButton);
+    final watchlistButton = find.byType(FilledButton);
 
     await tester.pumpWidget(_makeTestableWidget(CatalogDetailPage(id: 1, catalog: Catalog.movie)));
 

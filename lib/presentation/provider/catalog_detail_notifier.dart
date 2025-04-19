@@ -1,7 +1,6 @@
 import 'package:ditonton/domain/entities/catalog.dart';
 import 'package:ditonton/domain/entities/catalog_detail.dart';
 import 'package:ditonton/domain/entities/catalog_item.dart';
-import 'package:ditonton/domain/entities/movie_detail.dart';
 import 'package:ditonton/domain/usecases/get_detail.dart';
 import 'package:ditonton/domain/usecases/get_recommendations.dart';
 import 'package:ditonton/common/state_enum.dart';
