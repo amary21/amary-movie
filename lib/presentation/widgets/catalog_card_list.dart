@@ -57,7 +57,7 @@ class CatalogCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
                 child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL${catalogItem.posterPath}',
+                  imageUrl: '$baseUrlImage${catalogItem.posterPath}',
                   width: 80,
                   placeholder:
                       (context, url) =>

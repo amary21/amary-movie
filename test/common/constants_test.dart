@@ -1,13 +1,12 @@
 import 'package:ditonton/common/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   group('Constants', () {
     test('BASE_IMAGE_URL should have the correct value', () {
-      expect(BASE_IMAGE_URL, 'https://image.tmdb.org/t/p/w500');
+      expect(baseUrlImage, 'https://image.tmdb.org/t/p/w500');
     });
 
     group('Colors', () {

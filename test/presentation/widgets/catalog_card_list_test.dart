@@ -168,6 +168,6 @@ void main() {
 
     // Verify the image URL
     final CachedNetworkImage image = tester.widget(cachedImage);
-    expect(image.imageUrl, '$BASE_IMAGE_URL${catalogItem.posterPath}');
+    expect(image.imageUrl, '$baseUrlImage${catalogItem.posterPath}');
   });
 }

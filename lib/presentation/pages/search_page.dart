@@ -1,10 +1,11 @@
 import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/catalog.dart';
-import 'package:ditonton/presentation/provider/catalog_search_notifier.dart';
+import 'package:ditonton/presentation/bloc/search/search_bloc.dart';
+import 'package:ditonton/presentation/bloc/search/search_event.dart';
+import 'package:ditonton/presentation/bloc/search/search_state.dart';
 import 'package:ditonton/presentation/widgets/catalog_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchPage extends StatefulWidget {
   static const ROUTE_NAME = '/search';
@@ -20,11 +21,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () =>
-          Provider.of<CatalogSearchNotifier>(context, listen: false)
-            ..resetData(),
-    );
+    Future.microtask(() => context.read<SearchBloc>().add(OnResetSearch()));
   }
 
   @override
@@ -38,10 +35,9 @@ class _SearchPageState extends State<SearchPage> {
           children: [
             TextField(
               onSubmitted: (query) {
-                Provider.of<CatalogSearchNotifier>(
-                  context,
-                  listen: false,
-                ).fetchCatalogSearch(widget.catalog, query);
+                context.read<SearchBloc>().add(
+                  OnQueryChanged(query, widget.catalog),
+                );
               },
               decoration: InputDecoration(
                 hintText: 'Search title',
@@ -52,12 +48,12 @@ class _SearchPageState extends State<SearchPage> {
             ),
             SizedBox(height: 16),
             Text('Search Result', style: kHeading6),
-            Consumer<CatalogSearchNotifier>(
-              builder: (context, data, child) {
-                if (data.state == RequestState.Loading) {
+            BlocBuilder<SearchBloc, SearchState>(
+              builder: (context, state) {
+                if (state is SearchLoading) {
                   return Center(child: CircularProgressIndicator());
-                } else if (data.state == RequestState.Loaded) {
-                  final result = data.searchResult;
+                } else if (state is SearchHasData) {
+                  final result = state.result;
                   if (result.isEmpty) {
                     return Expanded(
                       child: Center(
@@ -88,12 +84,14 @@ class _SearchPageState extends State<SearchPage> {
                     child: ListView.builder(
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
-                        final catalog = data.searchResult[index];
+                        final catalog = result[index];
                         return CatalogCard(catalog, widget.catalog);
                       },
                       itemCount: result.length,
                     ),
                   );
+                } else if (state is SearchError) {
+                  return Expanded(child: Center(child: Text(state.message)));
                 } else {
                   return Expanded(
                     child: Center(

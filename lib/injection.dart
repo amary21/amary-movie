@@ -17,6 +17,8 @@ import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:ditonton/domain/usecases/search_catalog.dart';
+import 'package:ditonton/presentation/bloc/search/search_bloc.dart';
+import 'package:ditonton/presentation/bloc/watchlist/watchlist_bloc.dart';
 import 'package:ditonton/presentation/provider/catalog_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/catalog_list_notifier.dart';
 import 'package:ditonton/presentation/provider/catalog_search_notifier.dart';
@@ -30,9 +32,14 @@ final locator = GetIt.instance;
 
 Future<void> init() async {
   // Check if locator is already initialized to prevent duplicate registrations
-  if (locator.isRegistered<CatalogListNotifier>()) {
+  if (locator.isRegistered<CatalogListNotifier>() ||
+      locator.isRegistered<SearchBloc>()) {
     return; // Dependencies already registered, exit early
   }
+
+  // bloc
+  locator.registerFactory(() => SearchBloc(locator()));
+  locator.registerFactory(() => WatchlistBloc(locator()));
 
   // provider
   locator.registerFactory(
