@@ -103,6 +103,31 @@ final testTvDetail = TvDetail(
   runtime: 120,
 );
 
+final testTvDetailWatch = TvDetail(
+  adult: false,
+  backdropPath: 'backdropPath',
+  genres: [Genre(id: 1, name: 'Action')],
+  id: 1,
+  originalName: 'originalTitle',
+  overview: 'overview',
+  posterPath: 'posterPath',
+  firstAirDate: 'releaseDate',
+  runtime: 120,
+  name: 'title',
+  voteAverage: 1,
+  voteCount: 1,
+  homepage: '',
+  inProduction: false,
+  lastAirDate: '',
+  numberOfEpisodes: 0,
+  numberOfSeasons: 0,
+  originalLanguage: '',
+  status: '',
+  tagline: '',
+  type: '',
+  popularity: 0.0,
+);
+
 final testTvTable = TvTable(
   id: 1,
   name: 'title',

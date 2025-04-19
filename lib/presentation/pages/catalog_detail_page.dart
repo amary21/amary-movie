@@ -110,18 +110,18 @@ class DetailContent extends StatelessWidget {
                             Text(catalogDetail.title, style: kHeading5),
                             FilledButton(
                               onPressed: () async {
-                                //TODO: implement watchlist feature
-                                // if (!isAddedWatchlist) {
-                                //   await Provider.of<CatalogDetailNotifier>(
-                                //     context,
-                                //     listen: false,
-                                //   ).addWatchlist(movie);
-                                // } else {
-                                //   await Provider.of<CatalogDetailNotifier>(
-                                //     context,
-                                //     listen: false,
-                                //   ).removeFromWatchlist(movie);
-                                // }
+                                if (!isAddedWatchlist) {
+                                  await Provider.of<CatalogDetailNotifier>(
+                                    context,
+                                    listen: false,
+                                  ).addWatchlist(catalog, catalogDetail);
+                                } else {
+                                  // TODO: implement watchlist feature
+                                  // await Provider.of<CatalogDetailNotifier>(
+                                  //   context,
+                                  //   listen: false,
+                                  // ).removeFromWatchlist(movie);
+                                }
 
                                 final message =
                                     Provider.of<CatalogDetailNotifier>(

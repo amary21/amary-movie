@@ -10,12 +10,12 @@ import 'package:ditonton/common/failure.dart' as _i6;
 import 'package:ditonton/domain/entities/catalog.dart' as _i8;
 import 'package:ditonton/domain/entities/catalog_detail.dart' as _i7;
 import 'package:ditonton/domain/entities/catalog_item.dart' as _i10;
-import 'package:ditonton/domain/entities/movie_detail.dart' as _i13;
+import 'package:ditonton/domain/entities/movie_detail.dart' as _i14;
 import 'package:ditonton/domain/repositories/movie_repository.dart' as _i3;
 import 'package:ditonton/domain/usecases/get_detail.dart' as _i4;
 import 'package:ditonton/domain/usecases/get_recommendations.dart' as _i9;
 import 'package:ditonton/domain/usecases/get_watchlist_status.dart' as _i11;
-import 'package:ditonton/domain/usecases/remove_watchlist.dart' as _i14;
+import 'package:ditonton/domain/usecases/remove_watchlist.dart' as _i13;
 import 'package:ditonton/domain/usecases/save_watchlist.dart' as _i12;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -161,28 +161,27 @@ class MockSaveWatchlist extends _i1.Mock implements _i12.SaveWatchlist {
   }
 
   @override
-  _i3.MovieRepository get repository => (super.noSuchMethod(
-        Invocation.getter(#repository),
-        returnValue: _FakeMovieRepository_1(
-          this,
-          Invocation.getter(#repository),
-        ),
-      ) as _i3.MovieRepository);
-
-  @override
   _i5.Future<_i2.Either<_i6.Failure, String>> execute(
-          _i13.MovieDetail? movie) =>
+    _i8.Catalog? catalog,
+    _i7.CatalogDetail? catalogDetail,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
-          [movie],
+          [
+            catalog,
+            catalogDetail,
+          ],
         ),
         returnValue: _i5.Future<_i2.Either<_i6.Failure, String>>.value(
             _FakeEither_0<_i6.Failure, String>(
           this,
           Invocation.method(
             #execute,
-            [movie],
+            [
+              catalog,
+              catalogDetail,
+            ],
           ),
         )),
       ) as _i5.Future<_i2.Either<_i6.Failure, String>>);
@@ -191,7 +190,7 @@ class MockSaveWatchlist extends _i1.Mock implements _i12.SaveWatchlist {
 /// A class which mocks [RemoveWatchlist].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRemoveWatchlist extends _i1.Mock implements _i14.RemoveWatchlist {
+class MockRemoveWatchlist extends _i1.Mock implements _i13.RemoveWatchlist {
   MockRemoveWatchlist() {
     _i1.throwOnMissingStub(this);
   }
@@ -207,7 +206,7 @@ class MockRemoveWatchlist extends _i1.Mock implements _i14.RemoveWatchlist {
 
   @override
   _i5.Future<_i2.Either<_i6.Failure, String>> execute(
-          _i13.MovieDetail? movie) =>
+          _i14.MovieDetail? movie) =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,

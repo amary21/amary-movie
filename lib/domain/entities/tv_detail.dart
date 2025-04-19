@@ -28,28 +28,28 @@ class TvDetail extends Equatable {
     required this.runtime,
   });
 
-  final bool adult;
-  final String? backdropPath;
-  final String firstAirDate;
-  final List<Genre> genres;
-  final String homepage;
-  final int id;
-  final bool inProduction;
-  final String lastAirDate;
-  final String name;
-  final int numberOfEpisodes;
-  final int numberOfSeasons;
-  final String originalLanguage;
-  final String originalName;
-  final String overview;
-  final double popularity;
-  final String posterPath;
-  final String status;
-  final String tagline;
-  final String type;
-  final double voteAverage;
-  final int voteCount;
-  final int runtime;
+  bool adult;
+  String? backdropPath;
+  String firstAirDate;
+  List<Genre> genres;
+  String homepage;
+  int id;
+  bool inProduction;
+  String lastAirDate;
+  String name;
+  int numberOfEpisodes;
+  int numberOfSeasons;
+  String originalLanguage;
+  String originalName;
+  String overview;
+  double popularity;
+  String posterPath;
+  String status;
+  String tagline;
+  String type;
+  double voteAverage;
+  int voteCount;
+  int runtime;
 
   CatalogDetail toCatalogDetail() => CatalogDetail(
     adult: this.adult,

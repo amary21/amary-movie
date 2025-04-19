@@ -228,14 +228,14 @@ class MockCatalogDetailNotifier extends _i1.Mock
   @override
   _i12.Future<void> addWatchlist(
     _i13.Catalog? catalog,
-    _i14.MovieDetail? movie,
+    _i7.CatalogDetail? catalogDetail,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #addWatchlist,
           [
             catalog,
-            movie,
+            catalogDetail,
           ],
         ),
         returnValue: _i12.Future<void>.value(),

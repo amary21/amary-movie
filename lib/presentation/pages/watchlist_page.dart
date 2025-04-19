@@ -56,7 +56,7 @@ class _WatchlistPageState extends State<WatchlistPage>
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final catalogItem = data.watchlistCatalog[index];
-                  return CatalogCard(catalogItem, Catalog.movie);
+                  return CatalogCard(catalogItem, widget.catalog);
                 },
                 itemCount: data.watchlistCatalog.length,
               );
