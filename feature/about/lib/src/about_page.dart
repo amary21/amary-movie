@@ -2,7 +2,6 @@ import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 
 class AboutPage extends StatelessWidget {
-  static const routeName = '/about';
 
   const AboutPage({super.key});
 

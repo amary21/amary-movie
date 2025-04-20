@@ -1,3 +1,4 @@
+import 'package:about/about.dart';
 import 'package:common/common.dart';
 import 'package:domain/domain.dart';
 import 'package:ditonton/firebase_options.dart';
@@ -7,7 +8,6 @@ import 'package:ditonton/presentation/bloc/popular/popular_catalog_bloc.dart';
 import 'package:ditonton/presentation/bloc/search/search_bloc.dart';
 import 'package:ditonton/presentation/bloc/top_rated/top_rated_catalog_bloc.dart';
 import 'package:ditonton/presentation/bloc/watchlist/watchlist_bloc.dart';
-import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/catalog_detail_page.dart';
 import 'package:ditonton/presentation/pages/home_catalog_page.dart';
 import 'package:ditonton/presentation/pages/popular_catalog_page.dart';
@@ -90,7 +90,7 @@ class MyApp extends StatelessWidget {
                   builder: (_) => WatchlistPage(catalog: catalog),
                   settings: settings,
                 );
-              case AboutPage.routeName:
+              case AboutRoute.routeName:
                 return MaterialPageRoute(builder: (_) => AboutPage());
               default:
                 return MaterialPageRoute(

@@ -1,3 +1,4 @@
+import 'package:about/about.dart';
 import 'package:data/data.dart';
 import 'package:domain/domain.dart';
 import 'package:ditonton/presentation/bloc/detail/catalog_detail_bloc.dart';
@@ -8,10 +9,14 @@ import 'package:ditonton/presentation/bloc/top_rated/top_rated_catalog_bloc.dart
 import 'package:ditonton/presentation/bloc/watchlist/watchlist_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
+import 'package:navigation/navigation.dart';
 
 final locator = GetIt.instance;
 
 Future<void> init() async {
+  // navigation
+  _registerLazySingletonIfAbsent<RouteAbout>(() => AboutRoute());
+
   // bloc
   _registerFactoryIfAbsent(() => SearchBloc(locator()));
   _registerFactoryIfAbsent(() => WatchlistBloc(locator()));

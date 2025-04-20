@@ -44,6 +44,10 @@ dependencies:
     path: domain
   data:
     path: data
+  navigation:
+    path: navigation
+  about:
+    path: "feature/about"
 
 dev_dependencies:
   mockito: ^5.0.8

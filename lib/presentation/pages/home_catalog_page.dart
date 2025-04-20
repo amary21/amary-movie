@@ -1,3 +1,4 @@
+import 'package:ditonton/injection.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_list_event.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_list_state.dart';
 import 'package:ditonton/presentation/widgets/catalog_list.dart';
@@ -7,11 +8,11 @@ import 'package:common/common.dart';
 import 'package:domain/domain.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_list_bloc.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_category_state.dart';
-import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/popular_catalog_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_catalog_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_page.dart';
+import 'package:navigation/navigation.dart';
 
 class HomeCatalogPage extends StatefulWidget {
   const HomeCatalogPage({super.key});
@@ -21,6 +22,8 @@ class HomeCatalogPage extends StatefulWidget {
 }
 
 class _HomeCatalogPageState extends State<HomeCatalogPage> {
+  final RouteAbout routeAbout = locator();
+
   @override
   void initState() {
     super.initState();
@@ -88,7 +91,7 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
             ),
             ListTile(
               onTap: () {
-                Navigator.pushNamed(context, AboutPage.routeName);
+                routeAbout.push(context);
               },
               leading: Icon(Icons.info_outline),
               title: Text('About'),
