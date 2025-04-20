@@ -3,7 +3,7 @@ import 'package:ditonton/presentation/bloc/home/catalog_list_state.dart';
 import 'package:ditonton/presentation/widgets/catalog_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ditonton/common/constants.dart';
+import 'package:common/common.dart';
 import 'package:ditonton/domain/entities/catalog.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_list_bloc.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_category_state.dart';

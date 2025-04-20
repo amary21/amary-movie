@@ -1,5 +1,4 @@
-import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/utils.dart';
+import 'package:common/common.dart';
 import 'package:ditonton/domain/entities/catalog.dart';
 import 'package:ditonton/firebase_options.dart';
 import 'package:ditonton/presentation/bloc/detail/catalog_detail_bloc.dart';

@@ -1,6 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
-import 'package:ditonton/common/failure.dart';
+import 'package:common/common.dart';
 import 'package:ditonton/domain/entities/catalog.dart';
 import 'package:ditonton/domain/usecases/get_detail.dart';
 import 'package:ditonton/domain/usecases/get_recommendations.dart';

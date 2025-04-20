@@ -7,8 +7,7 @@ import 'package:ditonton/data/models/movie_table.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
 import 'package:ditonton/domain/repositories/movie_repository.dart';
-import 'package:ditonton/common/exception.dart';
-import 'package:ditonton/common/failure.dart';
+import 'package:common/common.dart';
 
 class MovieRepositoryImpl implements MovieRepository {
   final MovieRemoteDataSource remoteDataSource;

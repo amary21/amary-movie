@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:ditonton/common/exception.dart';
+import 'package:common/common.dart';
 import 'package:ditonton/data/datasources/network/network_config.dart';
 import 'package:ditonton/data/models/tv_detail_model.dart';
 import 'package:ditonton/data/models/tv_model.dart';

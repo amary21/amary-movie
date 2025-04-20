@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:ditonton/domain/entities/catalog.dart';
 import 'package:ditonton/domain/entities/catalog_item.dart';
 import 'package:ditonton/domain/repositories/movie_repository.dart';
-import 'package:ditonton/common/failure.dart';
+import 'package:common/common.dart';
 import 'package:ditonton/domain/repositories/tv_repository.dart';
 
 class GetRecommendations {

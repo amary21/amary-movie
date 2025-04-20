@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ditonton/common/constants.dart';
+import 'package:common/common.dart';
 import 'package:ditonton/domain/entities/catalog.dart';
 import 'package:ditonton/domain/entities/catalog_item.dart';
 import 'package:ditonton/presentation/pages/catalog_detail_page.dart';

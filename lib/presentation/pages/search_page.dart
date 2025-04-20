@@ -1,4 +1,4 @@
-import 'package:ditonton/common/constants.dart';
+import 'package:common/common.dart';
 import 'package:ditonton/domain/entities/catalog.dart';
 import 'package:ditonton/presentation/bloc/search/search_bloc.dart';
 import 'package:ditonton/presentation/bloc/search/search_event.dart';
