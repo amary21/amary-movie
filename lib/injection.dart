@@ -1,6 +1,7 @@
 import 'package:ditonton/data/datasources/db/database_helper.dart';
 import 'package:ditonton/data/datasources/movie_local_data_source.dart';
 import 'package:ditonton/data/datasources/movie_remote_data_source.dart';
+import 'package:ditonton/data/datasources/network/network_config.dart';
 import 'package:ditonton/data/datasources/tv_local_data_source.dart';
 import 'package:ditonton/data/datasources/tv_remote_data_source.dart';
 import 'package:ditonton/data/repositories/movie_repository_impl.dart';
@@ -34,40 +35,54 @@ Future<void> init() async {
   _registerFactoryIfAbsent(() => WatchlistBloc(locator()));
   _registerFactoryIfAbsent(() => TopRatedCatalogBloc(locator()));
   _registerFactoryIfAbsent(() => PopularCatalogBloc(locator()));
-  _registerFactoryIfAbsent(() => CatalogListBloc(
-        getNowPlaying: locator(),
-        getPopular: locator(),
-        getTopRated: locator(),
-      ));
-  _registerFactoryIfAbsent(() => CatalogDetailBloc(
-        getDetail: locator(),
-        getRecommendations: locator(),
-        getWatchListStatus: locator(),
-        saveWatchlist: locator(),
-        removeWatchlist: locator(),
-      ));
+  _registerFactoryIfAbsent(
+    () => CatalogListBloc(
+      getNowPlaying: locator(),
+      getPopular: locator(),
+      getTopRated: locator(),
+    ),
+  );
+  _registerFactoryIfAbsent(
+    () => CatalogDetailBloc(
+      getDetail: locator(),
+      getRecommendations: locator(),
+      getWatchListStatus: locator(),
+      saveWatchlist: locator(),
+      removeWatchlist: locator(),
+    ),
+  );
 
   // use case
   _registerLazySingletonIfAbsent(() => GetNowPlaying(locator(), locator()));
   _registerLazySingletonIfAbsent(() => GetPopular(locator(), locator()));
   _registerLazySingletonIfAbsent(() => GetTopRated(locator(), locator()));
   _registerLazySingletonIfAbsent(() => GetDetail(locator(), locator()));
-  _registerLazySingletonIfAbsent(() => GetRecommendations(locator(), locator()));
+  _registerLazySingletonIfAbsent(
+    () => GetRecommendations(locator(), locator()),
+  );
   _registerLazySingletonIfAbsent(() => SearchCatalog(locator(), locator()));
-  _registerLazySingletonIfAbsent(() => GetWatchListStatus(locator(), locator()));
+  _registerLazySingletonIfAbsent(
+    () => GetWatchListStatus(locator(), locator()),
+  );
   _registerLazySingletonIfAbsent(() => SaveWatchlist(locator(), locator()));
   _registerLazySingletonIfAbsent(() => RemoveWatchlist(locator(), locator()));
-  _registerLazySingletonIfAbsent(() => GetWatchlistCatalog(locator(), locator()));
+  _registerLazySingletonIfAbsent(
+    () => GetWatchlistCatalog(locator(), locator()),
+  );
 
   // repository
-  _registerLazySingletonIfAbsent<MovieRepository>(() => MovieRepositoryImpl(
-        remoteDataSource: locator(),
-        localDataSource: locator(),
-      ));
-  _registerLazySingletonIfAbsent<TvRepository>(() => TvRepositoryImpl(
-        remoteDataSource: locator(),
-        localDataSource: locator(),
-      ));
+  _registerLazySingletonIfAbsent<MovieRepository>(
+    () => MovieRepositoryImpl(
+      remoteDataSource: locator(),
+      localDataSource: locator(),
+    ),
+  );
+  _registerLazySingletonIfAbsent<TvRepository>(
+    () => TvRepositoryImpl(
+      remoteDataSource: locator(),
+      localDataSource: locator(),
+    ),
+  );
 
   // data sources
   _registerLazySingletonIfAbsent<MovieRemoteDataSource>(
@@ -90,7 +105,10 @@ Future<void> init() async {
   }
 
   // external
-  _registerLazySingletonIfAbsent(() => http.Client());
+  if (!locator.isRegistered<http.Client>()) {
+    final httpClient = await NetworkConfig.createSecureClient();
+    locator.registerLazySingleton<http.Client>(() => httpClient);
+  }
 }
 
 void _registerFactoryIfAbsent<T extends Object>(T Function() factoryFunc) {
@@ -99,7 +117,9 @@ void _registerFactoryIfAbsent<T extends Object>(T Function() factoryFunc) {
   }
 }
 
-void _registerLazySingletonIfAbsent<T extends Object>(T Function() factoryFunc) {
+void _registerLazySingletonIfAbsent<T extends Object>(
+  T Function() factoryFunc,
+) {
   if (!locator.isRegistered<T>()) {
     locator.registerLazySingleton<T>(factoryFunc);
   }
