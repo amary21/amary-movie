@@ -5,13 +5,11 @@ import 'package:ditonton/firebase_options.dart';
 import 'package:ditonton/presentation/bloc/detail/catalog_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_list_bloc.dart';
 import 'package:ditonton/presentation/bloc/popular/popular_catalog_bloc.dart';
-import 'package:ditonton/presentation/bloc/search/search_bloc.dart';
 import 'package:ditonton/presentation/bloc/top_rated/top_rated_catalog_bloc.dart';
 import 'package:ditonton/presentation/bloc/watchlist/watchlist_bloc.dart';
 import 'package:ditonton/presentation/pages/catalog_detail_page.dart';
 import 'package:ditonton/presentation/pages/home_catalog_page.dart';
 import 'package:ditonton/presentation/pages/popular_catalog_page.dart';
-import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_catalog_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,6 +17,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ditonton/injection.dart' as di;
+import 'package:search/search.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -78,7 +77,7 @@ class MyApp extends StatelessWidget {
                   builder: (_) => CatalogDetailPage(id: id, catalog: catalog),
                   settings: settings,
                 );
-              case SearchPage.routeName:
+              case SearchRoute.routeName:
                 final catalog = settings.arguments as Catalog;
                 return CupertinoPageRoute(
                   builder: (_) => SearchPage(catalog: catalog),

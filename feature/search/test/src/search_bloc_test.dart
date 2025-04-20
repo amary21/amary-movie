@@ -1,15 +1,12 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:dartz/dartz.dart';
 import 'package:common/common.dart';
+import 'package:dartz/dartz.dart';
 import 'package:domain/domain.dart';
-import 'package:ditonton/presentation/bloc/search/search_bloc.dart';
-import 'package:ditonton/presentation/bloc/search/search_event.dart';
-import 'package:ditonton/presentation/bloc/search/search_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:search/search.dart';
 
-import '../../../dummy_data/dummy_objects.dart';
 import 'search_bloc_test.mocks.dart';
 
 @GenerateMocks([SearchCatalog])
@@ -23,6 +20,21 @@ void main() {
   });
 
   const testQuery = 'avengers';
+  final testCatalogItem = CatalogItem(
+    adult: false,
+    backdropPath: 'backdropPath',
+    genreIds: [1, 2, 3],
+    id: 1,
+    originalTitle: 'originalTitle',
+    overview: 'overview',
+    popularity: 1,
+    posterPath: 'posterPath',
+    releaseDate: 'releaseDate',
+    title: 'title',
+    voteAverage: 1,
+    voteCount: 1,
+  );
+  final testCatalogItemList = <CatalogItem>[testCatalogItem];
 
   test('initial state should be SearchEmpty', () {
     expect(searchBloc.state, SearchEmpty());

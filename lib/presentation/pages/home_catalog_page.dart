@@ -9,7 +9,6 @@ import 'package:domain/domain.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_list_bloc.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_category_state.dart';
 import 'package:ditonton/presentation/pages/popular_catalog_page.dart';
-import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_catalog_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_page.dart';
 import 'package:navigation/navigation.dart';
@@ -23,6 +22,7 @@ class HomeCatalogPage extends StatefulWidget {
 
 class _HomeCatalogPageState extends State<HomeCatalogPage> {
   final RouteAbout routeAbout = locator();
+  final RouteSearch routeSearch = locator();
 
   @override
   void initState() {
@@ -105,11 +105,7 @@ class _HomeCatalogPageState extends State<HomeCatalogPage> {
           IconButton(
             onPressed: () {
               final catalog = context.read<CatalogListBloc>().state.catalog;
-              Navigator.pushNamed(
-                context,
-                SearchPage.routeName,
-                arguments: catalog,
-              );
+              routeSearch.push(context, catalog);
             },
             icon: Icon(Icons.search),
           ),

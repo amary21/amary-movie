@@ -1,11 +1,8 @@
 import 'package:common/common.dart';
 import 'package:domain/domain.dart';
-import 'package:ditonton/presentation/bloc/search/search_bloc.dart';
-import 'package:ditonton/presentation/bloc/search/search_event.dart';
-import 'package:ditonton/presentation/bloc/search/search_state.dart';
-import 'package:ditonton/presentation/widgets/catalog_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:search/search.dart';
 
 class SearchPage extends StatefulWidget {
   static const routeName = '/search';
@@ -89,7 +86,8 @@ class _SearchPageState extends State<SearchPage> {
                         itemCount: result.length,
                         itemBuilder: (context, index) {
                           final catalog = result[index];
-                          return CatalogCard(catalog, widget.catalog);
+                          // return CatalogCard(catalog, widget.catalog);
+                          return SizedBox();
                         },
                       ),
                     );

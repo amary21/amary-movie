@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:domain/domain.dart';
-import 'package:ditonton/presentation/bloc/search/search_event.dart';
-import 'package:ditonton/presentation/bloc/search/search_state.dart';
+import 'search_event.dart';
+import 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final SearchCatalog _searchCatalog;

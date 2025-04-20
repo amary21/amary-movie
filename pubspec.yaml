@@ -48,6 +48,8 @@ dependencies:
     path: navigation
   about:
     path: "feature/about"
+  search:
+    path: "feature/search"
 
 dev_dependencies:
   mockito: ^5.0.8

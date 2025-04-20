@@ -4,18 +4,19 @@ import 'package:domain/domain.dart';
 import 'package:ditonton/presentation/bloc/detail/catalog_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_list_bloc.dart';
 import 'package:ditonton/presentation/bloc/popular/popular_catalog_bloc.dart';
-import 'package:ditonton/presentation/bloc/search/search_bloc.dart';
 import 'package:ditonton/presentation/bloc/top_rated/top_rated_catalog_bloc.dart';
 import 'package:ditonton/presentation/bloc/watchlist/watchlist_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 import 'package:navigation/navigation.dart';
+import 'package:search/search.dart';
 
 final locator = GetIt.instance;
 
 Future<void> init() async {
   // navigation
   _registerLazySingletonIfAbsent<RouteAbout>(() => AboutRoute());
+  _registerLazySingletonIfAbsent<RouteSearch>(() => SearchRoute());
 
   // bloc
   _registerFactoryIfAbsent(() => SearchBloc(locator()));

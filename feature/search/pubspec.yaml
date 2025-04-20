@@ -1,7 +1,7 @@
-name: about
+publish_to: none
+name: search
 description: "A new Flutter package project."
 version: 0.0.1
-publish_to: none
 homepage:
 
 environment:
@@ -11,15 +11,24 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.1.4
+  bloc: ^8.1.3
+  dartz: ^0.10.1
+  equatable: ^2.0.5
   common:
     path: "../../common"
   navigation:
     path: "../../navigation"
+  domain:
+    path: "../../domain"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  mockito: ^5.0.8
+  build_runner: ^2.0.4
+  bloc_test: ^9.1.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
