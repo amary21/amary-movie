@@ -80,7 +80,6 @@ void main() {
       makeTestableWidget(TopRatedCatalogPage(catalog: Catalog.movie)),
     );
 
-    // Pastikan tidak menampilkan list/error/loading
     expect(find.byType(CircularProgressIndicator), findsNothing);
     expect(find.byType(ListView), findsNothing);
     expect(find.byKey(Key('error_message')), findsNothing);

@@ -1,10 +1,15 @@
 import 'package:ditonton/main.dart' as app;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
 import 'package:integration_test/integration_test.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  tearDownAll(() async {
+    await GetIt.I.reset();
+  });
 
   group('End-to-End Test', () {
     testWidgets('Verify empty watchlist message', (WidgetTester tester) async {
@@ -20,9 +25,12 @@ void main() {
 
       await tester.tap(find.byType(IconButton).first);
       await tester.pumpAndSettle();
+      await GetIt.I.reset();
     });
 
-    testWidgets('Verify empty search results message', (WidgetTester tester) async {
+    testWidgets('Verify empty search results message', (
+      WidgetTester tester,
+    ) async {
       app.main();
       await tester.pumpAndSettle();
       await tester.tap(find.byType(IconButton).last);
@@ -33,9 +41,12 @@ void main() {
 
       expect(find.text('No results found'), findsOneWidget);
       expect(find.text('Try different keywords'), findsOneWidget);
+      await GetIt.I.reset();
     });
 
-    testWidgets('Verify TV series detail shows season and episode info', (WidgetTester tester) async {
+    testWidgets('Verify TV series detail shows season and episode info', (
+      WidgetTester tester,
+    ) async {
       app.main();
       await tester.pumpAndSettle();
       await tester.tap(find.byType(IconButton).first);
@@ -51,6 +62,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Seasons & Episodes'), findsOneWidget);
+      await GetIt.I.reset();
     });
 
     testWidgets('Test overall app navigation', (WidgetTester tester) async {
@@ -70,13 +82,16 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(
-        find.text('Ditonton merupakan sebuah aplikasi katalog film yang dikembangkan oleh Dicoding Indonesia sebagai contoh proyek aplikasi untuk kelas Menjadi Flutter Developer Expert.'),
+        find.text(
+          'Ditonton merupakan sebuah aplikasi katalog film yang dikembangkan oleh Dicoding Indonesia sebagai contoh proyek aplikasi untuk kelas Menjadi Flutter Developer Expert.',
+        ),
         findsOneWidget,
         reason: "About page content should be present",
       );
 
       await tester.tap(find.byType(IconButton).first);
       await tester.pumpAndSettle();
+      await GetIt.I.reset();
     });
   });
 }

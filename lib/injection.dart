@@ -17,116 +17,90 @@ import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:ditonton/domain/usecases/search_catalog.dart';
+import 'package:ditonton/presentation/bloc/detail/catalog_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_list_bloc.dart';
 import 'package:ditonton/presentation/bloc/popular/popular_catalog_bloc.dart';
 import 'package:ditonton/presentation/bloc/search/search_bloc.dart';
 import 'package:ditonton/presentation/bloc/top_rated/top_rated_catalog_bloc.dart';
 import 'package:ditonton/presentation/bloc/watchlist/watchlist_bloc.dart';
-import 'package:ditonton/presentation/provider/catalog_detail_notifier.dart';
-import 'package:ditonton/presentation/provider/catalog_list_notifier.dart';
-import 'package:ditonton/presentation/provider/catalog_search_notifier.dart';
-import 'package:ditonton/presentation/provider/popular_catalog_notifier.dart';
-import 'package:ditonton/presentation/provider/top_rated_catalog_notifier.dart';
-import 'package:ditonton/presentation/provider/watchlist_catalog_notifier.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
 
 Future<void> init() async {
-  // Check if locator is already initialized to prevent duplicate registrations
-  if (locator.isRegistered<CatalogListNotifier>() ||
-      locator.isRegistered<SearchBloc>()) {
-    return; // Dependencies already registered, exit early
-  }
-
   // bloc
-  locator.registerFactory(() => SearchBloc(locator()));
-  locator.registerFactory(() => WatchlistBloc(locator()));
-  locator.registerFactory(() => TopRatedCatalogBloc(locator()));
-  locator.registerFactory(() => PopularCatalogBloc(locator()));
-  locator.registerFactory(
-    () => CatalogListBloc(
-      getNowPlaying: locator(),
-      getPopular: locator(),
-      getTopRated: locator(),
-    ),
-  );
-
-  // provider
-  locator.registerFactory(
-    () => CatalogListNotifier(
-      getNowPlaying: locator(),
-      getPopular: locator(),
-      getTopRated: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => CatalogDetailNotifier(
-      getDetail: locator(),
-      getRecommendations: locator(),
-      getWatchListStatus: locator(),
-      saveWatchlist: locator(),
-      removeWatchlist: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => CatalogSearchNotifier(searchCatalog: locator()),
-  );
-  locator.registerFactory(() => PopularCatalogNotifier(locator()));
-  locator.registerFactory(
-    () => TopRatedCatalogNotifier(getTopRated: locator()),
-  );
-  locator.registerFactory(
-    () => WatchlistCatalogNotifier(getWatchlistCatalog: locator()),
-  );
+  _registerFactoryIfAbsent(() => SearchBloc(locator()));
+  _registerFactoryIfAbsent(() => WatchlistBloc(locator()));
+  _registerFactoryIfAbsent(() => TopRatedCatalogBloc(locator()));
+  _registerFactoryIfAbsent(() => PopularCatalogBloc(locator()));
+  _registerFactoryIfAbsent(() => CatalogListBloc(
+        getNowPlaying: locator(),
+        getPopular: locator(),
+        getTopRated: locator(),
+      ));
+  _registerFactoryIfAbsent(() => CatalogDetailBloc(
+        getDetail: locator(),
+        getRecommendations: locator(),
+        getWatchListStatus: locator(),
+        saveWatchlist: locator(),
+        removeWatchlist: locator(),
+      ));
 
   // use case
-  locator.registerLazySingleton(() => GetNowPlaying(locator(), locator()));
-  locator.registerLazySingleton(() => GetPopular(locator(), locator()));
-  locator.registerLazySingleton(() => GetTopRated(locator(), locator()));
-  locator.registerLazySingleton(() => GetDetail(locator(), locator()));
-  locator.registerLazySingleton(() => GetRecommendations(locator(), locator()));
-  locator.registerLazySingleton(() => SearchCatalog(locator(), locator()));
-  locator.registerLazySingleton(() => GetWatchListStatus(locator(), locator()));
-  locator.registerLazySingleton(() => SaveWatchlist(locator(), locator()));
-  locator.registerLazySingleton(() => RemoveWatchlist(locator(), locator()));
-  locator.registerLazySingleton(
-    () => GetWatchlistCatalog(locator(), locator()),
-  );
+  _registerLazySingletonIfAbsent(() => GetNowPlaying(locator(), locator()));
+  _registerLazySingletonIfAbsent(() => GetPopular(locator(), locator()));
+  _registerLazySingletonIfAbsent(() => GetTopRated(locator(), locator()));
+  _registerLazySingletonIfAbsent(() => GetDetail(locator(), locator()));
+  _registerLazySingletonIfAbsent(() => GetRecommendations(locator(), locator()));
+  _registerLazySingletonIfAbsent(() => SearchCatalog(locator(), locator()));
+  _registerLazySingletonIfAbsent(() => GetWatchListStatus(locator(), locator()));
+  _registerLazySingletonIfAbsent(() => SaveWatchlist(locator(), locator()));
+  _registerLazySingletonIfAbsent(() => RemoveWatchlist(locator(), locator()));
+  _registerLazySingletonIfAbsent(() => GetWatchlistCatalog(locator(), locator()));
 
   // repository
-  locator.registerLazySingleton<MovieRepository>(
-    () => MovieRepositoryImpl(
-      remoteDataSource: locator(),
-      localDataSource: locator(),
-    ),
-  );
-  locator.registerLazySingleton<TvRepository>(
-    () => TvRepositoryImpl(
-      remoteDataSource: locator(),
-      localDataSource: locator(),
-    ),
-  );
+  _registerLazySingletonIfAbsent<MovieRepository>(() => MovieRepositoryImpl(
+        remoteDataSource: locator(),
+        localDataSource: locator(),
+      ));
+  _registerLazySingletonIfAbsent<TvRepository>(() => TvRepositoryImpl(
+        remoteDataSource: locator(),
+        localDataSource: locator(),
+      ));
 
   // data sources
-  locator.registerLazySingleton<MovieRemoteDataSource>(
+  _registerLazySingletonIfAbsent<MovieRemoteDataSource>(
     () => MovieRemoteDataSourceImpl(client: locator()),
   );
-  locator.registerLazySingleton<MovieLocalDataSource>(
+  _registerLazySingletonIfAbsent<MovieLocalDataSource>(
     () => MovieLocalDataSourceImpl(databaseHelper: locator()),
   );
-  locator.registerLazySingleton<TvRemoteDataSource>(
+  _registerLazySingletonIfAbsent<TvRemoteDataSource>(
     () => TvRemoteDataSourceImpl(client: locator()),
   );
-  locator.registerLazySingleton<TvLocalDataSource>(
+  _registerLazySingletonIfAbsent<TvLocalDataSource>(
     () => TvLocalDataSourceImpl(databaseHelper: locator()),
   );
 
   // helper
-  final databaseHelper = await DatabaseHelper.init();
-  locator.registerLazySingleton<DatabaseHelper>(() => databaseHelper);
+  if (!locator.isRegistered<DatabaseHelper>()) {
+    final databaseHelper = await DatabaseHelper.init();
+    locator.registerLazySingleton<DatabaseHelper>(() => databaseHelper);
+  }
 
   // external
-  locator.registerLazySingleton(() => http.Client());
+  _registerLazySingletonIfAbsent(() => http.Client());
+}
+
+void _registerFactoryIfAbsent<T extends Object>(T Function() factoryFunc) {
+  if (!locator.isRegistered<T>()) {
+    locator.registerFactory<T>(factoryFunc);
+  }
+}
+
+void _registerLazySingletonIfAbsent<T extends Object>(T Function() factoryFunc) {
+  if (!locator.isRegistered<T>()) {
+    locator.registerLazySingleton<T>(factoryFunc);
+  }
 }

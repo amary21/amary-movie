@@ -1,6 +1,7 @@
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/domain/entities/catalog.dart';
+import 'package:ditonton/presentation/bloc/detail/catalog_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_list_bloc.dart';
 import 'package:ditonton/presentation/bloc/popular/popular_catalog_bloc.dart';
 import 'package:ditonton/presentation/bloc/search/search_bloc.dart';
@@ -13,16 +14,9 @@ import 'package:ditonton/presentation/pages/popular_catalog_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_catalog_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_page.dart';
-import 'package:ditonton/presentation/provider/catalog_detail_notifier.dart';
-import 'package:ditonton/presentation/provider/catalog_list_notifier.dart';
-import 'package:ditonton/presentation/provider/catalog_search_notifier.dart';
-import 'package:ditonton/presentation/provider/popular_catalog_notifier.dart';
-import 'package:ditonton/presentation/provider/top_rated_catalog_notifier.dart';
-import 'package:ditonton/presentation/provider/watchlist_catalog_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:ditonton/injection.dart' as di;
 
 void main() async {
@@ -43,28 +37,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<TopRatedCatalogBloc>()),
         BlocProvider(create: (_) => di.locator<PopularCatalogBloc>()),
         BlocProvider(create: (_) => di.locator<CatalogListBloc>()),
+        BlocProvider(create: (_) => di.locator<CatalogDetailBloc>()),
       ],
-      child: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (_) => di.locator<CatalogListNotifier>(),
-          ),
-          ChangeNotifierProvider(
-            create: (_) => di.locator<CatalogDetailNotifier>(),
-          ),
-          ChangeNotifierProvider(
-            create: (_) => di.locator<CatalogSearchNotifier>(),
-          ),
-          ChangeNotifierProvider(
-            create: (_) => di.locator<TopRatedCatalogNotifier>(),
-          ),
-          ChangeNotifierProvider(
-            create: (_) => di.locator<PopularCatalogNotifier>(),
-          ),
-          ChangeNotifierProvider(
-            create: (_) => di.locator<WatchlistCatalogNotifier>(),
-          ),
-        ],
         child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData.dark().copyWith(
@@ -125,7 +99,6 @@ class MyApp extends StatelessWidget {
             }
           },
         ),
-      ),
     );
   }
 }
