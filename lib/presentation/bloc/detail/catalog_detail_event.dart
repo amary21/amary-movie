@@ -1,6 +1,4 @@
-import 'package:ditonton/domain/entities/catalog.dart';
-import 'package:ditonton/domain/entities/catalog_detail.dart';
-import 'package:ditonton/domain/entities/catalog_item.dart';
+import 'package:domain/domain.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class CatalogDetailEvent extends Equatable {

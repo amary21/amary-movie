@@ -1,5 +1,5 @@
 import 'package:common/common.dart';
-import 'package:ditonton/domain/entities/catalog.dart';
+import 'package:domain/domain.dart';
 import 'package:ditonton/firebase_options.dart';
 import 'package:ditonton/presentation/bloc/detail/catalog_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_list_bloc.dart';

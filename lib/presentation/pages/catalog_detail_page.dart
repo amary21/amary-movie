@@ -1,9 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/common.dart';
-import 'package:ditonton/domain/entities/catalog.dart';
-import 'package:ditonton/domain/entities/catalog_detail.dart';
-import 'package:ditonton/domain/entities/catalog_item.dart';
-import 'package:ditonton/domain/entities/genre.dart';
+import 'package:domain/domain.dart';
 import 'package:ditonton/presentation/bloc/detail/catalog_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/detail/catalog_detail_event.dart';
 import 'package:ditonton/presentation/bloc/detail/catalog_detail_state.dart';

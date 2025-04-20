@@ -1,4 +1,4 @@
-import 'package:ditonton/domain/entities/catalog.dart';
+import 'package:domain/domain.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class TopRatedCatalogEvent extends Equatable {

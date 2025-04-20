@@ -1,8 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:common/common.dart';
-import 'package:ditonton/domain/entities/catalog.dart';
-import 'package:ditonton/domain/usecases/search_catalog.dart';
+import 'package:domain/domain.dart';
 import 'package:ditonton/presentation/bloc/search/search_bloc.dart';
 import 'package:ditonton/presentation/bloc/search/search_event.dart';
 import 'package:ditonton/presentation/bloc/search/search_state.dart';

@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:ditonton/domain/usecases/search_catalog.dart';
+import 'package:domain/domain.dart';
 import 'package:ditonton/presentation/bloc/search/search_event.dart';
 import 'package:ditonton/presentation/bloc/search/search_state.dart';
 

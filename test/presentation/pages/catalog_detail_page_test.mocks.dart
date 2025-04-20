@@ -3,20 +3,16 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i9;
+import 'dart:async' as _i5;
 
-import 'package:bloc/bloc.dart' as _i11;
-import 'package:ditonton/domain/usecases/get_detail.dart' as _i2;
-import 'package:ditonton/domain/usecases/get_recommendations.dart' as _i3;
-import 'package:ditonton/domain/usecases/get_watchlist_status.dart' as _i4;
-import 'package:ditonton/domain/usecases/remove_watchlist.dart' as _i6;
-import 'package:ditonton/domain/usecases/save_watchlist.dart' as _i5;
+import 'package:bloc/bloc.dart' as _i7;
 import 'package:ditonton/presentation/bloc/detail/catalog_detail_bloc.dart'
-    as _i8;
+    as _i4;
 import 'package:ditonton/presentation/bloc/detail/catalog_detail_event.dart'
-    as _i10;
+    as _i6;
 import 'package:ditonton/presentation/bloc/detail/catalog_detail_state.dart'
-    as _i7;
+    as _i3;
+import 'package:domain/domain.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -43,7 +39,7 @@ class _FakeGetDetail_0 extends _i1.SmartFake implements _i2.GetDetail {
 }
 
 class _FakeGetRecommendations_1 extends _i1.SmartFake
-    implements _i3.GetRecommendations {
+    implements _i2.GetRecommendations {
   _FakeGetRecommendations_1(
     Object parent,
     Invocation parentInvocation,
@@ -54,7 +50,7 @@ class _FakeGetRecommendations_1 extends _i1.SmartFake
 }
 
 class _FakeGetWatchListStatus_2 extends _i1.SmartFake
-    implements _i4.GetWatchListStatus {
+    implements _i2.GetWatchListStatus {
   _FakeGetWatchListStatus_2(
     Object parent,
     Invocation parentInvocation,
@@ -64,7 +60,7 @@ class _FakeGetWatchListStatus_2 extends _i1.SmartFake
         );
 }
 
-class _FakeSaveWatchlist_3 extends _i1.SmartFake implements _i5.SaveWatchlist {
+class _FakeSaveWatchlist_3 extends _i1.SmartFake implements _i2.SaveWatchlist {
   _FakeSaveWatchlist_3(
     Object parent,
     Invocation parentInvocation,
@@ -75,7 +71,7 @@ class _FakeSaveWatchlist_3 extends _i1.SmartFake implements _i5.SaveWatchlist {
 }
 
 class _FakeRemoveWatchlist_4 extends _i1.SmartFake
-    implements _i6.RemoveWatchlist {
+    implements _i2.RemoveWatchlist {
   _FakeRemoveWatchlist_4(
     Object parent,
     Invocation parentInvocation,
@@ -86,7 +82,7 @@ class _FakeRemoveWatchlist_4 extends _i1.SmartFake
 }
 
 class _FakeCatalogDetailState_5 extends _i1.SmartFake
-    implements _i7.CatalogDetailState {
+    implements _i3.CatalogDetailState {
   _FakeCatalogDetailState_5(
     Object parent,
     Invocation parentInvocation,
@@ -99,7 +95,7 @@ class _FakeCatalogDetailState_5 extends _i1.SmartFake
 /// A class which mocks [CatalogDetailBloc].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCatalogDetailBloc extends _i1.Mock implements _i8.CatalogDetailBloc {
+class MockCatalogDetailBloc extends _i1.Mock implements _i4.CatalogDetailBloc {
   @override
   _i2.GetDetail get getDetail => (super.noSuchMethod(
         Invocation.getter(#getDetail),
@@ -114,7 +110,7 @@ class MockCatalogDetailBloc extends _i1.Mock implements _i8.CatalogDetailBloc {
       ) as _i2.GetDetail);
 
   @override
-  _i3.GetRecommendations get getRecommendations => (super.noSuchMethod(
+  _i2.GetRecommendations get getRecommendations => (super.noSuchMethod(
         Invocation.getter(#getRecommendations),
         returnValue: _FakeGetRecommendations_1(
           this,
@@ -124,10 +120,10 @@ class MockCatalogDetailBloc extends _i1.Mock implements _i8.CatalogDetailBloc {
           this,
           Invocation.getter(#getRecommendations),
         ),
-      ) as _i3.GetRecommendations);
+      ) as _i2.GetRecommendations);
 
   @override
-  _i4.GetWatchListStatus get getWatchListStatus => (super.noSuchMethod(
+  _i2.GetWatchListStatus get getWatchListStatus => (super.noSuchMethod(
         Invocation.getter(#getWatchListStatus),
         returnValue: _FakeGetWatchListStatus_2(
           this,
@@ -137,10 +133,10 @@ class MockCatalogDetailBloc extends _i1.Mock implements _i8.CatalogDetailBloc {
           this,
           Invocation.getter(#getWatchListStatus),
         ),
-      ) as _i4.GetWatchListStatus);
+      ) as _i2.GetWatchListStatus);
 
   @override
-  _i5.SaveWatchlist get saveWatchlist => (super.noSuchMethod(
+  _i2.SaveWatchlist get saveWatchlist => (super.noSuchMethod(
         Invocation.getter(#saveWatchlist),
         returnValue: _FakeSaveWatchlist_3(
           this,
@@ -150,10 +146,10 @@ class MockCatalogDetailBloc extends _i1.Mock implements _i8.CatalogDetailBloc {
           this,
           Invocation.getter(#saveWatchlist),
         ),
-      ) as _i5.SaveWatchlist);
+      ) as _i2.SaveWatchlist);
 
   @override
-  _i6.RemoveWatchlist get removeWatchlist => (super.noSuchMethod(
+  _i2.RemoveWatchlist get removeWatchlist => (super.noSuchMethod(
         Invocation.getter(#removeWatchlist),
         returnValue: _FakeRemoveWatchlist_4(
           this,
@@ -163,10 +159,10 @@ class MockCatalogDetailBloc extends _i1.Mock implements _i8.CatalogDetailBloc {
           this,
           Invocation.getter(#removeWatchlist),
         ),
-      ) as _i6.RemoveWatchlist);
+      ) as _i2.RemoveWatchlist);
 
   @override
-  _i7.CatalogDetailState get state => (super.noSuchMethod(
+  _i3.CatalogDetailState get state => (super.noSuchMethod(
         Invocation.getter(#state),
         returnValue: _FakeCatalogDetailState_5(
           this,
@@ -176,14 +172,14 @@ class MockCatalogDetailBloc extends _i1.Mock implements _i8.CatalogDetailBloc {
           this,
           Invocation.getter(#state),
         ),
-      ) as _i7.CatalogDetailState);
+      ) as _i3.CatalogDetailState);
 
   @override
-  _i9.Stream<_i7.CatalogDetailState> get stream => (super.noSuchMethod(
+  _i5.Stream<_i3.CatalogDetailState> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i9.Stream<_i7.CatalogDetailState>.empty(),
-        returnValueForMissingStub: _i9.Stream<_i7.CatalogDetailState>.empty(),
-      ) as _i9.Stream<_i7.CatalogDetailState>);
+        returnValue: _i5.Stream<_i3.CatalogDetailState>.empty(),
+        returnValueForMissingStub: _i5.Stream<_i3.CatalogDetailState>.empty(),
+      ) as _i5.Stream<_i3.CatalogDetailState>);
 
   @override
   bool get isClosed => (super.noSuchMethod(
@@ -193,7 +189,7 @@ class MockCatalogDetailBloc extends _i1.Mock implements _i8.CatalogDetailBloc {
       ) as bool);
 
   @override
-  void add(_i10.CatalogDetailEvent? event) => super.noSuchMethod(
+  void add(_i6.CatalogDetailEvent? event) => super.noSuchMethod(
         Invocation.method(
           #add,
           [event],
@@ -202,7 +198,7 @@ class MockCatalogDetailBloc extends _i1.Mock implements _i8.CatalogDetailBloc {
       );
 
   @override
-  void onEvent(_i10.CatalogDetailEvent? event) => super.noSuchMethod(
+  void onEvent(_i6.CatalogDetailEvent? event) => super.noSuchMethod(
         Invocation.method(
           #onEvent,
           [event],
@@ -211,7 +207,7 @@ class MockCatalogDetailBloc extends _i1.Mock implements _i8.CatalogDetailBloc {
       );
 
   @override
-  void emit(_i7.CatalogDetailState? state) => super.noSuchMethod(
+  void emit(_i3.CatalogDetailState? state) => super.noSuchMethod(
         Invocation.method(
           #emit,
           [state],
@@ -220,9 +216,9 @@ class MockCatalogDetailBloc extends _i1.Mock implements _i8.CatalogDetailBloc {
       );
 
   @override
-  void on<E extends _i10.CatalogDetailEvent>(
-    _i11.EventHandler<E, _i7.CatalogDetailState>? handler, {
-    _i11.EventTransformer<E>? transformer,
+  void on<E extends _i6.CatalogDetailEvent>(
+    _i7.EventHandler<E, _i3.CatalogDetailState>? handler, {
+    _i7.EventTransformer<E>? transformer,
   }) =>
       super.noSuchMethod(
         Invocation.method(
@@ -235,7 +231,7 @@ class MockCatalogDetailBloc extends _i1.Mock implements _i8.CatalogDetailBloc {
 
   @override
   void onTransition(
-          _i11.Transition<_i10.CatalogDetailEvent, _i7.CatalogDetailState>?
+          _i7.Transition<_i6.CatalogDetailEvent, _i3.CatalogDetailState>?
               transition) =>
       super.noSuchMethod(
         Invocation.method(
@@ -246,17 +242,17 @@ class MockCatalogDetailBloc extends _i1.Mock implements _i8.CatalogDetailBloc {
       );
 
   @override
-  _i9.Future<void> close() => (super.noSuchMethod(
+  _i5.Future<void> close() => (super.noSuchMethod(
         Invocation.method(
           #close,
           [],
         ),
-        returnValue: _i9.Future<void>.value(),
-        returnValueForMissingStub: _i9.Future<void>.value(),
-      ) as _i9.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  void onChange(_i11.Change<_i7.CatalogDetailState>? change) =>
+  void onChange(_i7.Change<_i3.CatalogDetailState>? change) =>
       super.noSuchMethod(
         Invocation.method(
           #onChange,

@@ -2,9 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_category_state.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_list_event.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_list_state.dart';
-import 'package:ditonton/domain/usecases/get_now_playing.dart';
-import 'package:ditonton/domain/usecases/get_popular.dart';
-import 'package:ditonton/domain/usecases/get_top_rated.dart';
+import 'package:domain/domain.dart';
 
 class CatalogListBloc extends Bloc<CatalogListEvent, CatalogListState> {
   final GetNowPlaying getNowPlaying;

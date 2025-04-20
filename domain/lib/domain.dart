@@ -1,0 +1,22 @@
+library;
+
+export 'src/entities/catalog_detail.dart';
+export 'src/entities/catalog_item.dart';
+export 'src/entities/catalog.dart';
+export 'src/entities/genre.dart';
+export 'src/entities/movie_detail.dart';
+export 'src/entities/movie.dart';
+export 'src/entities/tv_detail.dart';
+export 'src/entities/tv.dart';
+export 'src/repositories/movie_repository.dart';
+export 'src/repositories/tv_repository.dart';
+export 'src/usecases/get_detail.dart';
+export 'src/usecases/get_now_playing.dart';
+export 'src/usecases/get_popular.dart';
+export 'src/usecases/get_recommendations.dart';
+export 'src/usecases/get_top_rated.dart';
+export 'src/usecases/get_watchlist_catalog.dart';
+export 'src/usecases/get_watchlist_status.dart';
+export 'src/usecases/remove_watchlist.dart';
+export 'src/usecases/save_watchlist.dart';
+export 'src/usecases/search_catalog.dart';

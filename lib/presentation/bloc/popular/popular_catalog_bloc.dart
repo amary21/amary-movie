@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:ditonton/domain/usecases/get_popular.dart';
+import 'package:domain/domain.dart';
 import 'package:ditonton/presentation/bloc/popular/popular_catalog_event.dart';
 import 'package:ditonton/presentation/bloc/popular/popular_catalog_state.dart';
 

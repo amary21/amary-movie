@@ -1,4 +1,4 @@
-import 'package:ditonton/domain/entities/catalog.dart';
+import 'package:domain/domain.dart';
 import 'package:ditonton/presentation/bloc/detail/catalog_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/detail/catalog_detail_state.dart';
 import 'package:ditonton/presentation/pages/catalog_detail_page.dart';

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:ditonton/domain/entities/catalog_item.dart';
+import 'package:domain/domain.dart';
 
 abstract class CatalogCategoryState extends Equatable {
   const CatalogCategoryState();

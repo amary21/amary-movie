@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:ditonton/domain/usecases/get_watchlist_catalog.dart';
+import 'package:domain/domain.dart';
 import 'package:ditonton/presentation/bloc/watchlist/watchlist_event.dart';
 import 'package:ditonton/presentation/bloc/watchlist/watchlist_state.dart';
 

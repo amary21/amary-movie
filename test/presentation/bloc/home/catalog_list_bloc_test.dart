@@ -1,10 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:common/common.dart';
-import 'package:ditonton/domain/entities/catalog.dart';
-import 'package:ditonton/domain/usecases/get_now_playing.dart';
-import 'package:ditonton/domain/usecases/get_popular.dart';
-import 'package:ditonton/domain/usecases/get_top_rated.dart';
+import 'package:domain/domain.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_category_state.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_list_bloc.dart';
 import 'package:ditonton/presentation/bloc/home/catalog_list_event.dart';

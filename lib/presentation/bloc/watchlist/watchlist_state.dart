@@ -1,4 +1,4 @@
-import 'package:ditonton/domain/entities/catalog_item.dart';
+import 'package:domain/domain.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class WatchlistState extends Equatable {

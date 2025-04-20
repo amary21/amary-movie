@@ -5,9 +5,7 @@ import 'package:common/common.dart';
 import 'package:ditonton/data/datasources/tv_local_data_source.dart';
 import 'package:ditonton/data/datasources/tv_remote_data_source.dart';
 import 'package:ditonton/data/models/tv_table.dart';
-import 'package:ditonton/domain/entities/tv_detail.dart';
-import 'package:ditonton/domain/entities/tv.dart';
-import 'package:ditonton/domain/repositories/tv_repository.dart';
+import 'package:domain/domain.dart';
 
 class TvRepositoryImpl implements TvRepository {
   final TvRemoteDataSource remoteDataSource;

@@ -1,12 +1,6 @@
 import 'package:ditonton/data/models/movie_table.dart';
 import 'package:ditonton/data/models/tv_table.dart';
-import 'package:ditonton/domain/entities/catalog_detail.dart';
-import 'package:ditonton/domain/entities/catalog_item.dart';
-import 'package:ditonton/domain/entities/genre.dart';
-import 'package:ditonton/domain/entities/movie.dart';
-import 'package:ditonton/domain/entities/movie_detail.dart';
-import 'package:ditonton/domain/entities/tv.dart';
-import 'package:ditonton/domain/entities/tv_detail.dart';
+import 'package:domain/domain.dart';
 
 final testMovie = Movie(
   adult: false,

@@ -1,4 +1,4 @@
-import 'package:ditonton/domain/entities/tv.dart';
+import 'package:domain/domain.dart';
 import 'package:equatable/equatable.dart';
 
 class TvModel extends Equatable {

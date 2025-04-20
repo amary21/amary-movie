@@ -40,6 +40,8 @@ dependencies:
   firebase_crashlytics: ^4.3.5
   common:
     path: common
+  domain:
+    path: domain
 
 dev_dependencies:
   mockito: ^5.0.8

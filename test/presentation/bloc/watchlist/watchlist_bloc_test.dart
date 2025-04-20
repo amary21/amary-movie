@@ -1,8 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:common/common.dart';
-import 'package:ditonton/domain/entities/catalog.dart';
-import 'package:ditonton/domain/usecases/get_watchlist_catalog.dart';
+import 'package:domain/domain.dart';
 import 'package:ditonton/presentation/bloc/watchlist/watchlist_bloc.dart';
 import 'package:ditonton/presentation/bloc/watchlist/watchlist_event.dart';
 import 'package:ditonton/presentation/bloc/watchlist/watchlist_state.dart';
