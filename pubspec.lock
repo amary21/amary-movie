@@ -253,6 +253,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.10.1"
+  data:
+    dependency: "direct main"
+    description:
+      path: data
+      relative: true
+    source: path
+    version: "0.0.1"
   diff_match_patch:
     dependency: transitive
     description:

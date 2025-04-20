@@ -9,18 +9,18 @@ import 'dart:typed_data' as _i25;
 
 import 'package:common/common.dart' as _i8;
 import 'package:dartz/dartz.dart' as _i2;
-import 'package:ditonton/data/datasources/db/database_helper.dart' as _i23;
-import 'package:ditonton/data/datasources/movie_local_data_source.dart' as _i13;
-import 'package:ditonton/data/datasources/movie_remote_data_source.dart'
+import '../../data/lib/src/datasources/db/database_helper.dart' as _i23;
+import '../../data/lib/src/datasources/movie_local_data_source.dart' as _i13;
+import '../../data/lib/src/datasources/movie_remote_data_source.dart'
     as _i11;
-import 'package:ditonton/data/datasources/tv_local_data_source.dart' as _i21;
-import 'package:ditonton/data/datasources/tv_remote_data_source.dart' as _i19;
-import 'package:ditonton/data/models/movie_detail_model.dart' as _i3;
-import 'package:ditonton/data/models/movie_model.dart' as _i12;
-import 'package:ditonton/data/models/movie_table.dart' as _i14;
-import 'package:ditonton/data/models/tv_detail_model.dart' as _i4;
-import 'package:ditonton/data/models/tv_model.dart' as _i20;
-import 'package:ditonton/data/models/tv_table.dart' as _i22;
+import '../../data/lib/src/datasources/tv_local_data_source.dart' as _i21;
+import '../../data/lib/src/datasources/tv_remote_data_source.dart' as _i19;
+import '../../data/lib/src/models/movie_detail_model.dart' as _i3;
+import '../../data/lib/src/models/movie_model.dart' as _i12;
+import '../../data/lib/src/models/movie_table.dart' as _i14;
+import '../../data/lib/src/models/tv_detail_model.dart' as _i4;
+import '../../data/lib/src/models/tv_model.dart' as _i20;
+import '../../data/lib/src/models/tv_table.dart' as _i22;
 import 'package:domain/src/entities/movie.dart' as _i9;
 import 'package:domain/src/entities/movie_detail.dart' as _i10;
 import 'package:domain/src/entities/tv.dart' as _i17;

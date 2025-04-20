@@ -42,6 +42,8 @@ dependencies:
     path: common
   domain:
     path: domain
+  data:
+    path: data
 
 dev_dependencies:
   mockito: ^5.0.8

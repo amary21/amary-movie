@@ -1,5 +1,18 @@
 import 'package:data/data.dart';
 import 'package:domain/domain.dart';
+import 'package:mockito/annotations.dart';
+import 'package:http/http.dart' as http;
+
+@GenerateMocks([
+  MovieRemoteDataSource,
+  MovieLocalDataSource,
+  TvRemoteDataSource,
+  TvLocalDataSource,
+  DatabaseHelper,
+], customMocks: [
+  MockSpec<http.Client>(as: #MockHttpClient)
+])
+void main() {}
 
 final testMovie = Movie(
   adult: false,
@@ -134,3 +147,4 @@ final testCatalogItem = CatalogItem(
   voteCount: 1,
 );
 final testCatalogItemList = <CatalogItem>[testCatalogItem];
+
